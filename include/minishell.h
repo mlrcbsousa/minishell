@@ -28,7 +28,7 @@ typedef struct s_app t_app;
 
 struct s_app
 {
-	int	something;
+    int	something;
 };
 
 typedef struct s_token t_token;
@@ -36,14 +36,14 @@ typedef struct s_stack t_stack;
 
 struct s_token
 {
-	char *data;
-	int type;
-	t_token *next;
+    char *data;
+    int type;
+    t_token *next;
 };
 struct s_stack
 {
-	t_token *token;
-	int size;
+    t_token *token;
+    int size;
 };
 
 // Functions
