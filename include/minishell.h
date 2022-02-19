@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/14 18:49:08 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/19 18:53:31 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,22 @@ struct s_app
 	int	something;
 };
 
+typedef struct s_token t_token;
+typedef struct s_stack t_stack;
+
+struct s_token
+{
+	char *data;
+	int type;
+	t_token *next;
+};
+struct s_stack
+{
+	t_token *token;
+	int size;
+};
+
 // Functions
+void	token_stack_build(char *line, size_t size, t_stack *tokens);
 
 #endif

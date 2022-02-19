@@ -6,36 +6,44 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/19 15:25:34 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/19 19:11:10 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_bool valid(int argc, char *argv[])
+int main()
 {
-	(void)argc;
-	(void)argv;
-	return (TRUE);
-}
+	char *line;
+	size_t size;
+	t_stack tokens;
 
-void	free_app(t_app *self)
-{
-	(void)self;
-}
+	// ignore some signals?
 
-int main(int argc, char *argv[])
-{
-	t_app self;
-
-	// Load app setup
-	self = (t_app){0};
-	if (valid(argc - 1, &argv[1]))
+	while (1)
 	{
-		// Do stuff
-		free_app(&self);
+		line = NULL;
+		size = 0;
+		tokens = (t_stack){NULL, 0};
+
+		// 1. stdin loop
+
+		// 2. handle Ctrl-\ Ctrl-C Ctrl-D signals like in bash
+
+		// TEST command + data
+		size = 20;
+		line = (char *)malloc(size);
+		ft_strcpy(line, "echo 'Hello World!'");
+
+		// 3. build a stack of tokens
+		token_stack_build(line, size, &tokens);
+		free(line);
+
+		// 4. parse stack of tokens into an abstract syntax tree
+
+		// 5. execute syntax tree
+
+		// 6. free stack of tokens and syntax tree
 	}
-	else
-		ft_putendl("Error");
-	return (0);
+	return 0;
 }
