@@ -12,9 +12,8 @@
 
 #include "minishell.h"
 
-void	token_stack_build(char *line, size_t size, t_stack *tokens)
-{
-    (void)line;
-    (void)size;
-    (void)tokens;
+void token_stack_build(char *line, size_t size, t_stack *tokens) {
+  (void)line;
+  (void)size;
+  (void)tokens;
 }

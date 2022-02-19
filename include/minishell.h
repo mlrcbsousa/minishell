@@ -11,42 +11,39 @@
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-# define MINISHELL_H
+#define MINISHELL_H
 
-# ifdef DEBUG_MODE
-#  define DEBUG(x) x
-# else
-#  define DEBUG(x)
-# endif
+#ifdef DEBUG_MODE
+#define DEBUG(x) x
+#else
+#define DEBUG(x)
+#endif
 
-# include "libft.h"
+#include "libft.h"
 
 // Enums
 
 // Structs
 typedef struct s_app t_app;
 
-struct s_app
-{
-    int	something;
+struct s_app {
+  int something;
 };
 
 typedef struct s_token t_token;
 typedef struct s_stack t_stack;
 
-struct s_token
-{
-    char *data;
-    int type;
-    t_token *next;
+struct s_token {
+  char *data;
+  int type;
+  t_token *next;
 };
-struct s_stack
-{
-    t_token *token;
-    int size;
+struct s_stack {
+  t_token *token;
+  int size;
 };
 
 // Functions
-void	token_stack_build(char *line, size_t size, t_stack *tokens);
+void token_stack_build(char *line, size_t size, t_stack *tokens);
 
 #endif
