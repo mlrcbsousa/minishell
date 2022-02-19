@@ -6,36 +6,35 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/19 15:25:34 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/19 18:49:12 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_bool valid(int argc, char *argv[])
+int main()
 {
-	(void)argc;
-	(void)argv;
-	return (TRUE);
-}
+	char *line;
+	size_t size;
+	t_stack tokens;
 
-void	free_app(t_app *self)
-{
-	(void)self;
-}
+	// handle Ctrl-\ Ctrl-C Ctrl-Z signals like in bash
 
-int main(int argc, char *argv[])
-{
-	t_app self;
-
-	// Load app setup
-	self = (t_app){0};
-	if (valid(argc - 1, &argv[1]))
+	while (1)
 	{
-		// Do stuff
-		free_app(&self);
+		// 1. stdin loop
+
+		// 2. handle Ctrl-\ Ctrl-C Ctrl-D signals like in bash
+
+		// 3. build a stack of tokens
+		token_stack_build(line, size, &tokens);
+		free(line);
+
+		// 4. parse stack of tokens into an abstract syntax tree
+
+		// 5. execute syntax tree
+
+		// 6. free stack of tokens and syntax tree
 	}
-	else
-		ft_putendl("Error");
-	return (0);
+	return 0;
 }
