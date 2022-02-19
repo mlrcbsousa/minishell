@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/19 18:44:24 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/19 18:53:31 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ struct s_stack
 };
 
 // Functions
+void	token_stack_build(char *line, size_t size, t_stack *tokens);
 
 #endif

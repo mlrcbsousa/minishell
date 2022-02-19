@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/19 18:49:12 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/19 19:11:10 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,22 @@ int main()
 	size_t size;
 	t_stack tokens;
 
-	// handle Ctrl-\ Ctrl-C Ctrl-Z signals like in bash
+	// ignore some signals?
 
 	while (1)
 	{
+		line = NULL;
+		size = 0;
+		tokens = (t_stack){NULL, 0};
+
 		// 1. stdin loop
 
 		// 2. handle Ctrl-\ Ctrl-C Ctrl-D signals like in bash
+
+		// TEST command + data
+		size = 20;
+		line = (char *)malloc(size);
+		ft_strcpy(line, "echo 'Hello World!'");
 
 		// 3. build a stack of tokens
 		token_stack_build(line, size, &tokens);
