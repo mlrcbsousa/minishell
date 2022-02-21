@@ -39,3 +39,38 @@
     ```
 
 7. Open a PR to merge with the `main` branch on the GitHub website.
+
+
+### To merge new `main` changes on your branch
+
+1.  Checkout to `main` from your branch.
+  
+    ```bash
+    git checkout main
+    ```
+
+2.  Pull newest stuff from remote.
+
+    ```bash
+    git pull origin main
+    ```
+    
+3.  Checkout to your work branch.
+
+    ```bash
+    git checkout ms/feature/sub-feature
+    ```
+    
+4.  Merge your local updated `main` to your work branch.
+
+    ```bash
+    git merge main
+    ```
+    
+5.  Solve conflicts if any, add and merge them.
+
+6.  Push your updated work branch.
+
+    ```bash
+    git push
+    ```
