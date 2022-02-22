@@ -6,7 +6,7 @@
 #    By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/02/19 18:53:45 by msousa           ###   ########.fr        #
+#    Updated: 2022/02/22 21:08:42 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ INC			= -Iinclude -Ilibft/include
 UNAME 	:= ${shell uname}
 OBJ			= ${SRC:.c=.o}
 SRC			= minishell.c \
+					src/astree.c \
 					src/tokens.c \
 					src/parser.c
 

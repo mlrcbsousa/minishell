@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/22 20:26:41 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/22 20:43:27 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int main()
 	char *line;
 	size_t size;
 	t_stack analysed;
-	t_btree *syntax_tree;
+	t_astree *syntax_astree;
 
 	// ignore some signals?
 
@@ -82,7 +82,7 @@ int main()
 		}
 
 		// 4. parse stack of tokens into an abstract syntax tree
-		if (!analysed.size || parse(&analysed, &syntax_tree))
+		if (!analysed.size || parse(&analysed, &syntax_astree))
 			// continue ;
 			;
 		else

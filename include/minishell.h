@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/22 20:11:56 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/22 21:07:43 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@
 # include "libft.h"
 
 // Enums
+typedef enum e_node {
+	NODE_PIPE,
+	NODE_SEQ,
+	NODE_REDIRECT_IN,
+	NODE_REDIRECT_OUT,
+	NODE_CMDPATH,
+	NODE_ARGUMENT,
+	NODE_DATA,
+} t_node;
 
 // Structs
 typedef struct s_app t_app;
@@ -35,7 +44,7 @@ struct s_app
 
 typedef struct s_token t_token;
 typedef struct s_stack t_stack;
-typedef struct s_btree t_btree;
+typedef struct s_astree t_astree;
 
 struct s_token
 {
@@ -49,16 +58,22 @@ struct s_stack
 	int size;
 };
 
-struct s_btree
+struct s_astree
 {
 	int type;
 	char *data;
-	t_btree *left;
-	t_btree *right;
+	t_astree *left;
+	t_astree *right;
 };
 
 // Functions
 void	token_stack_build(char *line, size_t size, t_stack *tokens);
-int parse(t_stack *analysed, t_btree **syntax_tree);
+int parse(t_stack *analysed, t_astree **syntax_astree);
+
+// Abstract Syntax Tree
+void astree_add_branches(t_astree *root , t_astree *left , t_astree *right);
+void astree_set_type(t_astree *node , t_node type);
+void astree_set_data(t_astree *node , char *data);
+void astree_delete(t_astree *node);
 
 #endif

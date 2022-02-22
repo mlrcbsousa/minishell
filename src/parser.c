@@ -6,39 +6,48 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:37:24 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/22 20:28:00 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/22 20:57:02 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-typedef enum e_node {
-	NODE_PIPE					= (1 << 0),
-	NODE_BCKGRND 			= (1 << 1),
-	NODE_SEQ 					= (1 << 2),
-	NODE_REDIRECT_IN 	= (1 << 3),
-	NODE_REDIRECT_OUT = (1 << 4),
-	NODE_CMDPATH			= (1 << 5),
-	NODE_ARGUMENT			= (1 << 6),
+t_astree* command_line();			//	test all command line composition in order
+t_astree* command_line_a();		//	<job> ';' <command line>
+t_astree* command_line_b();		//	<job> ';'
+t_astree* command_line_c();		//	<job>
 
-	NODE_DATA 				= (1 << 7),
-} t_node;
+t_astree* job();							// test all job composition in order
+t_astree* job_a();						// <command> '|' <job>
+t_astree* job_b();						// <command>
+
+t_astree* command();					// test all command composition in order
+t_astree* command_a();				//	<simple command> '<' <filename>
+t_astree* command_b();				//	<simple command> '>' <filename>
+t_astree* command_c();				//	<simple command>
+
+t_astree* simple_command();		// test simple command composition
+t_astree* simple_command_a();	// <pathname> <token list>
+
+t_astree* token_list();				// test tokenlist composition
+t_astree* token_list_a();			// <token> <token list>
+t_astree* token_list_b();			// EMPTY
 
 typedef struct s_parser
 {
 	t_token	*token;
 } t_parser;
 
-int parse(t_stack *analysed, t_btree **syntax_tree)
+int parse(t_stack *analysed, t_astree **syntax_astree)
 {
 	t_parser	parser;
 
-	(void)syntax_tree;
+	(void)syntax_astree;
 	if (!analysed->size)
 		return (-1);
 
 	parser.token = analysed->token;
-	// *syntax_tree = command_line();
+	// *syntax_astree = command_line();
 
 	// If command filter didn't reach the end of the token list
 	if (parser.token && parser.token->type)
