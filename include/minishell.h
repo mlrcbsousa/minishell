@@ -6,7 +6,7 @@
 /*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/22 21:40:50 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/02/22 21:50:05 by ngregori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ struct s_stack
 
 // Functions
 void	token_stack_build(char *line, size_t size, t_stack *tokens);
-char	*get_binary_paths(char **envp);
+char	**get_binary_paths(char **envp);
 
 #endif

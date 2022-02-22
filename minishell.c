@@ -6,7 +6,7 @@
 /*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/22 21:44:04 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/02/22 21:58:19 by ngregori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@ int main(int argc, char *argv[], char**envp)
 	char *line;
 	size_t size;
 	t_stack tokens;
-	char *binary_paths;
+	char **binary_paths;
 
 	(void)argc;
 	(void)argv;
 
 	binary_paths = get_binary_paths(envp);
-	(void)binary_paths;
+
+	int i = 0;
+	while(binary_paths[i]) printf("%s\n", binary_paths[i++]);
+
+	return 0;
 
 	// ignore some signals?
 
