@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/19 18:53:31 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/22 20:11:56 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # else
 #  define DEBUG(x)
 # endif
+
+# include <stdio.h>
 
 # include "libft.h"
 
@@ -33,11 +35,12 @@ struct s_app
 
 typedef struct s_token t_token;
 typedef struct s_stack t_stack;
+typedef struct s_btree t_btree;
 
 struct s_token
 {
-	char *data;
 	int type;
+	char *data;
 	t_token *next;
 };
 struct s_stack
@@ -46,7 +49,16 @@ struct s_stack
 	int size;
 };
 
+struct s_btree
+{
+	int type;
+	char *data;
+	t_btree *left;
+	t_btree *right;
+};
+
 // Functions
 void	token_stack_build(char *line, size_t size, t_stack *tokens);
+int parse(t_stack *analysed, t_btree **syntax_tree);
 
 #endif
