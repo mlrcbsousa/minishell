@@ -3,20 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/19 19:11:10 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/22 21:58:19 by ngregori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main()
+int main(int argc, char *argv[], char**envp)
 {
 	char *line;
 	size_t size;
 	t_stack tokens;
+	char **binary_paths;
+
+	(void)argc;
+	(void)argv;
+
+	binary_paths = get_binary_paths(envp);
+
+	int i = 0;
+	while(binary_paths[i]) printf("%s\n", binary_paths[i++]);
+
+	return 0;
 
 	// ignore some signals?
 
