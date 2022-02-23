@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   binary_paths.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
+/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:39:23 by ngregori          #+#    #+#             */
-/*   Updated: 2022/02/22 22:02:50 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/02/23 22:11:49 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ char	**get_binary_paths(char **envp) {
 			//need to add "/" to the end of each binary path next so that when we are trying to run the commands in a loop we don't need to add "/" to each command
 		}
 	}
-	
+
 	return paths;
 }

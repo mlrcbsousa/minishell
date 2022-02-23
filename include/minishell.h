@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
+/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/22 21:50:05 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/02/23 22:11:21 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 #  define DEBUG(x)
 # endif
 
+# include <stdio.h>
+
 # include "libft.h"
-# include "stdio.h"
 
 // Enums
 
