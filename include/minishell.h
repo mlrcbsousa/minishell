@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/22 21:07:43 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/23 22:14:35 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ void astree_add_branches(t_astree *root , t_astree *left , t_astree *right);
 void astree_set_type(t_astree *node , t_node type);
 void astree_set_data(t_astree *node , char *data);
 void astree_delete(t_astree *node);
+char	**get_binary_paths(char **envp);
 
 #endif

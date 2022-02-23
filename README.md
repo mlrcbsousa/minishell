@@ -2,6 +2,12 @@
 
 42 school minishell project
 
+## Resources
+
+- [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree)
+- [Backus Naur Form](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form)
+- [Lexical Analysis](https://en.wikipedia.org/wiki/Lexical_analysis)
+
 ## Development Workflow
 
 1.  The main development branch is called `main`.
@@ -44,7 +50,7 @@
 ### To merge new `main` changes on your branch
 
 1.  Checkout to `main` from your branch.
-  
+
     ```bash
     git checkout main
     ```
@@ -54,19 +60,19 @@
     ```bash
     git pull origin main
     ```
-    
+
 3.  Checkout to your work branch.
 
     ```bash
     git checkout ms/feature/sub-feature
     ```
-    
+
 4.  Merge your local updated `main` to your work branch.
 
     ```bash
     git merge main
     ```
-    
+
 5.  Solve conflicts if any, add and merge them.
 
 6.  Push your updated work branch.

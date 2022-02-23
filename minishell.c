@@ -6,18 +6,29 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/22 20:43:27 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/23 22:15:16 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main()
+int main(int argc, char *argv[], char**envp)
 {
 	char *line;
 	size_t size;
 	t_stack analysed;
 	t_astree *syntax_astree;
+	char **binary_paths;
+
+	(void)argc;
+	(void)argv;
+
+	binary_paths = get_binary_paths(envp);
+
+	int i = 0;
+	while(binary_paths[i]) printf("%s\n", binary_paths[i++]);
+
+	return 0;
 
 	// ignore some signals?
 

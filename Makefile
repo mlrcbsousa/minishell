@@ -6,7 +6,7 @@
 #    By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/02/22 21:08:42 by msousa           ###   ########.fr        #
+#    Updated: 2022/02/23 22:14:53 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ OBJ			= ${SRC:.c=.o}
 SRC			= minishell.c \
 					src/astree.c \
 					src/tokens.c \
-					src/parser.c
+					src/parser.c \
+					src/utils/binary_paths.c
 
 NAME		= minishell
 
