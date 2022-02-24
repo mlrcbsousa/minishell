@@ -6,29 +6,45 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:37:24 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/24 21:42:41 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/24 22:04:18 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_astree* command_line();			// test all command line composition in order
-t_astree* command_line_a();		// <command> '|' <command line>
-t_astree* command_line_b();		// <command>
+/**
 
-t_astree* command();					// test all command composition in order
-t_astree* command_a();				//	<simple command> '<' <filename>
-t_astree* command_b();				//	<simple command> '>' <filename>
-// t_astree* command_c();				//	<simple command> '<<' <filename>
-// t_astree* command_d();				//	<simple command> '>>' <filename>
-t_astree* command_e();				//	<simple command>
+<command line>   ::=  <command> '|' <command line>
+                  |   <command>
 
-t_astree* simple_command();		// test simple command composition
-t_astree* simple_command_a();	// <cmd_path> <token list>
+<command>        ::=  <simple command> '<' <filename>
+                  |   <simple command> '>' <filename>
+                  |   <simple command>
 
-t_astree* token_list();				// test tokenlist possibilities
-t_astree* token_list_a();			// <token> <token list>
-// no function //							// EMPTY (implicit)
+<simple command> ::=  <pathname> <token list>
+
+<token list>     ::=  <token> <token list>
+                  |   (EMPTY)
+
+**/
+
+t_astree* command_line();     // test "command line" possibilities
+t_astree* command_line_a();   // <command> '|' <command line>
+t_astree* command_line_b();   // <command>
+
+t_astree* command();          // test "command" possibilities
+t_astree* command_a();        // <simple command> '<' <filename>
+t_astree* command_b();        // <simple command> '>' <filename>
+// t_astree* command_c();     // <simple command> '<<' <filename>
+// t_astree* command_d();     // <simple command> '>>' <filename>
+t_astree* command_c();        // <simple command>
+
+// t_astree* simple_command();// test "simple command" possibilities
+t_astree* simple_command();   // <cmd_path> <token list>
+
+// t_astree* token_list();    // test "token list" possibilities
+t_astree* token_list();       // <token> <token list>
+// no function //             // EMPTY (implicit)
 
 // Making this a struct for now because don't know if will need more
 // info to pass around for these functions
@@ -45,7 +61,7 @@ int parse(t_stack *analysed, t_astree **syntax_astree)
 		return (-1);
 
 	parser.current_token = analysed->token;
-	*syntax_astree = simple_command(&parser);
+	*syntax_astree = command(&parser);
 
 	// If command filter didn't reach the end of the token list
 	if (parser.current_token && parser.current_token->type)
@@ -92,13 +108,13 @@ t_astree	*command_line(t_parser *parser)
 
 	save = parser->current_token;
 	node = command_line_a(parser);
-	parser->current_token = save;
 	if (node)
 		return (node);
+	parser->current_token = save;
 	node = command_line_b(parser);
-	parser->current_token = save;
 	if (node)
 		return (node);
+	parser->current_token = save;
 	return (NULL);
 }
 
@@ -130,6 +146,52 @@ t_astree	*command_line_a(t_parser *parser)
 }
 
 t_astree	*command_line_b(t_parser *parser)
+{
+	(void)parser;
+	return (NULL);
+}
+
+// t_astree* command();          // test "command" possibilities
+// t_astree* command_a();        // <simple command> '<' <filename>
+// t_astree* command_b();        // <simple command> '>' <filename>
+// // t_astree* command_c();     // <simple command> '<<' <filename>
+// // t_astree* command_d();     // <simple command> '>>' <filename>
+// t_astree* command_c();        // <simple command>
+
+t_astree	*command(t_parser *parser)
+{
+	t_token *save;
+	t_astree *node;
+
+	save = parser->current_token;
+	node = command_a(parser);
+	if (node)
+		return (node);
+	parser->current_token = save;
+	node = command_b(parser);
+	if (node)
+		return (node);
+	parser->current_token = save;
+	node = command_c(parser);
+	if (node)
+		return (node);
+	parser->current_token = save;
+	return (NULL);
+}
+
+t_astree	*command_a(t_parser *parser)
+{
+	(void)parser;
+	return (NULL);
+}
+
+t_astree	*command_b(t_parser *parser)
+{
+	(void)parser;
+	return (NULL);
+}
+
+t_astree	*command_c(t_parser *parser)
 {
 	(void)parser;
 	return (NULL);
