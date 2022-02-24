@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/24 19:20:38 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/24 21:14:12 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 // Enums
 typedef enum e_node {
-	NODE_PIPE,
+	NODE_PIPE = 1, // have to start at one to not override in astree_set_data()
 	NODE_SEQ,
 	NODE_REDIRECT_IN,
 	NODE_REDIRECT_OUT,

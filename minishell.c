@@ -6,11 +6,23 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/23 22:15:16 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/24 21:09:21 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// Test tree contents
+void	print_astree(t_astree *node)
+{
+	if (!node)
+		return ;
+	printf("\n--Node--\n");
+	printf("type: %d\n", node->type);
+	printf("data: %s\n", node->data);
+	print_astree(node->left);
+	print_astree(node->right);
+}
 
 int main(int argc, char *argv[], char**envp)
 {
@@ -18,17 +30,18 @@ int main(int argc, char *argv[], char**envp)
 	size_t size;
 	t_stack analysed;
 	t_astree *syntax_astree;
-	char **binary_paths;
+	// char **binary_paths;
 
 	(void)argc;
 	(void)argv;
+	(void)envp;
 
-	binary_paths = get_binary_paths(envp);
+	// binary_paths = get_binary_paths(envp);
 
-	int i = 0;
-	while(binary_paths[i]) printf("%s\n", binary_paths[i++]);
+	// int i = 0;
+	// while(binary_paths[i]) printf("%s\n", binary_paths[i++]);
 
-	return 0;
+	// return 0;
 
 	// ignore some signals?
 
@@ -66,19 +79,20 @@ int main(int argc, char *argv[], char**envp)
 		token->data = (char *)malloc(15);
 		ft_strcpy(token->data, "'Hello World!'");
 		token->type = -1;
-		token->next = (t_token *)malloc(sizeof(t_token));
-		token = token->next;
-		// 3
-		token->data = (char *)malloc(2);
-		ft_strcpy(token->data, ">");
-		token->type = 62; // ascii for '>'
-		token->next = (t_token *)malloc(sizeof(t_token));
-		token = token->next;
-		// 4
-		token->data = (char *)malloc(9);
-		ft_strcpy(token->data, "file.txt");
-		token->type = -1;
 		token->next = NULL;
+		// token->next = (t_token *)malloc(sizeof(t_token));
+		// token = token->next;
+		// // 3
+		// token->data = (char *)malloc(2);
+		// ft_strcpy(token->data, ">");
+		// token->type = 62; // ascii for '>'
+		// token->next = (t_token *)malloc(sizeof(t_token));
+		// token = token->next;
+		// // 4
+		// token->data = (char *)malloc(9);
+		// ft_strcpy(token->data, "file.txt");
+		// token->type = -1;
+		// token->next = NULL;
 
 		// (t_token) { type: -1, 	data: "echo" 						}
 		// (t_token) { type: -1, 	data: "'Hello World!'" 	}
@@ -97,7 +111,26 @@ int main(int argc, char *argv[], char**envp)
 			// continue ;
 			;
 		else
+		{
 			printf("successful parsing\n");
+			// printf("\n");
+			// printf("1st level\n");
+			// printf("data: %s\n", syntax_astree->data);
+			// printf("type: %d\n", syntax_astree->type);
+			// printf("\n");
+			// printf("2nd level\n");
+			// printf("0\n");
+			// printf("data: %s\n", syntax_astree->data);
+			// printf("type: %d\n", syntax_astree->type);
+			// printf("1\n");
+			// printf("data: %s\n", syntax_astree->data);
+			// printf("type: %d\n", syntax_astree->type);
+			// syntax_astree->data
+			// syntax_astree->ty
+			// syntax_astree->left
+			// syntax_astree->right
+			print_astree(syntax_astree);
+		}
 
 		break ;
 
