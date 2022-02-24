@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/24 21:09:21 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/24 21:21:40 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int main(int argc, char *argv[], char**envp)
 			token = token->next;
 		}
 
+		syntax_astree = NULL;
 		// 4. parse stack of tokens into an abstract syntax tree
 		if (!analysed.size || parse(&analysed, &syntax_astree))
 			// continue ;
@@ -113,24 +114,11 @@ int main(int argc, char *argv[], char**envp)
 		else
 		{
 			printf("successful parsing\n");
-			// printf("\n");
-			// printf("1st level\n");
-			// printf("data: %s\n", syntax_astree->data);
-			// printf("type: %d\n", syntax_astree->type);
-			// printf("\n");
-			// printf("2nd level\n");
-			// printf("0\n");
-			// printf("data: %s\n", syntax_astree->data);
-			// printf("type: %d\n", syntax_astree->type);
-			// printf("1\n");
-			// printf("data: %s\n", syntax_astree->data);
-			// printf("type: %d\n", syntax_astree->type);
-			// syntax_astree->data
-			// syntax_astree->ty
-			// syntax_astree->left
-			// syntax_astree->right
 			print_astree(syntax_astree);
 		}
+
+		astree_delete(syntax_astree);
+		// memory leak on tokens stack
 
 		break ;
 
