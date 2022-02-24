@@ -8,6 +8,21 @@
 - [Backus Naur Form](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form)
 - [Lexical Analysis](https://en.wikipedia.org/wiki/Lexical_analysis)
 
+## Example Backus Naur
+
+Good example to think of mathematical expressions `/x+-` and the numbers 0 to 9.
+
+In **Backus Naur** it would look something like this.
+
+```
+<expression>	::=	<number> '+' <expression>
+							|		<number> '-' <expression>
+							| 	<number> 'x' <expression>
+							|		<number> '/' <expression>
+
+<number>			::=	0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+```
+
 ## Development Workflow
 
 1.  The main development branch is called `main`.
