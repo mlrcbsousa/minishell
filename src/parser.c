@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:37:24 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/24 20:47:22 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/24 21:42:41 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ t_astree* command_e();				//	<simple command>
 t_astree* simple_command();		// test simple command composition
 t_astree* simple_command_a();	// <cmd_path> <token list>
 
-t_astree* token_list();				// test tokenlist composition
+t_astree* token_list();				// test tokenlist possibilities
 t_astree* token_list_a();			// <token> <token list>
-t_astree* token_list_b();			// EMPTY
+// no function //							// EMPTY (implicit)
 
 // Making this a struct for now because don't know if will need more
 // info to pass around for these functions
@@ -137,13 +137,6 @@ t_astree	*command_line_b(t_parser *parser)
 
 t_astree	*simple_command(t_parser *parser)
 {
-    t_token	*save;
-		save = parser->current_token; // seems useless
-    return simple_command_a(parser);
-}
-
-t_astree	*simple_command_a(t_parser *parser)
-{
 	t_astree	*token_list_node;
 	t_astree	*result;
 	char	*cmd_path;
@@ -159,24 +152,21 @@ t_astree	*simple_command_a(t_parser *parser)
 	return (result);
 }
 
+// Is this wrapper needed?
+// t_astree	*token_list(t_parser *parser)
+// {
+// 	t_token *save;
+// 	t_astree *node;
+
+// 	save = parser->current_token;
+// 	node = token_list_a(parser);
+// 	if (node)
+// 		return (node);
+// 	parser->current_token = save;
+// 	return (NULL);
+// }
+
 t_astree	*token_list(t_parser *parser)
-{
-	t_token *save;
-	t_astree *node;
-
-	save = parser->current_token;
-	node = token_list_a(parser);
-	if (node)
-		return (node);
-	parser->current_token = save;
-	node = token_list_b(parser);
-	if (node)
-		return (node);
-	parser->current_token = save;
-	return (NULL);
-}
-
-t_astree	*token_list_a(t_parser *parser)
 {
 	t_astree	*token_list_node;
 	t_astree	*result;
@@ -192,10 +182,3 @@ t_astree	*token_list_a(t_parser *parser)
 	astree_add_branches(result, NULL, token_list_node);
 	return (result);
 }
-
-t_astree	*token_list_b(t_parser *parser)
-{
-	(void)parser;
-	return (NULL);
-}
-
