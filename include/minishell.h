@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/24 21:14:12 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/24 22:55:28 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ struct s_app
 typedef struct s_token t_token;
 typedef struct s_stack t_stack;
 typedef struct s_astree t_astree;
+typedef struct s_parser t_parser;
 
 struct s_token
 {
@@ -80,6 +81,11 @@ struct s_astree
 	t_astree *right;
 };
 
+struct s_parser
+{
+	t_token	*current_token;
+};
+
 // Functions
 void	token_stack_build(char *line, size_t size, t_stack *tokens);
 int parse(t_stack *analysed, t_astree **syntax_astree);
@@ -90,5 +96,16 @@ void astree_set_type(t_astree *node , t_node type);
 void astree_set_data(t_astree *node , char *data);
 void astree_delete(t_astree *node);
 char	**get_binary_paths(char **envp);
+
+// Bakus Naur Parser
+t_bool	match(int token_type, char **buffer, t_parser *parser);
+t_astree* command_line(t_parser *parser);
+t_astree* command_line_a(t_parser *parser);
+t_astree* command(t_parser *parser);
+t_astree* command_a(t_parser *parser);
+t_astree* command_b(t_parser *parser);
+t_astree* simple_command(t_parser *parser);
+t_astree* token_list(t_parser *parser);
+t_astree	*token_list_a(t_parser *parser);
 
 #endif
