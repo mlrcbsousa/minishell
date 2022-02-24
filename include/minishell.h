@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/23 22:14:35 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/24 19:20:38 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,20 @@ typedef enum e_node {
 	NODE_ARGUMENT,
 	NODE_DATA,
 } t_node;
+
+enum e_lexical {
+	LEXICAL_DEFAULT = -1,
+	LEXICAL_PIPE = '|',
+	LEXICAL_QUOTE = '\'',
+	LEXICAL_DQUOTE = '\"',
+	LEXICAL_WHITESPACE = ' ',
+	LEXICAL_ESCAPESEQUENCE = '\\',
+	LEXICAL_GREATER = '>',
+	// LEXICAL_GGREATER = '>>',
+	LEXICAL_LESSER = '<',
+	// LEXICAL_LLESSER = '<<',
+	LEXICAL_NULL = 0,
+};
 
 // Structs
 typedef struct s_app t_app;

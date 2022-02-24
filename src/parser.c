@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:37:24 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/23 23:34:08 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/24 19:21:10 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_astree* command_line_b();		// <command>
 t_astree* command();					// test all command composition in order
 t_astree* command_a();				//	<simple command> '<' <filename>
 t_astree* command_b();				//	<simple command> '>' <filename>
-t_astree* command_c();				//	<simple command> '<<' <filename>
-t_astree* command_d();				//	<simple command> '>>' <filename>
+// t_astree* command_c();				//	<simple command> '<<' <filename>
+// t_astree* command_d();				//	<simple command> '>>' <filename>
 t_astree* command_e();				//	<simple command>
 
 t_astree* simple_command();		// test simple command composition
