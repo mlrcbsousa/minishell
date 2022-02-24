@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/24 21:29:12 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/24 22:32:44 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,20 +79,19 @@ int main(int argc, char *argv[], char**envp)
 		token->data = (char *)malloc(15);
 		ft_strcpy(token->data, "'Hello World!'");
 		token->type = -1;
+		token->next = (t_token *)malloc(sizeof(t_token));
+		token = token->next;
+		// 3
+		token->data = (char *)malloc(2);
+		ft_strcpy(token->data, ">");
+		token->type = 62; // ascii for '>'
+		token->next = (t_token *)malloc(sizeof(t_token));
+		token = token->next;
+		// 4
+		token->data = (char *)malloc(9);
+		ft_strcpy(token->data, "file.txt");
+		token->type = -1;
 		token->next = NULL;
-		// token->next = (t_token *)malloc(sizeof(t_token));
-		// token = token->next;
-		// // 3
-		// token->data = (char *)malloc(2);
-		// ft_strcpy(token->data, ">");
-		// token->type = 62; // ascii for '>'
-		// token->next = (t_token *)malloc(sizeof(t_token));
-		// token = token->next;
-		// // 4
-		// token->data = (char *)malloc(9);
-		// ft_strcpy(token->data, "file.txt");
-		// token->type = -1;
-		// token->next = NULL;
 
 		// (t_token) { type: -1, 	data: "echo" 						}
 		// (t_token) { type: -1, 	data: "'Hello World!'" 	}

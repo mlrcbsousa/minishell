@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:37:24 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/24 22:04:18 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/24 22:40:36 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
                   |   <simple command> '>' <filename>
                   |   <simple command>
 
-<simple command> ::=  <pathname> <token list>
+<simple command> ::=  <cmd path> <token list>
 
 <token list>     ::=  <token> <token list>
                   |   (EMPTY)
@@ -30,17 +30,17 @@
 
 t_astree* command_line();     // test "command line" possibilities
 t_astree* command_line_a();   // <command> '|' <command line>
-t_astree* command_line_b();   // <command>
+// t_astree* command_line_b();   // <command>
 
 t_astree* command();          // test "command" possibilities
 t_astree* command_a();        // <simple command> '<' <filename>
 t_astree* command_b();        // <simple command> '>' <filename>
 // t_astree* command_c();     // <simple command> '<<' <filename>
 // t_astree* command_d();     // <simple command> '>>' <filename>
-t_astree* command_c();        // <simple command>
+// t_astree* command_c();        // <simple command>
 
 // t_astree* simple_command();// test "simple command" possibilities
-t_astree* simple_command();   // <cmd_path> <token list>
+t_astree* simple_command();   // <command path> <token list>
 
 // t_astree* token_list();    // test "token list" possibilities
 t_astree* token_list();       // <token> <token list>
@@ -111,7 +111,7 @@ t_astree	*command_line(t_parser *parser)
 	if (node)
 		return (node);
 	parser->current_token = save;
-	node = command_line_b(parser);
+	node = command(parser);
 	if (node)
 		return (node);
 	parser->current_token = save;
@@ -124,15 +124,19 @@ t_astree	*command_line_a(t_parser *parser)
 	t_astree *command_line_node;
 	t_astree *result;
 
-	command_node = NULL;//command(parser);
+	// test first token if is a command
+	command_node = command(parser);
 	if (!command_node)
 		return (NULL);
 
-	if (!match(LEXICAL_PIPE, NULL, parser)) {
+	// test next token if is a pipe operator
+	if (!match(LEXICAL_PIPE, NULL, parser))
+	{
 		astree_delete(command_node);
 		return (NULL);
 	}
 
+	// test next token if is a command line
 	command_line_node = command_line(parser);
 	if (!command_node)
 	{
@@ -142,26 +146,13 @@ t_astree	*command_line_a(t_parser *parser)
 	result = (t_astree *)malloc(sizeof(t_astree));
 	astree_set_type(result, NODE_PIPE);
 	astree_add_branches(result, command_node, command_line_node);
-	return result;
+	return (result);
 }
-
-t_astree	*command_line_b(t_parser *parser)
-{
-	(void)parser;
-	return (NULL);
-}
-
-// t_astree* command();          // test "command" possibilities
-// t_astree* command_a();        // <simple command> '<' <filename>
-// t_astree* command_b();        // <simple command> '>' <filename>
-// // t_astree* command_c();     // <simple command> '<<' <filename>
-// // t_astree* command_d();     // <simple command> '>>' <filename>
-// t_astree* command_c();        // <simple command>
 
 t_astree	*command(t_parser *parser)
 {
-	t_token *save;
-	t_astree *node;
+	t_token	*save;
+	t_astree	*node;
 
 	save = parser->current_token;
 	node = command_a(parser);
@@ -172,7 +163,7 @@ t_astree	*command(t_parser *parser)
 	if (node)
 		return (node);
 	parser->current_token = save;
-	node = command_c(parser);
+	node = simple_command(parser);
 	if (node)
 		return (node);
 	parser->current_token = save;
@@ -181,35 +172,88 @@ t_astree	*command(t_parser *parser)
 
 t_astree	*command_a(t_parser *parser)
 {
-	(void)parser;
-	return (NULL);
+	t_astree	*simple_command_node;
+	t_astree	*result;
+	char* filename;
+
+	// test first token if is a simple command
+	simple_command_node = simple_command(parser);
+	if (!simple_command_node)
+		return (NULL);
+
+	// test next token if is a redirect operator
+	if (!match(LEXICAL_LESSER, NULL, parser))
+	{
+		astree_delete(simple_command_node);
+		return (NULL);
+	}
+
+	// test next token if is a default and save filename
+	if (!match(LEXICAL_DEFAULT, &filename, parser))
+	{
+		free(filename);
+		astree_delete(simple_command_node);
+		return (NULL);
+	}
+
+	// Create node return it
+	result = (t_astree *)malloc(sizeof(t_astree));
+	astree_set_type(result, NODE_REDIRECT_IN);
+	astree_set_data(result, filename);
+	astree_add_branches(result, NULL, simple_command_node);
+	return (result);
 }
 
 t_astree	*command_b(t_parser *parser)
 {
-	(void)parser;
-	return (NULL);
-}
+	t_astree	*simple_command_node;
+	t_astree	*result;
+	char* filename;
 
-t_astree	*command_c(t_parser *parser)
-{
-	(void)parser;
-	return (NULL);
+	// test first token if is a simple command
+	simple_command_node = simple_command(parser);
+	if (!simple_command_node)
+		return (NULL);
+
+	// test next token if is a redirect operator
+	printf("GET HERE\n");
+
+	if (!match(LEXICAL_GREATER, NULL, parser))
+	{
+		astree_delete(simple_command_node);
+		return (NULL);
+	}
+	printf("GET HERE\n");
+
+	// test next token if is a default and save filename
+	if (!match(LEXICAL_DEFAULT, &filename, parser))
+	{
+		free(filename);
+		astree_delete(simple_command_node);
+		return (NULL);
+	}
+
+	// Create node return it
+	result = (t_astree *)malloc(sizeof(t_astree));
+	astree_set_type(result, NODE_REDIRECT_OUT);
+	astree_set_data(result, filename);
+	astree_add_branches(result, NULL, simple_command_node);
+	return (result);
 }
 
 t_astree	*simple_command(t_parser *parser)
 {
 	t_astree	*token_list_node;
 	t_astree	*result;
-	char	*cmd_path;
+	char	*command_path;
 
-	if (!match(LEXICAL_DEFAULT, &cmd_path, parser))
+	if (!match(LEXICAL_DEFAULT, &command_path, parser))
 			return (NULL);
 	token_list_node = token_list(parser);
 	// we don't check whether token_list_node is NULL since its allowed to be
 	result = (t_astree *)malloc(sizeof(t_astree));
 	astree_set_type(result, NODE_CMDPATH);
-	astree_set_data(result, cmd_path);
+	astree_set_data(result, command_path);
 	astree_add_branches(result, NULL, token_list_node);
 	return (result);
 }
