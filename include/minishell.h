@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/24 19:12:00 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/25 21:04:21 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # endif
 
 # include <stdio.h>
+# include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # include "libft.h"
 
@@ -43,7 +46,7 @@ typedef struct s_app t_app;
 
 struct s_app
 {
-	int	something;
+	char **envp;
 };
 
 typedef struct s_token t_token;
@@ -63,6 +66,6 @@ struct s_stack
 
 // Functions
 void	token_stack_build(char *line, size_t size, t_stack *tokens);
-char	**get_binary_paths(char **envp);
+char	**get_binary_paths(void);
 
 #endif

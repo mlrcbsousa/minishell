@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+         #
+#    By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/02/22 21:45:20 by ngregori         ###   ########.fr        #
+#    Updated: 2022/02/25 19:53:45 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS	= -Wall -Wextra -Werror -g
-LINKS		= -Llibft -lft
+LINKS		= -Llibft -lft -lreadline
 CC			= gcc
 RM			= rm -f
 INC			= -Iinclude -Ilibft/include
