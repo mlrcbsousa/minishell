@@ -3,33 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
+/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/22 21:58:19 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/02/25 21:33:32 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char *argv[], char**envp)
+int main(void) // no need for arguments can use `getenv("PATH")`
 {
 	char *line;
 	size_t size;
 	t_stack tokens;
-	char **binary_paths;
 
-	(void)argc;
-	(void)argv;
-
-	binary_paths = get_binary_paths(envp);
-
-	int i = 0;
-	while(binary_paths[i]) printf("%s\n", binary_paths[i++]);
-
-	return 0;
-
-	// ignore some signals?
+	// ignore "Ctrl-C"
+	// will need to save this to untoggle on child
+	// will need to use something else other then signal ignore
+	signal(SIGINT, SIG_IGN);
+	// ignore "Ctrl-\"
+  signal(SIGQUIT, SIG_IGN);
 
 	while (1)
 	{
@@ -38,13 +32,13 @@ int main(int argc, char *argv[], char**envp)
 		tokens = (t_stack){NULL, 0};
 
 		// 1. stdin loop
+		line = readline("~$ ");
+		size = ft_strlen(line);
 
-		// 2. handle Ctrl-\ Ctrl-C Ctrl-D signals like in bash
+		printf("%s\n", line);
 
-		// TEST command + data
-		size = 20;
-		line = (char *)malloc(size);
-		ft_strcpy(line, "echo 'Hello World!'");
+		// 2. handle Ctrl-D
+		// aparently no signal for this
 
 		// 3. build a stack of tokens
 		token_stack_build(line, size, &tokens);
