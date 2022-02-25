@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 19:42:47 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/20 22:33:42 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/25 22:36:09 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int lexical_type(char c)
 			|| c == LEXICAL_PIPE
 			|| c == LEXICAL_QUOTE
 			|| c == LEXICAL_DQUOTE
-			|| c == LEXICAL_SEMICOLON
 			|| c == LEXICAL_WHITESPACE
 			|| c == LEXICAL_ESCAPESEQUENCE
 			|| c == LEXICAL_GREATER

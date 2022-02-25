@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/20 22:33:05 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/25 22:34:05 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # endif
 
 # include <stdio.h>
+# include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # include "libft.h"
 
@@ -29,11 +32,12 @@ enum e_lexical {
 	LEXICAL_PIPE = '|',
 	LEXICAL_QUOTE = '\'',
 	LEXICAL_DQUOTE = '\"',
-	LEXICAL_SEMICOLON = ';',
 	LEXICAL_WHITESPACE = ' ',
 	LEXICAL_ESCAPESEQUENCE = '\\',
 	LEXICAL_GREATER = '>',
+	// LEXICAL_GGREATER = '>>',
 	LEXICAL_LESSER = '<',
+	// LEXICAL_LLESSER = '<<',
 	LEXICAL_NULL = 0,
 };
 
@@ -49,7 +53,7 @@ typedef struct s_app t_app;
 
 struct s_app
 {
-	int	something;
+	char **envp;
 };
 
 typedef struct s_token t_token;
@@ -72,5 +76,7 @@ void	lexical_analysis(char *line, size_t size, t_stack *tokens);
 int lexical_type(char token);
 void token_init(t_token *token, int size);
 void token_destroy(t_token *token);
+char	**get_binary_paths(void);
+
 
 #endif

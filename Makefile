@@ -6,12 +6,12 @@
 #    By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/02/20 20:38:35 by msousa           ###   ########.fr        #
+#    Updated: 2022/02/25 22:36:36 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS	= -Wall -Wextra -Werror -g
-LINKS		= -Llibft -lft
+LINKS		= -Llibft -lft -lreadline
 CC			= gcc
 RM			= rm -f
 INC			= -Iinclude -Ilibft/include
@@ -20,7 +20,8 @@ OBJ			= ${SRC:.c=.o}
 SRC			= minishell.c \
 					src/token.c \
 					src/lexer.c \
-					src/parser.c
+					src/parser.c \
+					src/utils/binary_paths.c
 
 NAME		= minishell
 
