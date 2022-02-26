@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/25 21:33:32 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/26 16:39:35 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int main(void) // no need for arguments can use `getenv("PATH")`
 {
 	char *line;
 	size_t size;
-	t_stack tokens;
+	t_stack analysed;
 
 	// ignore "Ctrl-C"
 	// will need to save this to untoggle on child
@@ -29,7 +29,7 @@ int main(void) // no need for arguments can use `getenv("PATH")`
 	{
 		line = NULL;
 		size = 0;
-		tokens = (t_stack){NULL, 0};
+		analysed = (t_stack){NULL, 0};
 
 		// 1. stdin loop
 		line = readline("~$ ");
@@ -40,15 +40,25 @@ int main(void) // no need for arguments can use `getenv("PATH")`
 		// 2. handle Ctrl-D
 		// aparently no signal for this
 
-		// 3. build a stack of tokens
-		token_stack_build(line, size, &tokens);
+		// 3. break up line into tokens
+		lexical_analysis(line, size, &analysed);
 		free(line);
+
+		// TEST - analysed tokens
+		t_token *token = analysed.token;
+		while (token)
+		{
+			printf("type: %d, data: %s\n", token->type, token->data);
+			token = token->next;
+		}
 
 		// 4. parse stack of tokens into an abstract syntax tree
 
 		// 5. execute syntax tree
 
 		// 6. free stack of tokens and syntax tree
+		if (analysed.token)
+			token_destroy(analysed.token);
 	}
 	return 0;
 }
