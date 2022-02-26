@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 19:42:47 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/25 22:36:09 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/26 15:39:51 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,17 @@ void token_destroy(t_token *token)
 	free(token->data);
 	token_destroy(token->next);
 	free(token);
+}
+
+int tokens_length(t_token *token)
+{
+	int length;
+
+	length = 0;
+	while (token)
+	{
+		length++;
+		token = token->next;
+	}
+	return (length);
 }

@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/25 22:34:05 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/26 16:36:57 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ enum e_state {
 
 // Structs
 typedef struct s_app t_app;
+typedef struct s_token t_token;
+typedef struct s_stack t_stack;
+typedef struct s_lexer t_lexer;
 
 struct s_app
 {
-	char **envp;
+	char **envp; // random, for now not used
 };
-
-typedef struct s_token t_token;
-typedef struct s_stack t_stack;
 
 struct s_token
 {
@@ -65,17 +65,41 @@ struct s_token
 	int type;
 	t_token *next;
 };
+
 struct s_stack
 {
 	t_token *token;
 	int size;
 };
 
-// Functions
-void	lexical_analysis(char *line, size_t size, t_stack *tokens);
-int lexical_type(char token);
+struct s_lexer
+{
+	t_token *token;
+	int state;
+	int size;
+	int line_i;
+	int data_i;
+	char c;
+	int type;
+};
+
+// Functions //
+
+// token
 void token_init(t_token *token, int size);
 void token_destroy(t_token *token);
+int tokens_length(t_token *token);
+
+// lexer
+int	lexical_type(char token);
+void	lexical_analysis(char *line, int size, t_stack *tokens);
+void	lexer_end_read_token(t_lexer *lexer);
+void	lexer_type_quote(t_lexer *lexer);
+void	lexer_type_dquote(t_lexer *lexer);
+void	lexer_type_default(t_lexer *lexer);
+void	lexer_type_operator(t_lexer *lexer);
+
+// env
 char	**get_binary_paths(void);
 
 
