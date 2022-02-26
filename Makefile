@@ -6,7 +6,7 @@
 #    By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/02/26 19:09:42 by ngregori         ###   ########.fr        #
+#    Updated: 2022/02/26 20:37:55 by ngregori         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC			= minishell.c \
 					src/astree.c \
 					src/parser.c \
 					src/parser_1.c \
+					src/inits.c \
 					src/utils/binary_paths.c \
 					src/utils/signals.c
 

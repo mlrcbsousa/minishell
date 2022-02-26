@@ -6,7 +6,7 @@
 /*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/26 19:08:45 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/02/26 20:38:29 by ngregori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ t_astree* simple_command(t_parser *parser);
 t_astree* token_list(t_parser *parser);
 t_astree	*token_list_a(t_parser *parser);
 void signals_handler(int sig);
+void init_interactive_mode();
+void init_non_interactive_mode(char**argv);
 
 // env
 char	**get_binary_paths(void);
