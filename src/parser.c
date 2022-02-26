@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:37:24 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/24 23:05:02 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/26 17:05:40 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 
 // Making this a struct for now because don't know if will need more
 // info to pass around for these functions
-int parse(t_stack *analysed, t_astree **syntax_astree)
+int parse(t_stack *analysed, t_astree **astree)
 {
 	t_parser	parser;
 
@@ -56,7 +56,7 @@ int parse(t_stack *analysed, t_astree **syntax_astree)
 		return (-1);
 
 	parser.current_token = analysed->token;
-	*syntax_astree = command_line(&parser);
+	*astree = command_line(&parser);
 
 	// If command filter didn't reach the end of the token list
 	if (parser.current_token && parser.current_token->type)

@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/26 17:02:16 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/26 17:05:40 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void astree_set_data(t_astree *node , char *data);
 void astree_delete(t_astree *node);
 
 // BNF parser
-int parse(t_stack *analysed, t_astree **syntax_astree);
+int parse(t_stack *analysed, t_astree **astree);
 t_bool	match(int token_type, char **buffer, t_parser *parser);
 t_astree* command_line(t_parser *parser);
 t_astree* command_line_a(t_parser *parser);
