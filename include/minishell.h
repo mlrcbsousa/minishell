@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/26 16:36:57 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/26 17:05:40 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,16 @@
 # include "libft.h"
 
 // Enums
+typedef enum e_node {
+	NODE_PIPE = 1, // have to start at one to not override in astree_set_data()
+	NODE_SEQ,
+	NODE_REDIRECT_IN,
+	NODE_REDIRECT_OUT,
+	NODE_CMDPATH,
+	NODE_ARGUMENT,
+	NODE_DATA,
+} t_node;
+
 enum e_lexical {
 	LEXICAL_DEFAULT = -1,
 	LEXICAL_PIPE = '|',
@@ -35,9 +45,7 @@ enum e_lexical {
 	LEXICAL_WHITESPACE = ' ',
 	LEXICAL_ESCAPESEQUENCE = '\\',
 	LEXICAL_GREATER = '>',
-	// LEXICAL_GGREATER = '>>',
 	LEXICAL_LESSER = '<',
-	// LEXICAL_LLESSER = '<<',
 	LEXICAL_NULL = 0,
 };
 
@@ -49,10 +57,12 @@ enum e_state {
 };
 
 // Structs
-typedef struct s_app t_app;
-typedef struct s_token t_token;
-typedef struct s_stack t_stack;
-typedef struct s_lexer t_lexer;
+typedef struct s_app t_app; // main app state
+typedef struct s_token t_token; // typed linked list for tokens
+typedef struct s_stack t_stack; // stack to store tokens
+typedef struct s_lexer t_lexer; // main lexer state
+typedef struct s_astree t_astree; // typed binary tree for BNF
+typedef struct s_parser t_parser; // main parser state
 
 struct s_app
 {
@@ -61,8 +71,8 @@ struct s_app
 
 struct s_token
 {
-	char *data;
 	int type;
+	char *data;
 	t_token *next;
 };
 
@@ -83,6 +93,19 @@ struct s_lexer
 	int type;
 };
 
+struct s_astree
+{
+	int type;
+	char *data;
+	t_astree *left;
+	t_astree *right;
+};
+
+struct s_parser
+{
+	t_token	*current_token;
+};
+
 // Functions //
 
 // token
@@ -91,16 +114,33 @@ void token_destroy(t_token *token);
 int tokens_length(t_token *token);
 
 // lexer
-int	lexical_type(char token);
 void	lexical_analysis(char *line, int size, t_stack *tokens);
+int	lexical_type(char token);
 void	lexer_end_read_token(t_lexer *lexer);
 void	lexer_type_quote(t_lexer *lexer);
 void	lexer_type_dquote(t_lexer *lexer);
 void	lexer_type_default(t_lexer *lexer);
 void	lexer_type_operator(t_lexer *lexer);
 
+// abstract syntax tree
+void astree_add_branches(t_astree *root , t_astree *left , t_astree *right);
+void astree_set_type(t_astree *node , t_node type);
+void astree_set_data(t_astree *node , char *data);
+void astree_delete(t_astree *node);
+
+// BNF parser
+int parse(t_stack *analysed, t_astree **astree);
+t_bool	match(int token_type, char **buffer, t_parser *parser);
+t_astree* command_line(t_parser *parser);
+t_astree* command_line_a(t_parser *parser);
+t_astree* command(t_parser *parser);
+t_astree* command_a(t_parser *parser);
+t_astree* command_b(t_parser *parser);
+t_astree* simple_command(t_parser *parser);
+t_astree* token_list(t_parser *parser);
+t_astree	*token_list_a(t_parser *parser);
+
 // env
 char	**get_binary_paths(void);
-
 
 #endif

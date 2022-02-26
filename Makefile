@@ -6,7 +6,7 @@
 #    By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/02/26 16:37:37 by msousa           ###   ########.fr        #
+#    Updated: 2022/02/26 17:02:55 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ SRC			= minishell.c \
 					src/token.c \
 					src/lexer.c \
 					src/lexer_1.c \
+					src/astree.c \
 					src/parser.c \
+					src/parser_1.c \
 					src/utils/binary_paths.c
 
 NAME		= minishell

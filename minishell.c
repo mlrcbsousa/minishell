@@ -6,17 +6,30 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/26 16:39:35 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/26 16:49:28 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// Test tree contents
+void	print_astree(t_astree *node)
+{
+	if (!node)
+		return ;
+	printf("\n--Node--\n");
+	printf("type: %d\n", node->type);
+	printf("data: %s\n", node->data);
+	print_astree(node->left);
+	print_astree(node->right);
+}
 
 int main(void) // no need for arguments can use `getenv("PATH")`
 {
 	char *line;
 	size_t size;
 	t_stack analysed;
+	t_astree *astree;
 
 	// ignore "Ctrl-C"
 	// will need to save this to untoggle on child
@@ -35,8 +48,6 @@ int main(void) // no need for arguments can use `getenv("PATH")`
 		line = readline("~$ ");
 		size = ft_strlen(line);
 
-		printf("%s\n", line);
-
 		// 2. handle Ctrl-D
 		// aparently no signal for this
 
@@ -53,11 +64,21 @@ int main(void) // no need for arguments can use `getenv("PATH")`
 		}
 
 		// 4. parse stack of tokens into an abstract syntax tree
+		astree = NULL;
+		if (!analysed.size || parse(&analysed, &astree))
+			// continue ;
+			;
+		else
+		{
+			printf("successful parsing\n");
+			print_astree(astree);
+		}
 
 		// 5. execute syntax tree
 
 		// 6. free stack of tokens and syntax tree
-		if (analysed.token)
+		astree_delete(astree);
+		if (analysed.token) // maybe not needed
 			token_destroy(analysed.token);
 	}
 	return 0;
