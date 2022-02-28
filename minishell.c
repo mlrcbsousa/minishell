@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/26 16:49:28 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/26 19:24:52 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int main(void) // no need for arguments can use `getenv("PATH")`
 		}
 
 		// 5. execute syntax tree
+		execute(astree);
 
 		// 6. free stack of tokens and syntax tree
 		astree_delete(astree);

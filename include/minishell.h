@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/26 17:05:40 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/28 20:32:14 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 // Enums
 typedef enum e_node {
 	NODE_PIPE = 1, // have to start at one to not override in astree_set_data()
-	NODE_SEQ,
 	NODE_REDIRECT_IN,
 	NODE_REDIRECT_OUT,
 	NODE_CMDPATH,
@@ -63,6 +62,8 @@ typedef struct s_stack t_stack; // stack to store tokens
 typedef struct s_lexer t_lexer; // main lexer state
 typedef struct s_astree t_astree; // typed binary tree for BNF
 typedef struct s_parser t_parser; // main parser state
+typedef struct s_executor t_executor; // main executor state
+typedef struct s_command t_command; // command info
 
 struct s_app
 {
@@ -106,6 +107,28 @@ struct s_parser
 	t_token	*current_token;
 };
 
+struct s_executor
+{
+	t_bool stdin_pipe;
+	t_bool stdout_pipe;
+	int pipe_read;
+	int pipe_write;
+	char* redirect_in;
+	char* redirect_out;
+};
+
+typedef struct s_command
+{
+	int argc;
+	char **argv;
+	t_bool stdin_pipe;
+	t_bool stdout_pipe;
+	int pipe_read;
+	int pipe_write;
+	char* redirect_in;
+	char* redirect_out;
+} t_command;
+
 // Functions //
 
 // token
@@ -142,5 +165,13 @@ t_astree	*token_list_a(t_parser *parser);
 
 // env
 char	**get_binary_paths(void);
+
+// execute
+void	execute(t_astree *node);
+void	init_command(t_astree *node,
+										t_command *command,
+										t_executor executor);
+void	execute_command(t_command *command);
+void	destroy_command(t_command *command);
 
 #endif

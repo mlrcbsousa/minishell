@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:07:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/24 21:45:36 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/28 18:19:04 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,18 @@ void astree_set_type(t_astree *node , t_node type)
 
 void astree_set_data(t_astree *node , char *data)
 {
-	if(!node)
+	if(!node || !data)
 		return ;
-	if(data)
-	{
-		node->data = data;
-		if (!node->type)
-			node->type = NODE_DATA;
-  }
+	node->data = data;
+	if (!node->type)
+		node->type = NODE_DATA;
 }
 
 void astree_delete(t_astree *node)
 {
 	if (!node)
 		return;
-	if (node->type == NODE_DATA)
+	if (node->data)
 		free(node->data);
 	astree_delete(node->left);
 	astree_delete(node->right);
