@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/28 20:32:14 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/28 21:07:29 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,10 +168,10 @@ char	**get_binary_paths(void);
 
 // execute
 void	execute(t_astree *node);
-void	init_command(t_astree *node,
+void	command_init(t_astree *node,
 										t_command *command,
 										t_executor executor);
-void	execute_command(t_command *command);
-void	destroy_command(t_command *command);
+void	command_execute(t_command *command);
+void	command_destroy(t_command *command);
 
 #endif
