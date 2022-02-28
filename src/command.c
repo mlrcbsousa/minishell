@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:56:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/28 21:20:26 by msousa           ###   ########.fr       */
+/*   Updated: 2022/02/28 23:34:12 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,19 @@ void command_init(t_astree *simple_command_node,
 
 void command_execute(t_command *command)
 {
-	(void)command;
+	// TEST - command info
+	printf("\n--Command--\n");
+	printf("args: ");
+	int i = 0;
+	while (i < command->argc)
+		printf("%s ", command->argv[i++]);
+	printf("\n");
+	printf("stdin_pipe: %d\n", command->stdin_pipe);
+	printf("stdout_pipe: %d\n", command->stdout_pipe);
+	printf("pipe_read: %d\n", command->pipe_read);
+	printf("pipe_write: %d\n", command->pipe_write);
+	printf("redirect_in: %s\n", command->redirect_in);
+	printf("redirect_out: %s\n", command->redirect_out);
 }
 
 void command_destroy(t_command *command)
