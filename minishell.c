@@ -6,7 +6,7 @@
 /*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/26 22:09:18 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/03/01 20:07:34 by ngregori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int main(void) // no need for arguments can use `getenv("PATH")`
 	// ignore "Ctrl-C"
 	// will need to save this to untoggle on child
 	// will need to use something else other then signal ignore
-	signal(SIGINT, signals_handler);
+	signal(SIGINT, sigint_handler);
 
 	signal(SIGQUIT, SIG_IGN);
 	// ignore "Ctrl-\"

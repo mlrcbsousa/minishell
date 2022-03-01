@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void signals_handler(int sig) {
+void sigint_handler(int sig) {
 	// TODO kill a running process
 
 	// This clears the readline input
