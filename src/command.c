@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:56:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/01 20:45:13 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/01 21:07:51 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	command_print(t_command *command)
 	printf("pipe_write: %d\n", command->pipe_write);
 	printf("redirect_in: %s\n", command->redirect_in);
 	printf("redirect_out: %s\n", command->redirect_out);
+	printf("\n");
 }
 
 static t_bool	is_node_argument(t_astree *node)
