@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/28 21:07:29 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/01 20:44:24 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ enum e_state {
 	STATE_DEFAULT,
 };
 
-// Structs
+// Structs & Types
 typedef struct s_app t_app; // main app state
 typedef struct s_token t_token; // typed linked list for tokens
 typedef struct s_stack t_stack; // stack to store tokens
@@ -64,6 +64,8 @@ typedef struct s_astree t_astree; // typed binary tree for BNF
 typedef struct s_parser t_parser; // main parser state
 typedef struct s_executor t_executor; // main executor state
 typedef struct s_command t_command; // command info
+typedef struct s_builtin_def t_builtin_def;
+typedef void	(t_builtin)(t_command *command);
 
 struct s_app
 {
@@ -117,7 +119,7 @@ struct s_executor
 	char* redirect_out;
 };
 
-typedef struct s_command
+struct s_command
 {
 	int argc;
 	char **argv;
@@ -127,7 +129,13 @@ typedef struct s_command
 	int pipe_write;
 	char* redirect_in;
 	char* redirect_out;
-} t_command;
+};
+
+struct	s_builtin_def
+{
+	char		*name;
+	t_builtin	*builtin;
+};
 
 // Functions //
 
@@ -167,11 +175,21 @@ t_astree	*token_list_a(t_parser *parser);
 char	**get_binary_paths(void);
 
 // execute
-void	execute(t_astree *node);
-void	command_init(t_astree *node,
-										t_command *command,
-										t_executor executor);
+void	execute_tree(t_astree *node);
+void	command_init(t_astree *node, t_command *command, t_executor executor);
 void	command_execute(t_command *command);
 void	command_destroy(t_command *command);
+
+// builtins
+t_builtin	*get_builtin(char *cmd_path);
+void	builtin_echo(t_command *command);
+void	builtin_cd(t_command *command);
+void	builtin_export(t_command *command);
+void	builtin_unset(t_command *command);
+void	builtin_env(t_command *command);
+void	builtin_exit(t_command *command);
+
+// run
+void	run(t_command *command);
 
 #endif

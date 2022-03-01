@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 19:19:41 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/28 21:17:22 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/01 20:32:36 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static void execute_pipeline(t_astree *pipe_node)
 	close(read_fd);
 }
 
-void execute(t_astree *node)
+void execute_tree(t_astree *node)
 {
 	if (!node)
 		return ;

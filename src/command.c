@@ -6,11 +6,28 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:56:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/01 19:37:22 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/01 20:45:13 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// TEST - print command info
+void	command_print(t_command *command)
+{
+	printf("\n--Command--\n");
+	printf("args: ");
+	int i = 0;
+	while (i < command->argc)
+		printf("%s ", command->argv[i++]);
+	printf("\n");
+	printf("stdin_pipe: %d\n", command->stdin_pipe);
+	printf("stdout_pipe: %d\n", command->stdout_pipe);
+	printf("pipe_read: %d\n", command->pipe_read);
+	printf("pipe_write: %d\n", command->pipe_write);
+	printf("redirect_in: %s\n", command->redirect_in);
+	printf("redirect_out: %s\n", command->redirect_out);
+}
 
 static t_bool	is_node_argument(t_astree *node)
 {
@@ -63,19 +80,17 @@ void command_init(t_astree *simple_command_node,
 
 void command_execute(t_command *command)
 {
-	// TEST - command info
-	printf("\n--Command--\n");
-	printf("args: ");
-	int i = 0;
-	while (i < command->argc)
-		printf("%s ", command->argv[i++]);
-	printf("\n");
-	printf("stdin_pipe: %d\n", command->stdin_pipe);
-	printf("stdout_pipe: %d\n", command->stdout_pipe);
-	printf("pipe_read: %d\n", command->pipe_read);
-	printf("pipe_write: %d\n", command->pipe_write);
-	printf("redirect_in: %s\n", command->redirect_in);
-	printf("redirect_out: %s\n", command->redirect_out);
+	t_builtin	*builtin;
+
+	// TEST
+	command_print(command);
+  if (command->argc < 0)
+    return ;
+	builtin = get_builtin(*command->argv);
+	if (builtin)
+		builtin(command);
+	else
+		run(command);
 }
 
 void command_destroy(t_command *command)
