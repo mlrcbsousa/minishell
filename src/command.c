@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:56:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/28 23:34:12 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/01 19:37:22 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,11 @@ void command_execute(t_command *command)
 
 void command_destroy(t_command *command)
 {
-	(void)command;
+	int i;
+
+	i = 0;
+	while (i < command->argc)
+		free(command->argv[i++]);
+	free(command->argv);
+	command->argc = 0;
 }
