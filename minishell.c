@@ -80,6 +80,7 @@ int main(void) // no need for arguments can use `getenv("PATH")`
 		}
 
 		// 5. execute syntax tree
+		execute(astree);
 
 		// 6. free stack of tokens and syntax tree
 		astree_delete(astree);

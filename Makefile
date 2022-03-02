@@ -25,7 +25,9 @@ SRC			= minishell.c \
 					src/parser.c \
 					src/parser_1.c \
 					src/utils/binary_paths.c \
-					src/utils/signals.c
+					src/utils/signals.c \
+					src/execute.c \
+					src/command.c
 
 NAME		= minishell
 
