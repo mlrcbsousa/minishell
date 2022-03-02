@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+         #
+#    By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
 #    Updated: 2022/03/01 21:05:52 by msousa           ###   ########.fr        #
@@ -24,6 +24,8 @@ SRC			= minishell.c \
 					src/astree.c \
 					src/parser.c \
 					src/parser_1.c \
+					src/utils/binary_paths.c \
+					src/utils/signals.c \
 					src/execute.c \
 					src/command.c \
 					src/builtins.c \
