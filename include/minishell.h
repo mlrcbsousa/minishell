@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/28 21:07:29 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/01 20:07:54 by ngregori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 
 # include "libft.h"
 
@@ -162,6 +163,9 @@ t_astree* command_b(t_parser *parser);
 t_astree* simple_command(t_parser *parser);
 t_astree* token_list(t_parser *parser);
 t_astree	*token_list_a(t_parser *parser);
+
+// utils
+void sigint_handler(int sig);
 
 // env
 char	**get_binary_paths(void);

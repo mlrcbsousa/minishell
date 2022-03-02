@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/26 19:24:52 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/01 20:07:34 by ngregori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ int main(void) // no need for arguments can use `getenv("PATH")`
 	// ignore "Ctrl-C"
 	// will need to save this to untoggle on child
 	// will need to use something else other then signal ignore
-	signal(SIGINT, SIG_IGN);
-	// ignore "Ctrl-\"
-  signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, sigint_handler);
 
+	signal(SIGQUIT, SIG_IGN);
+	// ignore "Ctrl-\"
 	while (1)
 	{
 		line = NULL;
@@ -46,6 +46,11 @@ int main(void) // no need for arguments can use `getenv("PATH")`
 
 		// 1. stdin loop
 		line = readline("~$ ");
+		if(!line) {
+			printf("exit\n");
+			exit(0);
+		}
+		add_history(line);
 		size = ft_strlen(line);
 
 		// 2. handle Ctrl-D
