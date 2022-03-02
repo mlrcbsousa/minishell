@@ -6,7 +6,7 @@
 /*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/01 20:07:34 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/03/01 20:33:04 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int main(void) // no need for arguments can use `getenv("PATH")`
 		}
 
 		// 5. execute syntax tree
-		execute(astree);
+		execute_tree(astree);
 
 		// 6. free stack of tokens and syntax tree
 		astree_delete(astree);

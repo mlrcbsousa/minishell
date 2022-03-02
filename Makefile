@@ -6,7 +6,7 @@
 #    By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/02/26 19:09:42 by ngregori         ###   ########.fr        #
+#    Updated: 2022/03/01 21:05:52 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,11 @@ SRC			= minishell.c \
 					src/utils/binary_paths.c \
 					src/utils/signals.c \
 					src/execute.c \
-					src/command.c
+					src/command.c \
+					src/builtins.c \
+					src/builtins_1.c \
+					src/run.c \
+					src/utils/binary_paths.c
 
 NAME		= minishell
 
