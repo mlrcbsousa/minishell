@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+         #
+#    By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/03/01 21:05:52 by msousa           ###   ########.fr        #
+#    Updated: 2022/03/03 19:00:54 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS	= -Wall -Wextra -Werror -g
-LINKS		= -Llibft -lft -lreadline
+CFLAGS	= -Wall -Wextra -Werror `pkg-config readline --cflags` -g
+LINKS		= -Llibft -lft `pkg-config readline --libs`
 CC			= gcc
 RM			= rm -f
 INC			= -Iinclude -Ilibft/include
@@ -30,8 +30,7 @@ SRC			= minishell.c \
 					src/command.c \
 					src/builtins.c \
 					src/builtins_1.c \
-					src/run.c \
-					src/utils/binary_paths.c
+					src/run.c
 
 NAME		= minishell
 
