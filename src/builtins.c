@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/01 21:05:39 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/03 22:07:11 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,50 +41,43 @@ t_builtin	*get_builtin(char *cmd_path)
 	return (NULL);
 }
 
-void	builtin_echo(t_command *command)
+int	builtin_echo(t_command *command, t_app *self)
 {
 	t_bool	with_n;
+	int	i;
 
-	if (command->argc > 3)
-	{
-		printf("echo: Too many arguments\n");
-		return ;
-	}
-
-	if (command->argc == 1)
-	{
-		printf("\n");
-		return ;
-	}
-
+	(void)self;
+	// handle redirects and pipes
+	// TODO
 	with_n = ft_streq(command->argv[1], "-n");
-
-	if (command->argc == 2)
-	{
-		if (with_n)
-			printf("");
-		else
-			printf("%s\n", command->argv[1]);
-		return ;
-	}
-	// argc == 3
+	i = 1;
 	if (with_n)
-		printf("%s", command->argv[2]);
-	else
-		printf("echo: Invalid option\n");
+		i = 2;
+	while (i < command->argc - 1)
+		printf("%s ", command->argv[i++]);
+	printf("%s", command->argv[i]);
+	if (!ft_streq(command->argv[1], "-n"))
+		printf("\n");
+	return (0);
 }
 
-void	builtin_cd(t_command *command)
+int	builtin_cd(t_command *command, t_app *self)
 {
 	(void)command;
+	(void)self;
+	return (0);
 }
 
-void	builtin_export(t_command *command)
+int	builtin_export(t_command *command, t_app *self)
 {
 	(void)command;
+	(void)self;
+	return (0);
 }
 
-void	builtin_unset(t_command *command)
+int	builtin_unset(t_command *command, t_app *self)
 {
 	(void)command;
+	(void)self;
+	return (0);
 }

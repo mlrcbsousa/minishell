@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
+/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/01 20:44:24 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/03 21:55:33 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <fcntl.h>
 
 # include "libft.h"
 
@@ -66,11 +67,12 @@ typedef struct s_parser t_parser; // main parser state
 typedef struct s_executor t_executor; // main executor state
 typedef struct s_command t_command; // command info
 typedef struct s_builtin_def t_builtin_def;
-typedef void	(t_builtin)(t_command *command);
+typedef int	(t_builtin)(t_command *command, t_app *self);
 
 struct s_app
 {
-	char **envp; // random, for now not used
+	// char **envp; // random, for now not used
+	void  	(*sigint_handler)(int);
 };
 
 struct s_token
@@ -179,21 +181,21 @@ void sigint_handler(int sig);
 char	**get_binary_paths(void);
 
 // execute
-void	execute_tree(t_astree *node);
+void	execute_tree(t_astree *node, t_app *self);
 void	command_init(t_astree *node, t_command *command, t_executor executor);
-void	command_execute(t_command *command);
+void	command_execute(t_command *command, t_app *self);
 void	command_destroy(t_command *command);
 
 // builtins
 t_builtin	*get_builtin(char *cmd_path);
-void	builtin_echo(t_command *command);
-void	builtin_cd(t_command *command);
-void	builtin_export(t_command *command);
-void	builtin_unset(t_command *command);
-void	builtin_env(t_command *command);
-void	builtin_exit(t_command *command);
+int	builtin_echo(t_command *command, t_app *self);
+int	builtin_cd(t_command *command, t_app *self);
+int	builtin_export(t_command *command, t_app *self);
+int	builtin_unset(t_command *command, t_app *self);
+int	builtin_env(t_command *command, t_app *self);
+int	builtin_exit(t_command *command, t_app *self);
 
 // run
-void	run(t_command *command);
+void	run(t_command *command, t_app *self);
 
 #endif

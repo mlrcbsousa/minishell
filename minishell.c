@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
+/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/01 20:33:04 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/03 21:37:59 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,24 @@ void	print_astree(t_astree *node)
 	print_astree(node->right);
 }
 
-int main(void) // no need for arguments can use `getenv("PATH")`
+int main(void)
 {
+	t_app self;
 	char *line;
 	size_t size;
 	t_stack analysed;
 	t_astree *astree;
 
-	// ignore "Ctrl-C"
-	// will need to save this to untoggle on child
-	// will need to use something else other then signal ignore
-	signal(SIGINT, sigint_handler);
+	self = (t_app){ signal(SIGINT, sigint_handler) }; // overide "Ctrl-C"
+	signal(SIGQUIT, SIG_IGN); // ignore "Ctrl-\"
 
-	signal(SIGQUIT, SIG_IGN);
-	// ignore "Ctrl-\"
 	while (1)
 	{
 		line = NULL;
 		size = 0;
 		analysed = (t_stack){NULL, 0};
 
-		// 1. stdin loop
+		// 1. get standard input
 		line = readline("~$ ");
 		if(!line) {
 			printf("exit\n");
@@ -53,10 +50,7 @@ int main(void) // no need for arguments can use `getenv("PATH")`
 		add_history(line);
 		size = ft_strlen(line);
 
-		// 2. handle Ctrl-D
-		// aparently no signal for this
-
-		// 3. break up line into tokens
+		// 2. break up line into tokens
 		lexical_analysis(line, size, &analysed);
 		free(line);
 
@@ -68,7 +62,7 @@ int main(void) // no need for arguments can use `getenv("PATH")`
 			token = token->next;
 		}
 
-		// 4. parse stack of tokens into an abstract syntax tree
+		// 3. parse stack of tokens into an abstract syntax tree
 		astree = NULL;
 		if (!analysed.size || parse(&analysed, &astree))
 			// continue ;
@@ -80,7 +74,7 @@ int main(void) // no need for arguments can use `getenv("PATH")`
 		}
 
 		// 5. execute syntax tree
-		execute_tree(astree);
+		execute_tree(astree, &self);
 
 		// 6. free stack of tokens and syntax tree
 		astree_delete(astree);

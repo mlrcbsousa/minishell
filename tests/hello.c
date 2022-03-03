@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_1.c                                       :+:      :+:    :+:   */
+/*   hello.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/01 21:05:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/03 22:02:20 by msousa           ###   ########.fr       */
+/*   Created: 2022/03/03 20:24:16 by msousa            #+#    #+#             */
+/*   Updated: 2022/03/03 20:25:28 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <stdio.h>
 
-int	builtin_env(t_command *command, t_app *self)
+int	main(void)
 {
-	(void)command;
-	(void)self;
-	return (0);
-}
-
-int	builtin_exit(t_command *command, t_app *self)
-{
-	(void)command;
-	(void)self;
+	printf("Hello from hello.c!\n");
 	return (0);
 }
