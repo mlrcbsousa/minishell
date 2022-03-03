@@ -6,7 +6,7 @@
 #    By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/03/03 19:00:54 by msousa           ###   ########.fr        #
+#    Updated: 2022/03/03 20:23:45 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ style:
 					-norminette $$( find . -type f \( -name "*.c" -or -name "*.h" \) )
 
 test:			${NAME}
-					-./tests.sh
+					-./tests/tests.sh
 
 clean:
 					${MAKE} clean -C libft

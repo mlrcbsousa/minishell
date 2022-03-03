@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:56:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/01 21:07:51 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/03 21:54:36 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void command_init(t_astree *simple_command_node,
 	command_fill(command, executor);
 }
 
-void command_execute(t_command *command)
+void command_execute(t_command *command, t_app *self)
 {
 	t_builtin	*builtin;
 
@@ -89,9 +89,9 @@ void command_execute(t_command *command)
     return ;
 	builtin = get_builtin(*command->argv);
 	if (builtin)
-		builtin(command);
+		builtin(command, self);
 	else
-		run(command);
+		run(command, self);
 }
 
 void command_destroy(t_command *command)

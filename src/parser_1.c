@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 22:56:04 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/24 22:57:31 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/03 21:39:39 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,11 @@ t_astree	*command_b(t_parser *parser)
 		return (NULL);
 
 	// test next token if is a redirect operator
-	printf("GET HERE\n");
-
 	if (!match(LEXICAL_GREATER, NULL, parser))
 	{
 		astree_delete(simple_command_node);
 		return (NULL);
 	}
-	printf("GET HERE\n");
 
 	// test next token if is a default and save filename
 	if (!match(LEXICAL_DEFAULT, &filename, parser))
@@ -101,7 +98,6 @@ t_astree	*simple_command(t_parser *parser)
 	return (result);
 }
 
-// Is this wrapper needed?
 t_astree	*token_list(t_parser *parser)
 {
 	t_token *save;
