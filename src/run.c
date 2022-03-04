@@ -6,14 +6,11 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:41:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/03 22:06:01 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/04 20:54:10 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// is this allowed because I get error with __environ
-extern char **environ;
 
 void	run(t_command *command, t_app *self)
 {
@@ -28,9 +25,11 @@ void	run(t_command *command, t_app *self)
 		// handle pipes and redirects
 		// TODO
 
-		// is it better to use global or envp from args since we will need to
-		// set and unset
-		if (execve(*command->argv, command->argv, environ) == -1)
+		// maybe this should be somewhere else, like the command init function
+		// check if file is in bin path
+		find_binary_path(command);
+		printf("%s\n", *command->argv);
+		if (execve(*command->argv, command->argv, self->env) == -1)
 		{
       printf("minishell: command not found: %s\n", *command->argv);
 			exit(1);

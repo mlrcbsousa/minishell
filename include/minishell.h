@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/03 21:55:33 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/04 20:53:33 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ typedef int	(t_builtin)(t_command *command, t_app *self);
 
 struct s_app
 {
-	// char **envp; // random, for now not used
-	void  	(*sigint_handler)(int);
+	char	**env;
+	void	(*sigint_handler)(int);
 };
 
 struct s_token
@@ -179,6 +179,7 @@ void sigint_handler(int sig);
 
 // env
 char	**get_binary_paths(void);
+void	find_binary_path(t_command *command);
 
 // execute
 void	execute_tree(t_astree *node, t_app *self);

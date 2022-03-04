@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:56:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/03 21:54:36 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/04 20:24:07 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void command_execute(t_command *command, t_app *self)
 
 	// TEST
 	command_print(command);
+
   if (command->argc < 0)
     return ;
 	builtin = get_builtin(*command->argv);
