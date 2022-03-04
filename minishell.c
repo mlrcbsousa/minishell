@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/03 21:37:59 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/04 18:14:13 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_astree(t_astree *node)
 	print_astree(node->right);
 }
 
-int main(void)
+int main(int argc, char *argv[], char *env[])
 {
 	t_app self;
 	char *line;
@@ -32,7 +32,9 @@ int main(void)
 	t_stack analysed;
 	t_astree *astree;
 
-	self = (t_app){ signal(SIGINT, sigint_handler) }; // overide "Ctrl-C"
+	(void)argc;
+	(void)argv;
+	self = (t_app){ env, signal(SIGINT, sigint_handler) }; // overide "Ctrl-C"
 	signal(SIGQUIT, SIG_IGN); // ignore "Ctrl-\"
 
 	while (1)

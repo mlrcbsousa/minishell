@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:39:23 by ngregori          #+#    #+#             */
-/*   Updated: 2022/02/25 21:07:22 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/04 20:52:59 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,42 @@
 char	**get_binary_paths(void)
 {
 	char **paths;
-	char *envp;
+	char **save;
+	char *path;
 
 	paths = NULL;
-	envp = getenv("PATH");
-	if (*envp)
-		paths = ft_split(envp, ':');
+	path = getenv("PATH");
+	if (*path)
+		paths = ft_split(path, ':');
+	save = paths;
+	while (*paths)
+	{
+		path = ft_strjoin(*paths, "/");
+		free(*paths);
+		*paths++ = path;
+	}
+	return save;
+}
 
-	//need to add "/" to the end of each binary path next so that when we are
-	// trying to run the commands in a loop we don't need to add "/" to each command
+void	find_binary_path(t_command *command)
+{
+	char **paths;
+	char *path;
 
-	return paths;
+	path = NULL;
+	paths = get_binary_paths();
+	if (!paths)
+		return ;
+	while (*paths)
+	{
+		path = ft_strjoin(*paths, *command->argv);
+		if (!(access(path, F_OK) == -1))
+		{
+			// file exists
+			free(*command->argv);
+			*command->argv = path;
+		}
+		free(path);
+		paths++;
+	}
 }
