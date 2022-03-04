@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 18:52:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/26 16:35:43 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/04 21:54:38 by ngregori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,18 @@ void lexical_analysis(char* line, int size, t_stack *analysed)
 
 		lexer.line_i++;
 	}
+	lexer.c = line[lexer.line_i];
+	lexer.type = lexical_type(lexer.c);
+
+	if (lexer.state == STATE_DEFAULT)
+		lexer_state_default(&lexer);
+	else if (lexer.state == STATE_DQUOTE)
+		lexer_state_dquote(&lexer);
+	else if (lexer.state == STATE_QUOTE)
+		lexer_state_quote(&lexer);
+
+	if (lexer.type == LEXICAL_NULL)
+		lexer_type_null(&lexer);
+
 	analysed->size = tokens_length(analysed->token);
 }
