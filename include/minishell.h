@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 15:53:43 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/05 17:19:23 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ struct s_app
 {
 	char	**env;
 	void	(*sigint_handler)(int);
+	t_astree *astree;
 };
 
 struct s_token
