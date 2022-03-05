@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 17:09:13 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/05 17:42:40 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	builtin_echo(t_command *command, t_app *self)
 
 	(void)self;
 	stdout_fd = dup(STDOUT_FILENO); // to restore at the end
-	run_setup_redirects(command);
+	run_setup_redirect_out(command);
+	run_setup_pipe_write(command);
 	with_n = ft_streq(command->argv[1], "-n");
 	i = 1;
 	if (with_n)

@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 21:05:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 17:19:32 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/05 17:49:59 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,21 @@
 
 int	builtin_env(t_command *command, t_app *self)
 {
-	(void)command;
-	(void)self;
+	int stdout_fd;
+	char **env;
+
+	if (command->argc != 1)
+	{
+		printf("Wrong number of arguments!\n");
+		return (1);
+	}
+	stdout_fd = dup(STDOUT_FILENO); // to restore at the end
+	run_setup_redirect_out(command);
+	run_setup_pipe_write(command);
+	env = self->env;
+	while(env && *env)
+		printf("%s\n", *env++);
+	dup2(stdout_fd, STDOUT_FILENO); // restore stdout
 	return (0);
 }
 
