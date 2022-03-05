@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 17:48:52 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/05 18:10:10 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,20 @@ typedef struct s_executor t_executor; // main executor state
 typedef struct s_command t_command; // command info
 typedef struct s_builtin_def t_builtin_def;
 typedef int	(t_builtin)(t_command *command, t_app *self);
+typedef struct s_env t_env;
 
 struct s_app
 {
-	char	**env;
+	t_env	*env;
 	void	(*sigint_handler)(int);
 	t_astree *astree;
+};
+
+struct s_env
+{
+	char	*key;
+	char	*value;
+	t_env *next;
 };
 
 struct s_token

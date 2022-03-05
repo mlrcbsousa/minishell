@@ -6,7 +6,7 @@
 #    By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/03/05 17:37:47 by msousa           ###   ########.fr        #
+#    Updated: 2022/03/05 18:10:35 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ SRC			= minishell.c \
 					src/builtins.c \
 					src/builtins_1.c \
 					src/run.c \
-					src/run_1.c
+					src/run_1.c \
+					src/env.c
 
 NAME		= minishell
 
