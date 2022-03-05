@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
+/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:41:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/04 21:49:47 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:08:08 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	run(t_command *command, t_app *self)
 		printf("%s\n", *command->argv);
 		if (execve(*command->argv, command->argv, self->env) == -1)
 		{
-      		printf("%s: command not found\n", *command->argv);
+      printf("%s: command not found\n", *command->argv);
 			exit(127);
-    	}
-  	}
+		}
+	}
 	else if (pid < 0) {
 		perror("fork");
 		return;

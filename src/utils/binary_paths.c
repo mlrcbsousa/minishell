@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   binary_paths.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
+/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:39:23 by ngregori          #+#    #+#             */
-/*   Updated: 2022/03/04 22:01:28 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:09:37 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	find_binary_path(t_command *command)
 			// file exists
 			free(*command->argv);
 			*command->argv = path;
-			return;
+			free(path);
+			return ;
 		}
 		free(path);
 		paths++;
