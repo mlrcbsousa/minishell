@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 21:05:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/03 22:02:20 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/05 17:19:32 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,14 @@ int	builtin_env(t_command *command, t_app *self)
 
 int	builtin_exit(t_command *command, t_app *self)
 {
-	(void)command;
-	(void)self;
+	if (command->argc != 1)
+	{
+		printf("Wrong number of arguments!\n");
+		return (1);
+	}
+	command_destroy(command);
+	astree_destroy(self->astree);
+	printf("exit\n");
+	exit(0);
 	return (0);
 }
