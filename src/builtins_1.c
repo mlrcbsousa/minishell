@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 21:05:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 17:16:17 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/05 17:19:32 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	builtin_exit(t_command *command, t_app *self)
 	}
 	command_destroy(command);
 	astree_destroy(self->astree);
-	token_destroy(self->tokens);
 	printf("exit\n");
 	exit(0);
 	return (0);

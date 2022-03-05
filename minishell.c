@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 17:01:29 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/05 17:19:13 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int main(int argc, char *argv[], char *env[])
 	(void)argv;
 
 	// overide "Ctrl-C"
-	self = (t_app){ env, signal(SIGINT, sigint_handler), NULL, NULL };
+	self = (t_app){ env, signal(SIGINT, sigint_handler), NULL };
 	// ignore "Ctrl-\"
 	signal(SIGQUIT, SIG_IGN);
 
@@ -96,14 +96,13 @@ int main(int argc, char *argv[], char *env[])
 			print_astree(astree);
 		}
 		self.astree = astree;
-		self.tokens = analysed.token;
+		token_destroy(analysed.token);
 
 		// 5. execute syntax tree
 		execute_tree(astree, &self);
 
-		// 6. free stack of tokens and syntax tree
+		// 6. free memory
 		astree_destroy(astree);
-		token_destroy(analysed.token);
 	}
 	return 0;
 }
