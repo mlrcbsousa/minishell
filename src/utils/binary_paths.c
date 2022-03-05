@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   binary_paths.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:39:23 by ngregori          #+#    #+#             */
-/*   Updated: 2022/03/04 20:52:59 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/04 22:01:28 by ngregori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//Change naming to executables_paths maybe?
 char	**get_binary_paths(void)
 {
 	char **paths;
@@ -50,6 +49,7 @@ void	find_binary_path(t_command *command)
 			// file exists
 			free(*command->argv);
 			*command->argv = path;
+			return;
 		}
 		free(path);
 		paths++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/04 18:14:13 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/05 12:23:14 by ngregori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ void	print_astree(t_astree *node)
 	print_astree(node->right);
 }
 
+
+void	test() {
+	char **cmds = ft_split("cd", ' ');
+	t_command test = {0, cmds, 0, 0, 0, 0, 0, 0};
+
+	builtin_cd(&test, NULL);
+}
+
 int main(int argc, char *argv[], char *env[])
 {
 	t_app self;
@@ -34,8 +42,12 @@ int main(int argc, char *argv[], char *env[])
 
 	(void)argc;
 	(void)argv;
+
 	self = (t_app){ env, signal(SIGINT, sigint_handler) }; // overide "Ctrl-C"
+
 	signal(SIGQUIT, SIG_IGN); // ignore "Ctrl-\"
+
+	test();
 
 	while (1)
 	{

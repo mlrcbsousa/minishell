@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/03 22:07:11 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/05 12:23:49 by ngregori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,34 @@ int	builtin_echo(t_command *command, t_app *self)
 
 int	builtin_cd(t_command *command, t_app *self)
 {
-	(void)command;
 	(void)self;
+
+	if (command->argc == 1) {
+		char *home = getenv("HOME");
+
+		if(home)
+		{
+			if(chdir(home) == -1) {
+				ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
+				ft_putstr_fd(home, STDERR_FILENO);
+				ft_putstr_fd(": ", STDERR_FILENO);
+				perror("");
+				return (1);
+			}
+			return (0);
+		}
+
+		ft_putstr_fd("minishell: cd: HOME not set\n", STDERR_FILENO);
+		return 1;
+	}
+
+	if(chdir(command->argv[1]) == -1) {
+		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
+		ft_putstr_fd(command->argv[1], STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		perror("");
+	}
+
 	return (0);
 }
 
