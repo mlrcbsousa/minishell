@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:37:24 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/26 17:05:40 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/05 15:22:06 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ t_astree	*command_line_a(t_parser *parser)
 	// test next token if is a pipe operator
 	if (!match(LEXICAL_PIPE, NULL, parser))
 	{
-		astree_delete(command_node);
+		astree_destroy(command_node);
 		return (NULL);
 	}
 
@@ -135,7 +135,7 @@ t_astree	*command_line_a(t_parser *parser)
 	command_line_node = command_line(parser);
 	if (!command_node)
 	{
-		astree_delete(command_node);
+		astree_destroy(command_node);
 		return (NULL);
 	}
 	result = (t_astree *)malloc(sizeof(t_astree));

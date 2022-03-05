@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
+/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 12:23:49 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:55:33 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ int	builtin_echo(t_command *command, t_app *self)
 {
 	t_bool	with_n;
 	int	i;
+	int stdout_fd;
 
 	(void)self;
-	// handle redirects and pipes
-	// TODO
+	stdout_fd = dup(STDOUT_FILENO); // to restore at the end
+	run_setup_redirects(command);
 	with_n = ft_streq(command->argv[1], "-n");
 	i = 1;
 	if (with_n)
@@ -58,6 +59,7 @@ int	builtin_echo(t_command *command, t_app *self)
 	printf("%s", command->argv[i]);
 	if (!ft_streq(command->argv[1], "-n"))
 		printf("\n");
+	dup2(stdout_fd, STDOUT_FILENO); // restore stdout
 	return (0);
 }
 

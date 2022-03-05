@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
+/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 12:23:22 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:53:43 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void	lexer_type_operator(t_lexer *lexer);
 void astree_add_branches(t_astree *root , t_astree *left , t_astree *right);
 void astree_set_type(t_astree *node , t_node type);
 void astree_set_data(t_astree *node , char *data);
-void astree_delete(t_astree *node);
+void astree_destroy(t_astree *node);
 
 // BNF parser
 int parse(t_stack *analysed, t_astree **astree);
@@ -200,5 +200,7 @@ int	builtin_exit(t_command *command, t_app *self);
 
 // run
 void	run(t_command *command, t_app *self);
+void	run_setup_redirects(t_command *command);
+void	run_setup_pipes(t_command *command);
 
 #endif
