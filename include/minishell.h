@@ -6,7 +6,7 @@
 /*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/04 20:53:16 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/03/05 12:11:11 by ngregori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <errno.h>
 
 # include "libft.h"
 
@@ -191,7 +192,7 @@ void	command_destroy(t_command *command);
 // builtins
 t_builtin	*get_builtin(char *cmd_path);
 int	builtin_echo(t_command *command, t_app *self);
-int	builtin_cd(t_command *command, t_app *self);
+int	builtin_cd(t_command *command);
 int	builtin_export(t_command *command, t_app *self);
 int	builtin_unset(t_command *command, t_app *self);
 int	builtin_env(t_command *command, t_app *self);

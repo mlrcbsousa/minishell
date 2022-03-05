@@ -6,7 +6,7 @@
 /*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/04 21:56:23 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/03/05 12:18:19 by ngregori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	print_astree(t_astree *node)
 }
 
 
-void	test(t_app *self) {
-	char **cmds = ft_split("ls -l", ' ');
+void	test() {
+	char **cmds = ft_split("cd", ' ');
 	t_command test = {0, cmds, 0, 0, 0, 0, 0, 0};
 
-	run(&test, self);
+	builtin_cd(&test);
 }
 
 int main(int argc, char *argv[], char *env[])
@@ -47,7 +47,7 @@ int main(int argc, char *argv[], char *env[])
 
 	signal(SIGQUIT, SIG_IGN); // ignore "Ctrl-\"
 
-	test(&self);
+	test();
 
 	while (1)
 	{
