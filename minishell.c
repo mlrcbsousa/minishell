@@ -6,7 +6,7 @@
 /*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 12:18:19 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/03/05 12:23:14 by ngregori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	test() {
 	char **cmds = ft_split("cd", ' ');
 	t_command test = {0, cmds, 0, 0, 0, 0, 0, 0};
 
-	builtin_cd(&test);
+	builtin_cd(&test, NULL);
 }
 
 int main(int argc, char *argv[], char *env[])

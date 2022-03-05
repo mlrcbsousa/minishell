@@ -6,7 +6,7 @@
 /*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 12:10:57 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/03/05 12:23:49 by ngregori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,10 @@ int	builtin_echo(t_command *command, t_app *self)
 	return (0);
 }
 
-int	builtin_cd(t_command *command)
+int	builtin_cd(t_command *command, t_app *self)
 {
+	(void)self;
+
 	if (command->argc == 1) {
 		char *home = getenv("HOME");
 
