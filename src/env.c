@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 18:05:36 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 18:13:26 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/05 18:16:32 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@ char	**get_env(t_app *self)
 		i++;
 		env = env->next;
 	}
-
-
-	// percorrer o linked list para criar
+	// malloc o char** baseado em i
+	// join env.key com env.value  e =
 }
 
 void	set_env(t_app *self, char **env)
 {
-
+	// transform env into linked list and set head on self
 }
