@@ -6,49 +6,36 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:41:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 15:56:36 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/05 17:40:43 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// redirect stdin or stdout to file
-void	run_setup_redirects(t_command *command)
+void	run_setup_pipe_read(t_command *command)
 {
-	int fd;
+	// read from stdin pipe
+	if (command->stdin_pipe)
+		dup2(command->pipe_read, STDIN_FILENO);
+}
 
-	if (command->redirect_in)
-	{
-		fd = open(command->redirect_in, O_RDONLY);
-		if (fd == -1)
-		{
-			perror(command->redirect_in);
-			exit(1);
-		}
-		dup2(fd, STDIN_FILENO);
-	}
-	else if (command->redirect_out)
-	{
-		// https://www.gnu.org/software/libc/manual/html_node/Permission-Bits.html
-		fd = open(command->redirect_out, O_WRONLY | O_CREAT | O_TRUNC,
-									S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		if (fd == -1)
-		{
-			perror(command->redirect_out);
-			exit(1);
-		}
-		dup2(fd, STDOUT_FILENO);
-	}
+void	run_setup_pipe_write(t_command *command)
+{
+	// write to stdout pipe
+	if (command->stdout_pipe)
+		dup2(command->pipe_write, STDOUT_FILENO);
 }
 
 void	run_setup_pipes(t_command *command)
 {
-	// read from stdin piepe
-	if (command->stdin_pipe)
-		dup2(command->pipe_read, STDIN_FILENO);
-	// write to stdout pipe
-	if (command->stdout_pipe)
-		dup2(command->pipe_write, STDOUT_FILENO);
+	run_setup_pipe_read(command);
+	run_setup_pipe_write(command);
+}
+
+void	run_setup_io(t_command *command)
+{
+	run_setup_redirects(command);
+	run_setup_pipes(command);
 }
 
 void	run(t_command *command, t_app *self)
@@ -64,10 +51,8 @@ void	run(t_command *command, t_app *self)
 
 		// handle pipes and redirects
 		stdout_fd = dup(STDOUT_FILENO); // to restore at the end
-		run_setup_redirects(command);
-		run_setup_pipes(command);
+		run_setup_io(command);
 
-		// maybe this should be somewhere else, like the command init function
 		// check if file is in bin path
 		find_binary_path(command);
 		printf("%s\n", *command->argv);
