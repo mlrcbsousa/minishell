@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 17:48:52 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/05 18:32:17 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ void	command_destroy(t_command *command);
 t_builtin	*get_builtin(char *cmd_path);
 int	builtin_echo(t_command *command, t_app *self);
 int	builtin_cd(t_command *command, t_app *self);
+int	builtin_pwd(t_command *command, t_app *self);
 int	builtin_export(t_command *command, t_app *self);
 int	builtin_unset(t_command *command, t_app *self);
 int	builtin_env(t_command *command, t_app *self);
