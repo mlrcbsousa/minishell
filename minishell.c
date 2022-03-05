@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
+/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 12:23:14 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:22:06 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,19 @@ void	print_astree(t_astree *node)
 	print_astree(node->right);
 }
 
+// Test tokens contents
+void	print_tokens(t_token *token)
+{
+	if (!token)
+		return ;
+	while (token)
+	{
+		printf("\n--Token--\n");
+		printf("type: %d\n", token->type);
+		printf("data: %s\n", token->data);
+		token = token->next;
+	}
+}
 
 void	test() {
 	char **cmds = ft_split("cd", ' ');
@@ -44,10 +57,9 @@ int main(int argc, char *argv[], char *env[])
 	(void)argv;
 
 	self = (t_app){ env, signal(SIGINT, sigint_handler) }; // overide "Ctrl-C"
-
 	signal(SIGQUIT, SIG_IGN); // ignore "Ctrl-\"
 
-	test();
+	// test();
 
 	while (1)
 	{
@@ -69,12 +81,7 @@ int main(int argc, char *argv[], char *env[])
 		free(line);
 
 		// TEST - analysed tokens
-		t_token *token = analysed.token;
-		while (token)
-		{
-			printf("type: %d, data: %s\n", token->type, token->data);
-			token = token->next;
-		}
+		print_tokens(analysed.token);
 
 		// 3. parse stack of tokens into an abstract syntax tree
 		astree = NULL;
@@ -91,9 +98,8 @@ int main(int argc, char *argv[], char *env[])
 		execute_tree(astree, &self);
 
 		// 6. free stack of tokens and syntax tree
-		astree_delete(astree);
-		if (analysed.token) // maybe not needed
-			token_destroy(analysed.token);
+		astree_destroy(astree);
+		token_destroy(analysed.token);
 	}
 	return 0;
 }

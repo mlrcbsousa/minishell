@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 22:56:04 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/03 21:39:39 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/05 15:22:06 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_astree	*command_a(t_parser *parser)
 	// test next token if is a redirect operator
 	if (!match(LEXICAL_LESSER, NULL, parser))
 	{
-		astree_delete(simple_command_node);
+		astree_destroy(simple_command_node);
 		return (NULL);
 	}
 
@@ -35,7 +35,7 @@ t_astree	*command_a(t_parser *parser)
 	if (!match(LEXICAL_DEFAULT, &filename, parser))
 	{
 		free(filename);
-		astree_delete(simple_command_node);
+		astree_destroy(simple_command_node);
 		return (NULL);
 	}
 
@@ -61,7 +61,7 @@ t_astree	*command_b(t_parser *parser)
 	// test next token if is a redirect operator
 	if (!match(LEXICAL_GREATER, NULL, parser))
 	{
-		astree_delete(simple_command_node);
+		astree_destroy(simple_command_node);
 		return (NULL);
 	}
 
@@ -69,7 +69,7 @@ t_astree	*command_b(t_parser *parser)
 	if (!match(LEXICAL_DEFAULT, &filename, parser))
 	{
 		free(filename);
-		astree_delete(simple_command_node);
+		astree_destroy(simple_command_node);
 		return (NULL);
 	}
 
