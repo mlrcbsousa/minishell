@@ -6,7 +6,7 @@
 /*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 17:42:40 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/05 18:39:45 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,16 @@ t_builtin	*get_builtin(char *cmd_path)
 {
 	// built-ins
 	// ◦ echo with option -n
-	// ◦ cd with only a relative or absolute path ◦ pwd with no options
+	// ◦ cd with only a relative or absolute path
+	// ◦ pwd with no options
 	// ◦ export with no options
 	// ◦ unset with no options
 	// ◦ env with no options or arguments
 	// ◦ exit with no options
-	static t_builtin_def	builtins[6] = {
+	static t_builtin_def	builtins[7] = {
 		{"echo", builtin_echo},
 		{"cd", builtin_cd},
+		{"pwd", builtin_pwd},
 		{"export", builtin_export},
 		{"unset", builtin_unset},
 		{"env", builtin_env},
@@ -32,7 +34,7 @@ t_builtin	*get_builtin(char *cmd_path)
 	int i;
 
 	i = 0;
-	while (i < 6)
+	while (i < 7)
 	{
 		if (ft_streq(cmd_path, builtins[i].name))
 			return (builtins[i].builtin);
