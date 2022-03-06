@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   binary_paths.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:39:23 by ngregori          #+#    #+#             */
-/*   Updated: 2022/03/05 15:09:37 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 18:59:40 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	**get_binary_paths(void)
 	char *path;
 
 	paths = NULL;
+	// TODO: remove use of getenv
 	path = getenv("PATH");
 	if (*path)
 		paths = ft_split(path, ':');

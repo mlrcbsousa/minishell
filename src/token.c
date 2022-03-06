@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 19:42:47 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/26 15:39:51 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 15:59:00 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int lexical_type(char c)
 			|| c == LEXICAL_QUOTE
 			|| c == LEXICAL_DQUOTE
 			|| c == LEXICAL_WHITESPACE
-			|| c == LEXICAL_ESCAPESEQUENCE
 			|| c == LEXICAL_GREATER
 			|| c == LEXICAL_LESSER
 			|| c == LEXICAL_NULL)

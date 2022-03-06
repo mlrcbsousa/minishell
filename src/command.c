@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:56:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 15:27:07 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 18:28:02 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static void	command_fill(t_command *command, t_executor executor)
 	command->pipe_write = executor.pipe_write;
 	command->redirect_in = executor.redirect_in;
 	command->redirect_out = executor.redirect_out;
+	command->heredoc = executor.heredoc;
+	command->append = executor.append;
 }
 
 void command_init(t_astree *simple_command_node,

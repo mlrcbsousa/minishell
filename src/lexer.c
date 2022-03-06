@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 18:52:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 15:28:08 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 20:45:45 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void lexical_analysis(char* line, int size, t_stack *analysed)
 	if (!size)
 		return ;
 	analysed->token = (t_token *)malloc(sizeof(t_token));
-	lexer = (t_lexer){analysed->token, STATE_DEFAULT, size, 0, 0, 0, 0};
+	lexer = (t_lexer){analysed->token, STATE_DEFAULT, size, line, 0, 0, 0, 0};
 	token_init(lexer.token, lexer.size);
 
 	while (line[lexer.line_i])

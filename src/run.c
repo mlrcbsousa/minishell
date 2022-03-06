@@ -6,18 +6,11 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:41:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 15:29:32 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 18:53:01 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	run_setup_pipe_read(t_command *command)
-{
-	// read from stdin pipe
-	if (command->stdin_pipe)
-		dup2(command->pipe_read, STDIN_FILENO);
-}
 
 void	run_setup_pipe_write(t_command *command)
 {
@@ -26,16 +19,24 @@ void	run_setup_pipe_write(t_command *command)
 		dup2(command->pipe_write, STDOUT_FILENO);
 }
 
-void	run_setup_pipes(t_command *command)
+void	run_setup_io_out(t_command *command)
 {
-	run_setup_pipe_read(command);
+	run_setup_redirect_out(command);
+	run_setup_append(command);
 	run_setup_pipe_write(command);
+}
+
+void	run_setup_io_in(t_command *command)
+{
+	run_setup_redirect_in(command);
+	run_setup_heredoc(command);
+	run_setup_pipe_read(command);
 }
 
 void	run_setup_io(t_command *command)
 {
-	run_setup_redirects(command);
-	run_setup_pipes(command);
+	run_setup_io_in(command);
+	run_setup_io_out(command);
 }
 
 void	run(t_command *command, t_app *self)

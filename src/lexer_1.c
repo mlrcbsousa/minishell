@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_0.c                                          :+:      :+:    :+:   */
+/*   lexer_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 18:52:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/02/26 16:36:10 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 16:16:37 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,29 @@ void	lexer_type_operator(t_lexer *lexer)
 {
 	// if token data already has something split off and start new token
 	lexer_end_read_token(lexer);
+
 	lexer->token->data[0] = lexer->type;
-	lexer->token->data[1] = 0;
+
+	// handle double redirects
+	if (lexer->type == LEXICAL_GREATER
+		&& lexer->line[lexer->line_i + 1] == LEXICAL_GREATER)
+	{
+		lexer->token->data[1] = lexer->type;
+		lexer->token->data[2] = 0;
+		lexer->type = LEXICAL_GGREATER;
+		lexer->line_i++;
+	}
+	else if (lexer->type == LEXICAL_LESSER
+		&& lexer->line[lexer->line_i + 1] == LEXICAL_LESSER)
+	{
+		lexer->token->data[1] = lexer->type;
+		lexer->token->data[2] = 0;
+		lexer->type = LEXICAL_LLESSER;
+		lexer->line_i++;
+	}
+	else
+		lexer->token->data[1] = 0;
+
 	lexer->token->type = lexer->type;
 
 	// when operator token need an additional token created

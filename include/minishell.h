@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 15:23:41 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 18:49:31 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,13 @@
 # include "libft.h"
 
 // Enums
-typedef enum e_node {
+typedef enum e_node
+{
 	NODE_PIPE = 1, // have to start at one to not override in astree_set_data()
 	NODE_REDIRECT_IN,
 	NODE_REDIRECT_OUT,
+	NODE_HEREDOC,
+	NODE_APPEND,
 	NODE_CMDPATH,
 	NODE_ARGUMENT,
 	NODE_DATA,
@@ -46,9 +49,10 @@ enum e_lexical {
 	LEXICAL_QUOTE = '\'',
 	LEXICAL_DQUOTE = '\"',
 	LEXICAL_WHITESPACE = ' ',
-	LEXICAL_ESCAPESEQUENCE = '\\',
 	LEXICAL_GREATER = '>',
+	LEXICAL_GGREATER = -2,
 	LEXICAL_LESSER = '<',
+	LEXICAL_LLESSER = -3,
 	LEXICAL_NULL = 0,
 };
 
@@ -105,6 +109,7 @@ struct s_lexer
 	t_token *token;
 	int state;
 	int size;
+	char *line;
 	int line_i;
 	int data_i;
 	char c;
@@ -132,6 +137,8 @@ struct s_executor
 	int pipe_write;
 	char* redirect_in;
 	char* redirect_out;
+	char* heredoc;
+	char* append;
 };
 
 struct s_command
@@ -144,6 +151,8 @@ struct s_command
 	int pipe_write;
 	char* redirect_in;
 	char* redirect_out;
+	char* heredoc;
+	char* append;
 };
 
 struct	s_builtin_def
@@ -182,6 +191,8 @@ t_astree* command_line_a(t_parser *parser);
 t_astree* command(t_parser *parser);
 t_astree* command_a(t_parser *parser);
 t_astree* command_b(t_parser *parser);
+t_astree* command_c(t_parser *parser);
+t_astree* command_d(t_parser *parser);
 t_astree* simple_command(t_parser *parser);
 t_astree* token_list(t_parser *parser);
 t_astree	*token_list_a(t_parser *parser);
@@ -217,12 +228,14 @@ int	builtin_exit(t_command *command, t_app *self);
 // run
 void	run(t_command *command, t_app *self);
 void	run_setup_io(t_command *command);
-void	run_setup_pipes(t_command *command);
+void	run_setup_io_in(t_command *command);
+void	run_setup_io_out(t_command *command);
 void	run_setup_pipe_read(t_command *command);
 void	run_setup_pipe_write(t_command *command);
-void	run_setup_redirects(t_command *command);
 void	run_setup_redirect_in(t_command *command);
 void	run_setup_redirect_out(t_command *command);
+void	run_setup_heredoc(t_command *command);
+void	run_setup_append(t_command *command);
 
 // test
 void print_astree(t_astree *node);
