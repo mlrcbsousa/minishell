@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 12:34:09 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 15:23:41 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,5 +221,10 @@ void	run_setup_pipe_write(t_command *command);
 void	run_setup_redirects(t_command *command);
 void	run_setup_redirect_in(t_command *command);
 void	run_setup_redirect_out(t_command *command);
+
+// test
+void print_astree(t_astree *node);
+void print_tokens(t_token *token);
+void print_command(t_command *command);
 
 #endif

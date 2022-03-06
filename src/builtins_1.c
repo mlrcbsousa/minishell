@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 21:05:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 12:33:53 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 15:26:22 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	builtin_exit(t_command *command, t_app *self)
 	}
 	command_destroy(command);
 	astree_destroy(self->astree);
+	env_destroy(self);
 	printf("exit\n");
 	exit(0);
 	return (0);

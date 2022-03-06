@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 18:05:36 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 12:29:53 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 15:19:25 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_env *env_create(char *raw)
 	char **data;
 	t_env *env;
 
-	// split only on first '='
+	// TODO: split only on first '='
 	data = ft_split(raw, '=');
 	env = (t_env *)malloc(sizeof(t_env));
 
@@ -33,22 +33,21 @@ static t_env *env_create(char *raw)
 
 	env->next = NULL;
 
-	// free each string inside
+	// TODO: free each string inside
 	free(data);
 	return (env);
 }
 
-// add self as arg and remove also raw if present
 void env_destroy(t_app *self)
 {
 	t_env *env;
-	
-	if (self->env_raw) {
+
+	if (self->env_raw)
+	{
 		while(*self->env_raw)
 			free(*self->env_raw++);
 		free(self->env_raw);
 	}
-	
 	while (self->env)
 	{
 		env = self->env;
