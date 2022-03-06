@@ -12,14 +12,6 @@
 
 #include "minishell.h"
 
-void test()
-{
-	char **cmds = ft_split("cd", ' ');
-	t_command test = {0, cmds, 0, 0, 0, 0, 0, 0, 0, 0};
-
-	builtin_cd(&test, NULL);
-}
-
 int main(int argc, char *argv[], char *env[])
 {
 	t_app self;
@@ -50,6 +42,7 @@ int main(int argc, char *argv[], char *env[])
 		if(!line) {
 			// TODO: make internal exit free all memory
 			// TODO: make 'exit' show in same line as prompt
+			env_destroy(&self);
 			printf("exit\n");
 			exit(0);
 		}
@@ -82,7 +75,6 @@ int main(int argc, char *argv[], char *env[])
 
 		// 6. free memory
 		astree_destroy(astree);
-		env_destroy(&self);
 	}
 	return 0;
 }
