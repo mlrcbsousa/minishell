@@ -93,8 +93,59 @@ int	builtin_cd(t_command *command, t_app *self)
 
 int	builtin_export(t_command *command, t_app *self)
 {
-	(void)command;
-	(void)self;
+	int i;
+	char **splitted;
+	t_env *new_env;
+	t_env *temp;
+	int	found;
+
+	i = 1;
+	while(command->argv[i]) {
+		temp = self->env;
+		
+		splitted = ft_split_single(command->argv[i], '=');
+		if(!splitted[1])
+		{
+			ft_free_string_arrays(splitted);
+			continue;
+		}
+
+		found = 0;
+
+		while(temp) {
+			if(ft_streq(temp->key, splitted[0]))
+			{
+				found = 1;
+				if(!ft_streq(temp->value, splitted[1]))
+				{
+					free(temp->value);
+					temp->value = ft_strdup(splitted[1]);
+				}
+				break;
+			}
+			temp = temp->next;
+		}
+
+		if(!found) {
+			new_env = malloc(sizeof(t_env));
+			if(!new_env)
+				return (1);
+
+			new_env->key = ft_strdup(splitted[0]);
+
+			new_env->value = ft_strdup(splitted[1]);
+
+			new_env->next = NULL;
+
+			temp = self->env;
+			while(temp->next)
+				temp = temp->next;
+			temp->next = new_env;
+		}
+		ft_free_string_arrays(splitted);
+		i++;
+	}
+	
 	return (0);
 }
 
