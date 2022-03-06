@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngregori <ngregori@42.fr>                  +#+  +:+       +#+        */
+/*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 18:52:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/04 21:54:38 by ngregori         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:28:08 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void lexical_analysis(char* line, int size, t_stack *analysed)
 
 		lexer.line_i++;
 	}
+
+	// TODO: refactor loop body to function
 	lexer.c = line[lexer.line_i];
 	lexer.type = lexical_type(lexer.c);
 

@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:56:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/04 20:24:07 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 15:27:07 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// TEST - print command info
-void	command_print(t_command *command)
-{
-	printf("\n--Command--\n");
-	printf("args: ");
-	int i = 0;
-	while (i < command->argc)
-		printf("%s ", command->argv[i++]);
-	printf("\n");
-	printf("stdin_pipe: %d\n", command->stdin_pipe);
-	printf("stdout_pipe: %d\n", command->stdout_pipe);
-	printf("pipe_read: %d\n", command->pipe_read);
-	printf("pipe_write: %d\n", command->pipe_write);
-	printf("redirect_in: %s\n", command->redirect_in);
-	printf("redirect_out: %s\n", command->redirect_out);
-	printf("\n");
-}
 
 static t_bool	is_node_argument(t_astree *node)
 {
@@ -84,7 +66,7 @@ void command_execute(t_command *command, t_app *self)
 	t_builtin	*builtin;
 
 	// TEST
-	command_print(command);
+	print_command(command);
 
   if (command->argc < 0)
     return ;

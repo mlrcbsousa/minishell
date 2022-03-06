@@ -49,7 +49,6 @@ void	find_binary_path(t_command *command)
 			// file exists
 			free(*command->argv);
 			*command->argv = path;
-			free(path);
 			return ;
 		}
 		free(path);

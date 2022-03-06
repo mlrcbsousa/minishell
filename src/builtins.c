@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 18:39:45 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 15:26:46 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,6 @@
 
 t_builtin	*get_builtin(char *cmd_path)
 {
-	// built-ins
-	// ◦ echo with option -n
-	// ◦ cd with only a relative or absolute path
-	// ◦ pwd with no options
-	// ◦ export with no options
-	// ◦ unset with no options
-	// ◦ env with no options or arguments
-	// ◦ exit with no options
 	static t_builtin_def	builtins[7] = {
 		{"echo", builtin_echo},
 		{"cd", builtin_cd},
