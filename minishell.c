@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 17:20:12 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 18:24:16 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void test()
 {
 	char **cmds = ft_split("cd", ' ');
-	t_command test = {0, cmds, 0, 0, 0, 0, 0, 0};
+	t_command test = {0, cmds, 0, 0, 0, 0, 0, 0, 0, 0};
 
 	builtin_cd(&test, NULL);
 }
@@ -77,7 +77,7 @@ int main(int argc, char *argv[], char *env[])
 		token_destroy(analysed.token);
 
 		// 5. execute syntax tree
-		// execute_tree(astree, &self);
+		execute_tree(astree, &self);
 
 		// 6. free memory
 		astree_destroy(astree);

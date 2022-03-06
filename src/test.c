@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:21:16 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 15:23:26 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 18:26:10 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,7 @@ void print_command(t_command *command)
 	printf("pipe_write: %d\n", command->pipe_write);
 	printf("redirect_in: %s\n", command->redirect_in);
 	printf("redirect_out: %s\n", command->redirect_out);
+	printf("heredoc: %s\n", command->heredoc);
+	printf("append: %s\n", command->append);
 	printf("\n");
 }

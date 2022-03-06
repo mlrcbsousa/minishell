@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 17:29:03 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 18:23:10 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ struct s_executor
 	int pipe_write;
 	char* redirect_in;
 	char* redirect_out;
+	char* heredoc;
+	char* append;
 };
 
 struct s_command
@@ -149,6 +151,8 @@ struct s_command
 	int pipe_write;
 	char* redirect_in;
 	char* redirect_out;
+	char* heredoc;
+	char* append;
 };
 
 struct	s_builtin_def
