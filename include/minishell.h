@@ -187,7 +187,9 @@ t_astree* token_list(t_parser *parser);
 t_astree	*token_list_a(t_parser *parser);
 
 // utils
-void sigint_handler(int sig);
+void	sigint_handler(int sig);
+void	ft_free_string_arrays(char **array);
+char	**ft_split_single(char const *s, char c);
 
 // env
 char	**get_binary_paths(void);

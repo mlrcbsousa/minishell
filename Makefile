@@ -26,6 +26,7 @@ SRC			= minishell.c \
 					src/parser_1.c \
 					src/utils/binary_paths.c \
 					src/utils/signals.c \
+					src/utils/helpers.c \
 					src/execute.c \
 					src/command.c \
 					src/builtins.c \
@@ -33,7 +34,7 @@ SRC			= minishell.c \
 					src/run.c \
 					src/run_1.c \
 					src/env.c \
-					src/test.c
+					src/test.c \
 
 NAME		= minishell
 

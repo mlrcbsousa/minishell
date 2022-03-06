@@ -9,6 +9,5 @@ void sigint_handler(int sig) {
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		// Need to fix ^C displaying when clearing a line
 	}
 }
