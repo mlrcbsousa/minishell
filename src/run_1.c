@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 17:37:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 17:39:51 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 18:52:02 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,16 @@ void	run_setup_redirect_in(t_command *command)
 	}
 }
 
+void	run_setup_heredoc(t_command *command)
+{
+	int fd;
+
+	if (command->heredoc)
+	{
+		fd = 0;
+	}
+}
+
 void	run_setup_redirect_out(t_command *command)
 {
 	int fd;
@@ -46,9 +56,27 @@ void	run_setup_redirect_out(t_command *command)
 	}
 }
 
-// redirect stdin or stdout to file
-void	run_setup_redirects(t_command *command)
+void	run_setup_append(t_command *command)
 {
-	run_setup_redirect_in(command);
-	run_setup_redirect_out(command);
+	int fd;
+
+	if (command->append)
+	{
+		// https://www.gnu.org/software/libc/manual/html_node/Permission-Bits.html
+		fd = open(command->append, O_WRONLY | O_CREAT | O_APPEND,
+									S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		if (fd == -1)
+		{
+			perror(command->append);
+			exit(1);
+		}
+		dup2(fd, STDOUT_FILENO);
+	}
+}
+
+void	run_setup_pipe_read(t_command *command)
+{
+	// read from stdin pipe
+	if (command->stdin_pipe)
+		dup2(command->pipe_read, STDIN_FILENO);
 }

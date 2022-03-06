@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 18:23:10 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 18:49:31 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,12 +226,14 @@ int	builtin_exit(t_command *command, t_app *self);
 // run
 void	run(t_command *command, t_app *self);
 void	run_setup_io(t_command *command);
-void	run_setup_pipes(t_command *command);
+void	run_setup_io_in(t_command *command);
+void	run_setup_io_out(t_command *command);
 void	run_setup_pipe_read(t_command *command);
 void	run_setup_pipe_write(t_command *command);
-void	run_setup_redirects(t_command *command);
 void	run_setup_redirect_in(t_command *command);
 void	run_setup_redirect_out(t_command *command);
+void	run_setup_heredoc(t_command *command);
+void	run_setup_append(t_command *command);
 
 // test
 void print_astree(t_astree *node);
