@@ -100,7 +100,31 @@ int	builtin_export(t_command *command, t_app *self)
 
 int	builtin_unset(t_command *command, t_app *self)
 {
-	(void)command;
-	(void)self;
+	t_env *temp;
+	t_env *previous;
+
+	temp = self->env;
+	previous = self->env;
+	
+	while(temp) {
+		if(strcmp(temp->key, command->argv[1]) == 0) {
+			free(temp->key);
+			temp->key = NULL;
+
+			free(temp->value);
+			temp->value=NULL;
+
+			if(temp == previous) {
+				self->env = temp->next;
+			}
+			else
+				previous->next = temp->next;
+			free(temp);
+			break;
+		}
+		previous = temp;
+		temp = temp->next;
+	}
+
 	return (0);
 }
