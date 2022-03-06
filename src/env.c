@@ -39,14 +39,24 @@ static t_env *env_create(char *raw)
 }
 
 // add self as arg and remove also raw if present
-void env_destroy(t_env *env)
+void env_destroy(t_app *self)
 {
-	if (!env)
-		return;
-	free(env->key);
-	free(env->value);
-	env_destroy(env->next);
-	free(env);
+	t_env *env;
+	
+	if (self->env_raw) {
+		while(*self->env_raw)
+			free(*self->env_raw++);
+		free(self->env_raw);
+	}
+	
+	while (self->env)
+	{
+		env = self->env;
+		self->env = self->env->next;
+		free(env->key);
+		free(env->value);
+		free(env);
+	}
 }
 
 static int env_length(t_env *env)
@@ -65,21 +75,20 @@ static int env_length(t_env *env)
 char	**get_env(t_app *self)
 {
 	t_env	*env;
-	char	**raw;
 	char	*save;
+	int i = 0;
 
-	self->env_raw = (char **)malloc(env_length(self->env) + 1);
+	self->env_raw = (char **)malloc(sizeof(char *) * (env_length(self->env) + 1));
 	env = self->env;
-	raw = self->env_raw;
 	while (env)
 	{
 		save = ft_strjoin(env->key, "=");
-		*raw = ft_strjoin(save, env->value);
+		self->env_raw[i] = ft_strjoin(save, env->value);
 		free(save);
-		raw++;
+		i++;
 		env = env->next;
 	}
-	*raw = NULL;
+	self->env_raw[i] = NULL;
 	return (self->env_raw);
 }
 

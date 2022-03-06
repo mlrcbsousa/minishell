@@ -194,6 +194,7 @@ char	**get_binary_paths(void);
 void	find_binary_path(t_command *command);
 char **get_env(t_app *self);
 void	set_env(t_app *self, char **raw);
+void	env_destroy(t_app *self);
 
 // execute
 void execute_tree(t_astree *node, t_app *self);

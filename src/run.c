@@ -56,10 +56,11 @@ void	run(t_command *command, t_app *self)
 		// check if file is in bin path
 		find_binary_path(command);
 		printf("%s\n", *command->argv);
+
 		if (execve(*command->argv, command->argv, get_env(self)) == -1)
 		{
 			dup2(stdout_fd, STDOUT_FILENO); // restore stdout
-      printf("%s: command not found\n", *command->argv);
+      		printf("%s: command not found\n", *command->argv);
 			exit(127);
 		}
 	}

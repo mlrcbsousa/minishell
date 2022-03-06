@@ -106,6 +106,7 @@ int main(int argc, char *argv[], char *env[])
 
 		// 6. free memory
 		astree_destroy(astree);
+		env_destroy(&self);
 	}
 	return 0;
 }
