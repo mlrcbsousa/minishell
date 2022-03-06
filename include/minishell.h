@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 15:23:41 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 15:35:01 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ enum e_lexical {
 	LEXICAL_WHITESPACE = ' ',
 	LEXICAL_ESCAPESEQUENCE = '\\',
 	LEXICAL_GREATER = '>',
+	LEXICAL_GGREATER = -2,
 	LEXICAL_LESSER = '<',
+	LEXICAL_LLESSER = -3,
 	LEXICAL_NULL = 0,
 };
 

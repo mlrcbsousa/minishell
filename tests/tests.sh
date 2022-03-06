@@ -1,10 +1,10 @@
 #!/bin/bash
 
 echo "Error output tests."
-./minishell
+echo 'echo hello world >> file.txt' | ./minishell
 
-echo "Tests."
-./minishell
+# echo "Tests."
+# ./minishell
 
 # echo "Leaks."
 # valgrind --tool=memcheck --leak-check=yes --show-reachable=yes \

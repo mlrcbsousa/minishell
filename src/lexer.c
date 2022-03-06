@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 18:52:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 15:28:08 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 15:54:19 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ static void	lexer_state_default(t_lexer *lexer)
 	else if (lexer->type == LEXICAL_WHITESPACE)
 		lexer_end_read_token(lexer);
 	else if (lexer->type == LEXICAL_GREATER
+		|| lexer->type == LEXICAL_GGREATER
 		|| lexer->type == LEXICAL_LESSER
+		|| lexer->type == LEXICAL_LLESSER
 		|| lexer->type == LEXICAL_PIPE)
 		lexer_type_operator(lexer);
 }
