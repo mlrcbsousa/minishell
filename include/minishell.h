@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 16:09:32 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 17:11:53 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,13 @@
 # include "libft.h"
 
 // Enums
-typedef enum e_node {
+typedef enum e_node
+{
 	NODE_PIPE = 1, // have to start at one to not override in astree_set_data()
 	NODE_REDIRECT_IN,
 	NODE_REDIRECT_OUT,
+	NODE_HEREDOC,
+	NODE_APPEND,
 	NODE_CMDPATH,
 	NODE_ARGUMENT,
 	NODE_DATA,
@@ -184,6 +187,8 @@ t_astree* command_line_a(t_parser *parser);
 t_astree* command(t_parser *parser);
 t_astree* command_a(t_parser *parser);
 t_astree* command_b(t_parser *parser);
+t_astree *command_c(t_parser *parser);
+t_astree *command_d(t_parser *parser);
 t_astree* simple_command(t_parser *parser);
 t_astree* token_list(t_parser *parser);
 t_astree	*token_list_a(t_parser *parser);

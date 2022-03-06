@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:37:24 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 15:22:06 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 16:20:34 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,14 @@ t_astree	*command(t_parser *parser)
 		return (node);
 	parser->current_token = save;
 	node = command_b(parser);
+	if (node)
+		return (node);
+	parser->current_token = save;
+	node = command_c(parser);
+	if (node)
+		return (node);
+	parser->current_token = save;
+	node = command_d(parser);
 	if (node)
 		return (node);
 	parser->current_token = save;
