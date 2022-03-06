@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 17:19:13 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 11:33:53 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,12 @@ int main(int argc, char *argv[], char *env[])
 	(void)argv;
 
 	// overide "Ctrl-C"
-	self = (t_app){ env, signal(SIGINT, sigint_handler), NULL };
+	self = (t_app){ NULL, NULL, signal(SIGINT, sigint_handler), NULL };
 	// ignore "Ctrl-\"
 	signal(SIGQUIT, SIG_IGN);
+
+	// transform env into linked list
+	set_env(&self, env);
 
 	// test();
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 21:05:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 17:49:59 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 12:26:20 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	builtin_env(t_command *command, t_app *self)
 {
 	int stdout_fd;
-	char **env;
+	t_env *env;
 
 	if (command->argc != 1)
 	{
@@ -26,8 +26,11 @@ int	builtin_env(t_command *command, t_app *self)
 	run_setup_redirect_out(command);
 	run_setup_pipe_write(command);
 	env = self->env;
-	while(env && *env)
-		printf("%s\n", *env++);
+	while(env)
+	{
+		printf("%s=%s\n", env->key, env->value);
+		env = env->next;
+	}
 	dup2(stdout_fd, STDOUT_FILENO); // restore stdout
 	return (0);
 }

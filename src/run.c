@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:41:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 17:40:43 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 12:19:06 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	run(t_command *command, t_app *self)
 		// check if file is in bin path
 		find_binary_path(command);
 		printf("%s\n", *command->argv);
-		if (execve(*command->argv, command->argv, self->env) == -1)
+		if (execve(*command->argv, command->argv, get_env(self)) == -1)
 		{
 			dup2(stdout_fd, STDOUT_FILENO); // restore stdout
       printf("%s: command not found\n", *command->argv);

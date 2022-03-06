@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msousa <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/05 18:10:10 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 12:23:55 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_env t_env;
 struct s_app
 {
 	t_env	*env;
+	char	**env_raw;
 	void	(*sigint_handler)(int);
 	t_astree *astree;
 };
@@ -191,9 +192,11 @@ void sigint_handler(int sig);
 // env
 char	**get_binary_paths(void);
 void	find_binary_path(t_command *command);
+char **get_env(t_app *self);
+void	set_env(t_app *self, char **raw);
 
 // execute
-void	execute_tree(t_astree *node, t_app *self);
+void execute_tree(t_astree *node, t_app *self);
 void	command_init(t_astree *node, t_command *command, t_executor executor);
 void	command_execute(t_command *command, t_app *self);
 void	command_destroy(t_command *command);
