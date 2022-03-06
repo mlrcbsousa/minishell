@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 18:55:50 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 19:00:42 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	builtin_cd(t_command *command, t_app *self)
 	(void)self;
 
 	if (command->argc == 1) {
+		// TODO: remove use of getenv
 		char *home = getenv("HOME");
 
 		if(home)
