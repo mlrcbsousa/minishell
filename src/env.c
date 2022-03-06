@@ -23,11 +23,11 @@ static t_env *env_create(char *raw)
 
 	// key
 	env->key = (char *)malloc(ft_strlen(*data) + 1);
-	env->key = ft_strcpy(env->key, *(data + 1));
+	env->key = ft_strcpy(env->key, *(data));
 
 	// value
-	env->value = (char *)malloc(ft_strlen(*data) + 1);
-	env->value = ft_strcpy(env->value, *data);
+	env->value = (char *)malloc(ft_strlen(*(data + 1)) + 1);
+	env->value = ft_strcpy(env->value, *(data + 1));
 
 	// value might be empty
 
@@ -92,10 +92,10 @@ void	set_env(t_app *self, char **raw)
 		return ;
 
 	self->env = env_create(*raw++);
-	env = self->env->next;
+	env = self->env;
 	while (raw && *raw)
 	{
-		env = env_create(*raw++);
+		env->next = env_create(*raw++);
 		env = env->next;
 	}
 }
