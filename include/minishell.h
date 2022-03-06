@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 17:11:53 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 17:29:03 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,8 +187,8 @@ t_astree* command_line_a(t_parser *parser);
 t_astree* command(t_parser *parser);
 t_astree* command_a(t_parser *parser);
 t_astree* command_b(t_parser *parser);
-t_astree *command_c(t_parser *parser);
-t_astree *command_d(t_parser *parser);
+t_astree* command_c(t_parser *parser);
+t_astree* command_d(t_parser *parser);
 t_astree* simple_command(t_parser *parser);
 t_astree* token_list(t_parser *parser);
 t_astree	*token_list_a(t_parser *parser);
