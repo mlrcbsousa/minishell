@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 17:37:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 18:52:02 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 23:04:52 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,39 @@ void	run_setup_redirect_in(t_command *command)
 
 void	run_setup_heredoc(t_command *command)
 {
-	int fd;
+	char	*line;
+	int pipe_fd[2];
+	int read_fd;
+	int write_fd;
 
 	if (command->heredoc)
 	{
-		fd = 0;
+		pipe(pipe_fd);
+		read_fd = pipe_fd[0];
+		write_fd = pipe_fd[1];
+
+		while (1)
+		{
+			line = readline("> ");
+			if (line == NULL)
+			{
+				// TODO: not sure, test more
+				break ;
+			}
+			if (ft_streq(line, command->heredoc))
+			{
+				free(line);
+				break ;
+			}
+			// TODO: expand env vars before writing
+			ft_putendl_fd(line, write_fd);
+			free(line);
+		}
+		dup2(read_fd, STDIN_FILENO);
+		close(read_fd);
+		close(write_fd);
 	}
+
 }
 
 void	run_setup_redirect_out(t_command *command)

@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 18:24:16 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 21:06:12 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int main(int argc, char *argv[], char *env[])
 		line = readline("~$ ");
 		if(!line) {
 			// TODO: make internal exit free all memory
+			// TODO: make 'exit' show in same line as prompt
 			printf("exit\n");
 			exit(0);
 		}
