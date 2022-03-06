@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 15:35:01 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/06 16:09:32 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ enum e_lexical {
 	LEXICAL_QUOTE = '\'',
 	LEXICAL_DQUOTE = '\"',
 	LEXICAL_WHITESPACE = ' ',
-	LEXICAL_ESCAPESEQUENCE = '\\',
 	LEXICAL_GREATER = '>',
 	LEXICAL_GGREATER = -2,
 	LEXICAL_LESSER = '<',
@@ -107,6 +106,7 @@ struct s_lexer
 	t_token *token;
 	int state;
 	int size;
+	char *line;
 	int line_i;
 	int data_i;
 	char c;
