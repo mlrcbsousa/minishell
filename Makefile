@@ -6,7 +6,7 @@
 #    By: msousa <msousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/03/06 16:22:20 by msousa           ###   ########.fr        #
+#    Updated: 2022/03/07 11:46:14 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC			= minishell.c \
 					src/utils/binary_paths.c \
 					src/utils/signals.c \
 					src/utils/helpers.c \
+					src/utils/helpers_1.c \
 					src/execute.c \
 					src/command.c \
 					src/builtins.c \

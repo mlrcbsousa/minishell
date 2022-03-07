@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 19:00:42 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/07 16:50:58 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,71 +97,63 @@ int	builtin_export(t_command *command, t_app *self)
 	char **splitted;
 	t_env *new_env;
 	t_env *temp;
-	int	found;
+	char	*found;
 
 	i = 1;
 	while(command->argv[i]) {
 		temp = self->env;
-		
+
 		splitted = ft_split_single(command->argv[i], '=');
-		if(!splitted) {
-			if(!is_valid_identifier(command->argv[i])) {
+		if (!splitted)
+		{
+			if (!is_valid_identifier(command->argv[i]))
+			{
 				ft_putstr_fd("minishell: export: `", STDOUT_FILENO);
 				ft_putstr_fd(command->argv[i], STDOUT_FILENO);
 				ft_putstr_fd("': not a valid identifier\n", STDOUT_FILENO);
-				return(1);
 			}
 			i++;
-			continue;
+			continue ;
 		}
 
-		splitted[0] = get_expanded_val(&splitted[0], self);
-		if(!is_valid_identifier(splitted[0])) {
+		found = get_env(splitted[0], self->env);
+
+		if(!is_valid_identifier(splitted[0]))
+		{
 			ft_putstr_fd("minishell: export: `", STDOUT_FILENO);
 			ft_putstr_fd(splitted[0], STDOUT_FILENO);
 			ft_putstr_fd("': not a valid identifier\n", STDOUT_FILENO);
-			ft_free_string_arrays(splitted);
-			return(1);
 		}
 
-		splitted[1] = get_expanded_val(&splitted[1], self);
-
-		found = 0;
-
-		while(temp) {
-			if(ft_streq(temp->key, splitted[0]))
+		if (found)
+		{
+			while(temp)
 			{
-				found = 1;
-				if(!ft_streq(temp->value, splitted[1]))
+				if(ft_streq(temp->key, splitted[0]))
 				{
-					free(temp->value);
-					temp->value = ft_strdup(splitted[1]);
+					if(!ft_streq(temp->value, splitted[1]))
+					{
+						free(temp->value);
+						free(found);
+						temp->value = ft_strdup(splitted[1]);
+					}
+					break ;
 				}
-				break;
+				temp = temp->next;
 			}
-			temp = temp->next;
 		}
-
-		if(!found) {
-			new_env = malloc(sizeof(t_env));
-			if(!new_env)
+		else
+		{
+			new_env = env_create(command->argv[i]);
+			if (!new_env)
 				return (1);
-
-			new_env->key = ft_strdup(splitted[0]);
-
-			new_env->value = ft_strdup(splitted[1]);
-
-			new_env->next = NULL;
-
-			temp = self->env;
-			while(temp->next)
+			while (temp->next)
 				temp = temp->next;
 			temp->next = new_env;
 		}
 		ft_free_string_arrays(splitted);
 		i++;
 	}
-	
 	return (0);
 }
 
@@ -175,7 +167,7 @@ int	builtin_unset(t_command *command, t_app *self)
 	while(command->argv[i]) {
 		temp = self->env;
 		previous = self->env;
-		
+
 		while(temp) {
 			if(strcmp(temp->key, command->argv[i]) == 0) {
 				free(temp->key);

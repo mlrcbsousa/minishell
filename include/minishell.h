@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 18:49:31 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/07 16:34:13 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@
 # include <errno.h>
 
 # include "libft.h"
+
+// Constants
+# define EXPAND_DOLLAR '$'
+# define EXPAND_QUESTION '?'
+# define EXPAND_USCORE '_'
+
+// Global
+int	g_return;
 
 // Enums
 typedef enum e_node
@@ -201,19 +209,22 @@ t_astree	*token_list_a(t_parser *parser);
 void	sigint_handler(int sig);
 void	ft_free_string_arrays(char **array);
 char	**ft_split_single(char const *s, char c);
-char 	*get_expanded_val(char **str, t_app *self); 
+char *get_env(char *key, t_env *env);
 int		is_valid_identifier(char *str);
+char	*get_expanded(char *raw, t_env *env);
 
 // env
 char	**get_binary_paths(void);
 void	find_binary_path(t_command *command);
-char **get_env(t_app *self);
+char **get_env_raw(t_app *self);
 void	set_env(t_app *self, char **raw);
 void	env_destroy(t_app *self);
+t_env *env_create(char *raw);
 
 // execute
 void execute_tree(t_astree *node, t_app *self);
-void	command_init(t_astree *node, t_command *command, t_executor executor);
+void	command_init(t_astree *node, t_command *command, t_executor executor,
+	t_app *self);
 void	command_execute(t_command *command, t_app *self);
 void	command_destroy(t_command *command);
 

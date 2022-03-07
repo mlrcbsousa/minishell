@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:41:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 18:53:01 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/07 12:01:17 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	run(t_command *command, t_app *self)
 		find_binary_path(command);
 		printf("%s\n", *command->argv);
 
-		if (execve(*command->argv, command->argv, get_env(self)) == -1)
+		if (execve(*command->argv, command->argv, get_env_raw(self)) == -1)
 		{
 			dup2(stdout_fd, STDOUT_FILENO); // restore stdout
       printf("%s: command not found\n", *command->argv);
