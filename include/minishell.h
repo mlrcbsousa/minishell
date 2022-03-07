@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 11:45:40 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/07 12:01:17 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,7 @@ char	*get_expanded(char *raw, t_env *env);
 // env
 char	**get_binary_paths(void);
 void	find_binary_path(t_command *command);
-char **get_env(t_app *self);
+char **get_env_raw(t_app *self);
 void	set_env(t_app *self, char **raw);
 void	env_destroy(t_app *self);
 

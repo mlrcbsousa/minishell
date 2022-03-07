@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 18:05:36 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 15:19:25 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/07 12:07:31 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static t_env *env_create(char *raw)
 	t_env *env;
 
 	// TODO: split only on first '='
+	// TODO: check what returns from slpit "key="
 	data = ft_split(raw, '=');
 	env = (t_env *)malloc(sizeof(t_env));
 
@@ -29,7 +30,7 @@ static t_env *env_create(char *raw)
 	env->value = (char *)malloc(ft_strlen(*(data + 1)) + 1);
 	env->value = ft_strcpy(env->value, *(data + 1));
 
-	// value might be empty
+	// TODO: value might be empty
 
 	env->next = NULL;
 
@@ -71,7 +72,7 @@ static int env_length(t_env *env)
 	return (length);
 }
 
-char	**get_env(t_app *self)
+char	**get_env_raw(t_app *self)
 {
 	t_env	*env;
 	char	*save;
