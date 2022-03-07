@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 11:43:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 13:07:36 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/07 15:23:55 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,9 @@ char	*get_env(char *key, t_env *env)
 char	*find_env_key(char *raw)
 {
 	int length;
-	char *key;
 
 	length = 0;
-	if (!ft_isalpha(*raw) && *raw != EXPAND_USCORE)
+	if (ft_isalpha(*raw) || *raw == EXPAND_USCORE)
 	{
 		raw++;
 		length++;
@@ -66,17 +65,14 @@ char	*find_env_key(char *raw)
 			length++;
 		}
 	}
-	if (!length)
-		return (ft_strdup(""));
-	raw = raw - length;
-	key = (char *)malloc(sizeof(char) * (length + 1));
-	ft_strlcpy(key, raw, length + 1);
-	return (key);
+	return (ft_substr(raw - length, 0, length));
 }
 
 char	*get_expanded(char *raw, t_env *env)
 {
 	char *expanded;
+	char *save;
+	char *part;
 	int	length;
 	char *env_key;
 	char *env_value;
@@ -84,38 +80,57 @@ char	*get_expanded(char *raw, t_env *env)
 	// TODO: trim quotes
 
 	expanded = NULL;
-	length = 0;
+	env_value = NULL;
+	save = ft_strdup("");
+
 	// only if double quotes or no quotes
+	// TODO: not if just open double quote
 	if (*raw == LEXICAL_QUOTE)
 		return (ft_strdup(raw));
 
-
+	length = 0;
 	while (*raw)
 	{
+		// enter when valid to find a var key
 		if (*raw == EXPAND_DOLLAR)
+			// && (ft_isalnum(*(raw + 1))
+			// 	|| *(raw + 1) == EXPAND_USCORE
+			// 	|| *(raw + 1) == EXPAND_QUESTION))
 		{
-			env_key = find_env_key(raw + 1);
+			if (*(raw + 1) == EXPAND_QUESTION)
+			{
+				part = ft_itoa(g_return);
+				raw = raw + 2;
 
-			env_value = get_env(env_key, env);
-			free(env_key);
+				printf("env_value: %s\n", env_value);
 
-			length += ft_strlen(env_value);
+				expanded = ft_strjoin(save, part);
+				free(save);
+				free(part);
+				save = expanded;
+			}
+			else if (ft_isalnum(*(raw + 1)) || *(raw + 1) == EXPAND_USCORE)
+			{
+				env_key = find_env_key(raw + 1);
+				env_value = get_env(env_key, env);
+
+				printf("env_key: %s\n", env_key);
+				printf("env_value: %s\n", env_value);
+
+				raw = raw + 1 + ft_strlen(env_key);
+				free(env_key);
+			}
 		}
 		else
 		{
-			// ft_putchar(*raw);
-			length++;
+			part = ft_substr(raw, 0, 1);
+
+			expanded = ft_strjoin(save, part);
+			free(save);
+			free(part);
+			save = expanded;
+			raw++;
 		}
-		raw++;
 	}
-
-
-
-
-
-	// else
-	expanded = (char *)malloc(ft_strlen(raw) + 1);
-	ft_strcpy(expanded, raw);
-	free(raw);
 	return (expanded);
 }
