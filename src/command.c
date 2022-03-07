@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:56:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 11:42:07 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/07 16:09:44 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,6 @@ void command_init(t_astree *simple_command_node,
 	i = 0;
 	node = simple_command_node;
 	while (is_node_argument(node)) {
-		// expanded = get_expanded(node->data, self->env);
-		// command->argv[i] = (char *)malloc(ft_strlen(expanded) + 1);
-		// ft_strcpy(command->argv[i], expanded);
-		// free(expanded);
 		command->argv[i] = get_expanded(node->data, self->env);
 		node = node->right;
 		i++;
