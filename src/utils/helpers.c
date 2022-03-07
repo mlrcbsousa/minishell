@@ -42,7 +42,7 @@ char	**ft_split_single(char const *s, char c)
 	if(!strs[1])
 		return (strs);
 	ft_strlcpy(strs[1], &ft_strchr(s, c)[1], ft_strlen(ft_strchr(s, c)));
-	
+
 	strs[2] = NULL;
 	return (strs);
 }
@@ -52,7 +52,7 @@ char *get_expanded_val(char **str, t_app *self) {
 
 	if(!str || !str[0][1] || str[0][0] != '$')
 		return(*str);
-	
+
 	temp = self->env;
 	while(temp) {
 		if(ft_streq(temp->key, &str[0][1])) {

@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   helpers_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/12 23:11:12 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 11:25:14 by msousa           ###   ########.fr       */
+/*   Created: 2022/03/07 11:43:28 by msousa            #+#    #+#             */
+/*   Updated: 2022/03/07 11:45:33 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-// Let segfault when str is NULL so we know not to call funciton on NULL
-size_t	ft_strlen(const char *str)
+char	*get_expanded(char *raw, t_env *env)
 {
-	size_t	length;
-
-	length = 0;
-	while (*str++)
-		length++;
-	return (length);
+	(void)raw;
+	(void)env;
+	return (NULL);
 }

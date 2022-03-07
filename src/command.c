@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:56:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 18:28:02 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/07 11:42:07 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ static void	command_fill(t_command *command, t_executor executor)
 }
 
 void command_init(t_astree *simple_command_node,
-									t_command *command,
-									t_executor executor)
+									t_command *command, t_executor executor, t_app *self)
 {
 	int i;
 	t_astree *node;
+	// char	*expanded;
 
 	if (!simple_command_node || simple_command_node->type != NODE_CMDPATH)
 		return ;
@@ -52,8 +52,11 @@ void command_init(t_astree *simple_command_node,
 	i = 0;
 	node = simple_command_node;
 	while (is_node_argument(node)) {
-		command->argv[i] = (char *)malloc(ft_strlen(node->data) + 1);
-		ft_strcpy(command->argv[i], node->data);
+		// expanded = get_expanded(node->data, self->env);
+		// command->argv[i] = (char *)malloc(ft_strlen(expanded) + 1);
+		// ft_strcpy(command->argv[i], expanded);
+		// free(expanded);
+		command->argv[i] = get_expanded(node->data, self->env);
 		node = node->right;
 		i++;
 	}

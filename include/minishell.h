@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 18:49:31 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/07 11:45:40 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,8 +201,9 @@ t_astree	*token_list_a(t_parser *parser);
 void	sigint_handler(int sig);
 void	ft_free_string_arrays(char **array);
 char	**ft_split_single(char const *s, char c);
-char 	*get_expanded_val(char **str, t_app *self); 
+char 	*get_expanded_val(char **str, t_app *self);
 int		is_valid_identifier(char *str);
+char	*get_expanded(char *raw, t_env *env);
 
 // env
 char	**get_binary_paths(void);
@@ -213,7 +214,8 @@ void	env_destroy(t_app *self);
 
 // execute
 void execute_tree(t_astree *node, t_app *self);
-void	command_init(t_astree *node, t_command *command, t_executor executor);
+void	command_init(t_astree *node, t_command *command, t_executor executor,
+	t_app *self);
 void	command_execute(t_command *command, t_app *self);
 void	command_destroy(t_command *command);
 

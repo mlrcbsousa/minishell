@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 19:19:41 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 18:25:06 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/07 11:37:28 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void execute_simple_command(t_astree *simple_command_node,
 	t_command command;
 
 	command = (t_command) {0, NULL, FALSE, FALSE, 0, 0, 0, 0, 0, 0};
-	command_init(simple_command_node, &command, executor);
+	command_init(simple_command_node, &command, executor, self);
 	command_execute(&command, self);
 	command_destroy(&command);
 }
