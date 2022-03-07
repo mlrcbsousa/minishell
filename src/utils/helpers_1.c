@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 11:43:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 15:23:55 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/07 16:05:05 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*get_env(char *key, t_env *env)
 			// key doesnt have value
 			// TODO: return empty string (which should be env->value)
 			if (!ft_strlen(env->value))
-				printf("empty string\n");
+				printf("env->key: %s, empty string\n", env->key);
+			printf("env->value: %s\n", env->value);
 			return (env->value);
 		}
 		env = env->next;
@@ -73,14 +74,10 @@ char	*get_expanded(char *raw, t_env *env)
 	char *expanded;
 	char *save;
 	char *part;
-	int	length;
 	char *env_key;
-	char *env_value;
 
 	// TODO: trim quotes
 
-	expanded = NULL;
-	env_value = NULL;
 	save = ft_strdup("");
 
 	// only if double quotes or no quotes
@@ -88,49 +85,30 @@ char	*get_expanded(char *raw, t_env *env)
 	if (*raw == LEXICAL_QUOTE)
 		return (ft_strdup(raw));
 
-	length = 0;
 	while (*raw)
 	{
 		// enter when valid to find a var key
-		if (*raw == EXPAND_DOLLAR)
-			// && (ft_isalnum(*(raw + 1))
-			// 	|| *(raw + 1) == EXPAND_USCORE
-			// 	|| *(raw + 1) == EXPAND_QUESTION))
+		if (*raw == EXPAND_DOLLAR && *(raw + 1) == EXPAND_QUESTION)
 		{
-			if (*(raw + 1) == EXPAND_QUESTION)
-			{
-				part = ft_itoa(g_return);
-				raw = raw + 2;
-
-				printf("env_value: %s\n", env_value);
-
-				expanded = ft_strjoin(save, part);
-				free(save);
-				free(part);
-				save = expanded;
-			}
-			else if (ft_isalnum(*(raw + 1)) || *(raw + 1) == EXPAND_USCORE)
-			{
-				env_key = find_env_key(raw + 1);
-				env_value = get_env(env_key, env);
-
-				printf("env_key: %s\n", env_key);
-				printf("env_value: %s\n", env_value);
-
-				raw = raw + 1 + ft_strlen(env_key);
-				free(env_key);
-			}
-		}
-		else
-		{
-			part = ft_substr(raw, 0, 1);
-
-			expanded = ft_strjoin(save, part);
-			free(save);
-			free(part);
-			save = expanded;
+			part = ft_itoa(g_return);
 			raw++;
 		}
+		else if (*raw == EXPAND_DOLLAR
+			&& (ft_isalnum(*(raw + 1)) || *(raw + 1) == EXPAND_USCORE))
+		{
+			env_key = find_env_key(raw + 1);
+			part = get_env(env_key, env);
+			part = ft_strcpy((char *)malloc(ft_strlen(part) + 1), part);
+			raw = raw + ft_strlen(env_key);
+			free(env_key);
+		}
+		else
+			part = ft_substr(raw, 0, 1);
+		expanded = ft_strjoin(save, part);
+		free(save);
+		free(part);
+		save = expanded;
+		raw++;
 	}
 	return (expanded);
 }
