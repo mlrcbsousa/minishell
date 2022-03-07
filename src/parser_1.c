@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 22:56:04 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 22:18:24 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/07 23:27:18 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_astree	*command_a(t_parser *parser)
 {
 	t_astree	*simple_command_node;
+	t_astree	*redirect_node;
 	t_astree	*result;
 	char* filename;
 
@@ -37,6 +38,8 @@ t_astree	*command_a(t_parser *parser)
 		astree_destroy(simple_command_node);
 		return (NULL);
 	}
+
+	redirect_node = redirect_command(parser);
 
 	// Create node return it
 	result = (t_astree *)malloc(sizeof(t_astree));
@@ -86,6 +89,7 @@ t_astree	*command_b(t_parser *parser)
 t_astree	*command_c(t_parser *parser)
 {
 	t_astree	*simple_command_node;
+	t_astree	*redirect_node;
 	t_astree	*result;
 	char* delimiter;
 
@@ -109,6 +113,8 @@ t_astree	*command_c(t_parser *parser)
 		return (NULL);
 	}
 
+	redirect_node = redirect_command(parser);
+
 	// Create node return it
 	result = (t_astree *)malloc(sizeof(t_astree));
 	astree_set_type(result, NODE_HEREDOC);
@@ -120,6 +126,7 @@ t_astree	*command_c(t_parser *parser)
 t_astree	*command_d(t_parser *parser)
 {
 	t_astree	*simple_command_node;
+	t_astree	*redirect_node;
 	t_astree	*result;
 	char* filename;
 
@@ -142,6 +149,8 @@ t_astree	*command_d(t_parser *parser)
 		astree_destroy(simple_command_node);
 		return (NULL);
 	}
+
+	redirect_node = redirect_command(parser);
 
 	// Create node return it
 	result = (t_astree *)malloc(sizeof(t_astree));
