@@ -104,11 +104,27 @@ int	builtin_export(t_command *command, t_app *self)
 		temp = self->env;
 		
 		splitted = ft_split_single(command->argv[i], '=');
-		if(!splitted[1])
-		{
-			ft_free_string_arrays(splitted);
+		if(!splitted) {
+			if(!is_valid_identifier(command->argv[i])) {
+				ft_putstr_fd("minishell: export: `", STDOUT_FILENO);
+				ft_putstr_fd(command->argv[i], STDOUT_FILENO);
+				ft_putstr_fd("': not a valid identifier\n", STDOUT_FILENO);
+				return(1);
+			}
+			i++;
 			continue;
 		}
+
+		splitted[0] = get_expanded_val(&splitted[0], self);
+		if(!is_valid_identifier(splitted[0])) {
+			ft_putstr_fd("minishell: export: `", STDOUT_FILENO);
+			ft_putstr_fd(splitted[0], STDOUT_FILENO);
+			ft_putstr_fd("': not a valid identifier\n", STDOUT_FILENO);
+			ft_free_string_arrays(splitted);
+			return(1);
+		}
+
+		splitted[1] = get_expanded_val(&splitted[1], self);
 
 		found = 0;
 
