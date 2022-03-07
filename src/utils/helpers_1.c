@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 11:43:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 16:05:05 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/07 16:17:38 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,39 +17,11 @@ char	*get_env(char *key, t_env *env)
 	while (env)
 	{
 		if (ft_streq(env->key, key))
-		{
-			// key doesnt have value
-			// TODO: return empty string (which should be env->value)
-			if (!ft_strlen(env->value))
-				printf("env->key: %s, empty string\n", env->key);
-			printf("env->value: %s\n", env->value);
 			return (env->value);
-		}
 		env = env->next;
 	}
-	// key doesnt exist
-	// check if use ft_strdup("");
 	return (NULL);
 }
-
-// t_bool	is_valid_identifier(char *str)
-// {
-// 	int	i;
-
-// 	if(!str)
-// 		return (FALSE);
-
-// 	if (!ft_isalpha(str[0]) && str[0] != '_')
-// 		return (FALSE);
-// 	i = 1;
-// 	while (str[i])
-// 	{
-// 		if (!ft_isalnum(str[i]) && str[i] != '_')
-// 			return (FALSE);
-// 		i++;
-// 	}
-// 	return (TRUE);
-// }
 
 char	*find_env_key(char *raw)
 {

@@ -6,13 +6,13 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 18:05:36 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 12:07:31 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/07 16:33:42 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_env *env_create(char *raw)
+t_env *env_create(char *raw)
 {
 	char **data;
 	t_env *env;

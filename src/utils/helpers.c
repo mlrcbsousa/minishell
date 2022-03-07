@@ -47,25 +47,6 @@ char	**ft_split_single(char const *s, char c)
 	return (strs);
 }
 
-char *get_expanded_val(char **str, t_app *self) {
-	t_env *temp;
-
-	if(!str || !str[0][1] || str[0][0] != '$')
-		return(*str);
-
-	temp = self->env;
-	while(temp) {
-		if(ft_streq(temp->key, &str[0][1])) {
-
-			free(*str);
-			return (ft_strdup(temp->value));
-		}
-
-		temp = temp->next;
-	}
-	return (NULL);
-}
-
 t_bool	is_valid_identifier(char *str)
 {
 	int	i;
