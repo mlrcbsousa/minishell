@@ -201,6 +201,8 @@ t_astree	*token_list_a(t_parser *parser);
 void	sigint_handler(int sig);
 void	ft_free_string_arrays(char **array);
 char	**ft_split_single(char const *s, char c);
+char 	*get_expanded_val(char **str, t_app *self); 
+int		is_valid_identifier(char *str);
 
 // env
 char	**get_binary_paths(void);
