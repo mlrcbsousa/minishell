@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:37:24 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 16:20:34 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/07 18:30:49 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@
 <command line>   ::=  <command> '|' <command line>
                   |   <command>
 
-<command>        ::=  <simple command> '<' <filename>
-                  |   <simple command> '>' <filename>
+<command>        ::=  <command> '<' <filename>
+                  |   <command> '>' <filename>
+                  |   <command> '<<' <filename>
+                  |   <command> '>>' <filename>
                   |   <simple command>
 
 <simple command> ::=  <cmd path> <token list>
@@ -33,10 +35,10 @@
 //                               // <command>
 
 // t_astree* command();          // test "command" possibilities
-// t_astree* command_a();        // <simple command> '<' <filename>
-// t_astree* command_b();        // <simple command> '>' <filename>
-// t_astree* command_c();        // <simple command> '<<' <filename>
-// t_astree* command_d();        // <simple command> '>>' <filename>
+// t_astree* command_a();        // <command> '<' <filename>
+// t_astree* command_b();        // <command> '>' <filename>
+// t_astree* command_c();        // <command> '<<' <filename>
+// t_astree* command_d();        // <command> '>>' <filename>
 //                               // <simple command>
 
 //                               // test "simple command" possibilities
