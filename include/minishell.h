@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 12:01:17 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/07 12:58:12 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@
 # include <errno.h>
 
 # include "libft.h"
+
+// Constants
+# define EXPAND_DOLLAR '$'
+# define EXPAND_QUESTION '?'
+# define EXPAND_USCORE '_'
 
 // Enums
 typedef enum e_node

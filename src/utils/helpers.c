@@ -66,21 +66,21 @@ char *get_expanded_val(char **str, t_app *self) {
 	return (NULL);
 }
 
-int	is_valid_identifier(char *str)
+t_bool	is_valid_identifier(char *str)
 {
 	int	i;
 
 	if(!str)
-		return (0);
+		return (FALSE);
 
 	if (!ft_isalpha(str[0]) && str[0] != '_')
-		return (0);
+		return (FALSE);
 	i = 1;
 	while (str[i])
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
-			return (0);
+			return (FALSE);
 		i++;
 	}
-	return (1);
+	return (TRUE);
 }
