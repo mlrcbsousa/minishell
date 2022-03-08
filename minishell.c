@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 14:32:39 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/07 23:55:54 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ int main(int argc, char *argv[], char *env[])
 		// 6. free memory
 		astree_destroy(astree);
 	}
-	return 0;
+	return (0);
 }

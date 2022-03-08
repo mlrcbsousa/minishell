@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 19:19:41 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 11:37:28 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 00:47:59 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,33 +23,72 @@ static void execute_simple_command(t_astree *simple_command_node,
 	command_destroy(&command);
 }
 
+static void	redirects_init(t_astree *node, t_executor executor, t_app *self)
+{
+	while (node)
+	{
+		if (node->type == NODE_REDIRECT_IN)
+		{
+			executor->redirect_in = (t_in *)malloc(sizeof(t_in));
+			executor->redirect_in->data = node->data;
+			executor->redirect_in->heredoc = FALSE;
+			executor->redirect_in->next = NULL;
+		}
+		else if (node->type == NODE_HEREDOC)
+		{
+			executor->redirect_in = (t_in *)malloc(sizeof(t_in));
+			executor->redirect_in->data = node->data;
+			executor->redirect_in->heredoc = TRUE;
+			executor->redirect_in->next = NULL;
+		}
+		else if (node->type == NODE_REDIRECT_OUT)
+		{
+			executor->redirect_out = (t_out *)malloc(sizeof(t_out));
+			executor->redirect_out->data = node->data;
+			executor->redirect_out->append = FALSE;
+			executor->redirect_out->next = NULL;
+		}
+		else if (node->type == NODE_APPEND)
+		{
+			executor->redirect_out = (t_out *)malloc(sizeof(t_out));
+			executor->redirect_out->data = node->data;
+			executor->redirect_out->append = TRUE;
+			executor->redirect_out->next = NULL;
+		}
+		node = node->left;
+	}
+}
+
 static void execute_command_line(t_astree *node, t_executor executor,
 																t_app *self)
 {
 	if (!node)
 		return ;
-	if (node->type == NODE_REDIRECT_IN)
+	if (node->type == NODE_REDIRECT_IN
+		|| node->type == NODE_REDIRECT_OUT
+		|| node->type == NODE_HEREDOC
+		|| node->type == NODE_APPEND)
 	{
-		executor.redirect_in = node->data;
-		// right node has command information
+		redirects_init(node, executor, self);
+		// executor.redirect_in = in_init(node);
 		execute_simple_command(node->right, executor, self);
 	}
-	else if (node->type == NODE_REDIRECT_OUT)
-	{
-		executor.redirect_out = node->data;
-		// right node has command information
-		execute_simple_command(node->right, executor, self);
-	}
-	else if (node->type == NODE_HEREDOC)
-	{
-		executor.heredoc = node->data;
-		execute_simple_command(node->right, executor, self);
-	}
-	else if (node->type == NODE_APPEND)
-	{
-		executor.append = node->data;
-		execute_simple_command(node->right, executor, self);
-	}
+	// else if (node->type == NODE_REDIRECT_OUT)
+	// {
+	// 	executor.redirect_out = node->data;
+	// 	// right node has command information
+	// 	execute_simple_command(node->right, executor, self);
+	// }
+	// else if (node->type == NODE_HEREDOC)
+	// {
+	// 	executor.heredoc = node->data;
+	// 	execute_simple_command(node->right, executor, self);
+	// }
+	// else if (node->type == NODE_APPEND)
+	// {
+	// 	executor.append = node->data;
+	// 	execute_simple_command(node->right, executor, self);
+	// }
 	else if (node->type == NODE_CMDPATH)
 		// current node has command information
 		execute_simple_command(node, executor, self);
