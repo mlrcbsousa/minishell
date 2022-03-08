@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:56:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 16:09:44 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 14:01:49 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,10 @@ static void	command_fill(t_command *command, t_executor executor)
 	command->pipe_write = executor.pipe_write;
 	command->redirect_in = executor.redirect_in;
 	command->redirect_out = executor.redirect_out;
-	command->heredoc = executor.heredoc;
-	command->append = executor.append;
 }
 
-void command_init(t_astree *simple_command_node,
-									t_command *command, t_executor executor, t_app *self)
+void command_init(t_astree *simple_command_node, t_command *command,
+									t_executor executor, t_app *self)
 {
 	int i;
 	t_astree *node;
@@ -66,9 +64,6 @@ void command_execute(t_command *command, t_app *self)
 {
 	t_builtin	*builtin;
 
-	// TEST
-	print_command(command);
-
   if (command->argc < 0)
     return ;
 	builtin = get_builtin(*command->argv);
@@ -86,5 +81,7 @@ void command_destroy(t_command *command)
 	while (i < command->argc)
 		free(command->argv[i++]);
 	free(command->argv);
+	redirect_clear(&command->redirect_in);
+	redirect_clear(&command->redirect_out);
 	command->argc = 0;
 }

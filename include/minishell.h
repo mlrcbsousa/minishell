@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/08 12:34:01 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 14:01:05 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,11 @@ char **get_env_raw(t_app *self);
 void	set_env(t_app *self, char **raw);
 void	env_destroy(t_app *self);
 t_env *env_create(char *raw);
+
+// redirect
+t_io	*redirect_last(t_io *io);
+void	redirect_add_back(t_io **io, t_io *new);
+void	redirect_clear(t_io **io);
 
 // execute
 void execute_tree(t_astree *node, t_app *self);
