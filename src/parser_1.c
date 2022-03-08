@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 22:56:04 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 23:27:18 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 16:51:18 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_astree	*command_a(t_parser *parser)
 	result = (t_astree *)malloc(sizeof(t_astree));
 	astree_set_type(result, NODE_REDIRECT_IN);
 	astree_set_data(result, filename);
-	astree_add_branches(result, NULL, simple_command_node);
+	astree_add_branches(result, redirect_node, simple_command_node);
 	return (result);
 }
 
@@ -119,7 +119,7 @@ t_astree	*command_c(t_parser *parser)
 	result = (t_astree *)malloc(sizeof(t_astree));
 	astree_set_type(result, NODE_HEREDOC);
 	astree_set_data(result, delimiter);
-	astree_add_branches(result, NULL, simple_command_node);
+	astree_add_branches(result, redirect_node, simple_command_node);
 	return (result);
 }
 
@@ -156,7 +156,7 @@ t_astree	*command_d(t_parser *parser)
 	result = (t_astree *)malloc(sizeof(t_astree));
 	astree_set_type(result, NODE_APPEND);
 	astree_set_data(result, filename);
-	astree_add_branches(result, NULL, simple_command_node);
+	astree_add_branches(result, redirect_node, simple_command_node);
 	return (result);
 }
 
