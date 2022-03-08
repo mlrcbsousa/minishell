@@ -6,37 +6,53 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:41:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 12:01:17 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 14:49:52 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	run_setup_pipe_write(t_command *command)
+void	run_setup_io_in(t_io *io, t_env *env)
 {
+	while (io)
+	{
+		if (io->type == IO_REDIRECT_IN)
+			run_setup_redirect_in(io);
+		if (io->type == IO_HEREDOC)
+			run_setup_heredoc(io, env);
+		io = io->next;
+	}
+}
+
+void	run_setup_io_out(t_io *io)
+{
+	while (io)
+	{
+		if (io->type == IO_REDIRECT_OUT)
+			run_setup_redirect_out(io);
+		if (io->type == IO_APPEND)
+			run_setup_append(io);
+		io = io->next;
+	}
+}
+
+void	run_setup_io(t_command *command, t_env *env)
+{
+	// redirect stdin from file if specified
+	if(command->redirect_in)
+		run_setup_io_in(command->redirect_in, env);
+
+  // redirect stdout to file if specified
+	if(command->redirect_out)
+		run_setup_io_out(command->redirect_out);
+
+	// read from stdin pipe
+	if (command->stdin_pipe)
+		dup2(command->pipe_read, STDIN_FILENO);
+
 	// write to stdout pipe
 	if (command->stdout_pipe)
 		dup2(command->pipe_write, STDOUT_FILENO);
-}
-
-void	run_setup_io_out(t_command *command)
-{
-	run_setup_redirect_out(command);
-	run_setup_append(command);
-	run_setup_pipe_write(command);
-}
-
-void	run_setup_io_in(t_command *command)
-{
-	run_setup_redirect_in(command);
-	run_setup_heredoc(command);
-	run_setup_pipe_read(command);
-}
-
-void	run_setup_io(t_command *command)
-{
-	run_setup_io_in(command);
-	run_setup_io_out(command);
 }
 
 void	run(t_command *command, t_app *self)
@@ -52,7 +68,7 @@ void	run(t_command *command, t_app *self)
 
 		// handle pipes and redirects
 		stdout_fd = dup(STDOUT_FILENO); // to restore at the end
-		run_setup_io(command);
+		run_setup_io(command, self->env);
 
 		// check if file is in bin path
 		find_binary_path(command);

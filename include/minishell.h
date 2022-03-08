@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 16:34:13 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 14:50:55 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,13 @@ enum e_state {
 	STATE_DEFAULT,
 };
 
+typedef enum e_iotype {
+	IO_REDIRECT_IN,
+	IO_REDIRECT_OUT,
+	IO_HEREDOC,
+	IO_APPEND,
+} t_iotype;
+
 // Structs & Types
 typedef struct s_app t_app; // main app state
 typedef struct s_token t_token; // typed linked list for tokens
@@ -83,6 +90,7 @@ typedef struct s_command t_command; // command info
 typedef struct s_builtin_def t_builtin_def;
 typedef int	(t_builtin)(t_command *command, t_app *self);
 typedef struct s_env t_env;
+typedef struct s_io t_io;
 
 struct s_app
 {
@@ -137,16 +145,21 @@ struct s_parser
 	t_token	*current_token;
 };
 
+struct s_io
+{
+	t_iotype	type;
+	char	*data;
+	t_io *next;
+};
+
 struct s_executor
 {
 	t_bool stdin_pipe;
 	t_bool stdout_pipe;
 	int pipe_read;
 	int pipe_write;
-	char* redirect_in;
-	char* redirect_out;
-	char* heredoc;
-	char* append;
+	t_io *redirect_in;
+	t_io *redirect_out;
 };
 
 struct s_command
@@ -157,10 +170,8 @@ struct s_command
 	t_bool stdout_pipe;
 	int pipe_read;
 	int pipe_write;
-	char* redirect_in;
-	char* redirect_out;
-	char* heredoc;
-	char* append;
+	t_io *redirect_in;
+	t_io *redirect_out;
 };
 
 struct	s_builtin_def
@@ -194,15 +205,20 @@ void astree_destroy(t_astree *node);
 // BNF parser
 int parse(t_stack *analysed, t_astree **astree);
 t_bool	match(int token_type, char **buffer, t_parser *parser);
-t_astree* command_line(t_parser *parser);
-t_astree* command_line_a(t_parser *parser);
-t_astree* command(t_parser *parser);
-t_astree* command_a(t_parser *parser);
-t_astree* command_b(t_parser *parser);
-t_astree* command_c(t_parser *parser);
-t_astree* command_d(t_parser *parser);
-t_astree* simple_command(t_parser *parser);
-t_astree* token_list(t_parser *parser);
+t_astree	*command_line(t_parser *parser);
+t_astree	*command_line_a(t_parser *parser);
+t_astree	*command(t_parser *parser);
+t_astree	*command_a(t_parser *parser);
+t_astree	*command_b(t_parser *parser);
+t_astree	*command_c(t_parser *parser);
+t_astree	*command_d(t_parser *parser);
+t_astree	*redirect_command(t_parser *parser);
+t_astree	*redirect_command_a(t_parser *parser);
+t_astree	*redirect_command_b(t_parser *parser);
+t_astree	*redirect_command_c(t_parser *parser);
+t_astree	*redirect_command_d(t_parser *parser);
+t_astree	*simple_command(t_parser *parser);
+t_astree	*token_list(t_parser *parser);
 t_astree	*token_list_a(t_parser *parser);
 
 // utils
@@ -220,6 +236,11 @@ char **get_env_raw(t_app *self);
 void	set_env(t_app *self, char **raw);
 void	env_destroy(t_app *self);
 t_env *env_create(char *raw);
+
+// redirect
+t_io	*redirect_last(t_io *io);
+void	redirect_add_back(t_io **io, t_io *new);
+void	redirect_clear(t_io **io);
 
 // execute
 void execute_tree(t_astree *node, t_app *self);
@@ -240,15 +261,13 @@ int	builtin_exit(t_command *command, t_app *self);
 
 // run
 void	run(t_command *command, t_app *self);
-void	run_setup_io(t_command *command);
-void	run_setup_io_in(t_command *command);
-void	run_setup_io_out(t_command *command);
-void	run_setup_pipe_read(t_command *command);
-void	run_setup_pipe_write(t_command *command);
-void	run_setup_redirect_in(t_command *command);
-void	run_setup_redirect_out(t_command *command);
-void	run_setup_heredoc(t_command *command);
-void	run_setup_append(t_command *command);
+void	run_setup_io(t_command *command, t_env *env);
+void	run_setup_io_in(t_io *io, t_env *env);
+void	run_setup_io_out(t_io *io);
+void	run_setup_redirect_in(t_io *io);
+void	run_setup_redirect_out(t_io *io);
+void	run_setup_heredoc(t_io *io, t_env *env);
+void	run_setup_append(t_io *io);
 
 // test
 void print_astree(t_astree *node);

@@ -6,7 +6,7 @@
 #    By: msousa <msousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/03/07 11:46:14 by msousa           ###   ########.fr        #
+#    Updated: 2022/03/08 13:06:39 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC			= minishell.c \
 					src/parser.c \
 					src/parser_1.c \
 					src/parser_2.c \
+					src/parser_3.c \
 					src/utils/binary_paths.c \
 					src/utils/signals.c \
 					src/utils/helpers.c \
@@ -37,6 +38,7 @@ SRC			= minishell.c \
 					src/run_1.c \
 					src/env.c \
 					src/test.c \
+					src/redirect.c
 
 NAME		= minishell
 

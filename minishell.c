@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 14:32:39 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 15:39:55 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int main(int argc, char *argv[], char *env[])
 
 		// TEST - analysed tokens
 		print_tokens(analysed.token);
+		printf("========================================= TOKENS END\n\n");
 
 		// 3. parse stack of tokens into an abstract syntax tree
 		astree = NULL;
@@ -66,6 +67,7 @@ int main(int argc, char *argv[], char *env[])
 		{
 			printf("successful parsing\n");
 			print_astree(astree);
+			printf("========================================= NODES END\n");
 		}
 		// TODO: check if needed
 		self.astree = astree;
@@ -77,5 +79,5 @@ int main(int argc, char *argv[], char *env[])
 		// 6. free memory
 		astree_destroy(astree);
 	}
-	return 0;
+	return (0);
 }
