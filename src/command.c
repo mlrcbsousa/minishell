@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:56:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/08 14:01:49 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 15:10:00 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ void command_destroy(t_command *command)
 	while (i < command->argc)
 		free(command->argv[i++]);
 	free(command->argv);
-	redirect_clear(&command->redirect_in);
-	redirect_clear(&command->redirect_out);
+	if (command->redirect_in)
+		redirect_clear(&command->redirect_in);
+	if (command->redirect_out)
+		redirect_clear(&command->redirect_out);
 	command->argc = 0;
 }

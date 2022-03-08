@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 16:50:58 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 14:58:47 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,8 @@ int	builtin_echo(t_command *command, t_app *self)
 	int	i;
 	int stdout_fd;
 
-	(void)self;
 	stdout_fd = dup(STDOUT_FILENO); // to restore at the end
-	run_setup_io_out(command);
+	run_setup_io(command, self->env);
 	with_n = ft_streq(command->argv[1], "-n");
 	i = 1;
 	if (with_n)
@@ -59,7 +58,10 @@ int	builtin_echo(t_command *command, t_app *self)
 
 int	builtin_cd(t_command *command, t_app *self)
 {
-	(void)self;
+	int stdout_fd;
+
+	stdout_fd = dup(STDOUT_FILENO); // to restore at the end
+	run_setup_io(command, self->env);
 
 	if (command->argc == 1) {
 		// TODO: remove use of getenv
@@ -88,6 +90,7 @@ int	builtin_cd(t_command *command, t_app *self)
 		perror("");
 	}
 
+	dup2(stdout_fd, STDOUT_FILENO); // restore stdout
 	return (0);
 }
 
@@ -98,6 +101,10 @@ int	builtin_export(t_command *command, t_app *self)
 	t_env *new_env;
 	t_env *temp;
 	char	*found;
+	int stdout_fd;
+
+	stdout_fd = dup(STDOUT_FILENO); // to restore at the end
+	run_setup_io(command, self->env);
 
 	i = 1;
 	while(command->argv[i]) {
@@ -154,6 +161,8 @@ int	builtin_export(t_command *command, t_app *self)
 		ft_free_string_arrays(splitted);
 		i++;
 	}
+
+	dup2(stdout_fd, STDOUT_FILENO); // restore stdout
 	return (0);
 }
 
@@ -162,6 +171,10 @@ int	builtin_unset(t_command *command, t_app *self)
 	int i;
 	t_env *temp;
 	t_env *previous;
+	int stdout_fd;
+
+	stdout_fd = dup(STDOUT_FILENO); // to restore at the end
+	run_setup_io(command, self->env);
 
 	i = 1;
 	while(command->argv[i]) {
@@ -190,5 +203,6 @@ int	builtin_unset(t_command *command, t_app *self)
 		i++;
 	}
 
+	dup2(stdout_fd, STDOUT_FILENO); // restore stdout
 	return (0);
 }

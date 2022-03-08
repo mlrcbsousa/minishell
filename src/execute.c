@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 19:19:41 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/08 14:02:44 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 15:36:18 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void execute_simple_command(t_astree *simple_command_node,
 	// TEST
 	print_command(&command);
 
-	// command_execute(&command, self);
+	command_execute(&command, self);
 	command_destroy(&command);
 }
 
@@ -42,6 +42,7 @@ static void	execute_redirect_command(t_astree *node, t_executor *executor)
 	if (node->type == NODE_REDIRECT_IN)
 	{
 		io->type = IO_REDIRECT_IN;
+		printf("========================================= get here\n");
 		redirect_add_back(&executor->redirect_in, io);
 	}
 	else if (node->type == NODE_HEREDOC)
@@ -51,7 +52,6 @@ static void	execute_redirect_command(t_astree *node, t_executor *executor)
 	}
 	else if (node->type == NODE_REDIRECT_OUT)
 	{
-		// printf("get here\n");
 		io->type = IO_REDIRECT_OUT;
 		redirect_add_back(&executor->redirect_out, io);
 	}

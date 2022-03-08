@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/08 14:01:05 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 14:50:55 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,15 +261,13 @@ int	builtin_exit(t_command *command, t_app *self);
 
 // run
 void	run(t_command *command, t_app *self);
-void	run_setup_io(t_command *command);
-void	run_setup_io_in(t_command *command);
-void	run_setup_io_out(t_command *command);
-void	run_setup_pipe_read(t_command *command);
-void	run_setup_pipe_write(t_command *command);
-void	run_setup_redirect_in(t_command *command);
-void	run_setup_redirect_out(t_command *command);
-void	run_setup_heredoc(t_command *command);
-void	run_setup_append(t_command *command);
+void	run_setup_io(t_command *command, t_env *env);
+void	run_setup_io_in(t_io *io, t_env *env);
+void	run_setup_io_out(t_io *io);
+void	run_setup_redirect_in(t_io *io);
+void	run_setup_redirect_out(t_io *io);
+void	run_setup_heredoc(t_io *io, t_env *env);
+void	run_setup_append(t_io *io);
 
 // test
 void print_astree(t_astree *node);
