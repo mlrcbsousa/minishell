@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 22:28:23 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 12:34:01 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,13 @@ enum e_state {
 	STATE_DEFAULT,
 };
 
+typedef enum e_iotype {
+	IO_REDIRECT_IN,
+	IO_REDIRECT_OUT,
+	IO_HEREDOC,
+	IO_APPEND,
+} t_iotype;
+
 // Structs & Types
 typedef struct s_app t_app; // main app state
 typedef struct s_token t_token; // typed linked list for tokens
@@ -83,6 +90,7 @@ typedef struct s_command t_command; // command info
 typedef struct s_builtin_def t_builtin_def;
 typedef int	(t_builtin)(t_command *command, t_app *self);
 typedef struct s_env t_env;
+typedef struct s_io t_io;
 
 struct s_app
 {
@@ -137,16 +145,21 @@ struct s_parser
 	t_token	*current_token;
 };
 
+struct s_io
+{
+	t_iotype	type;
+	char	*data;
+	t_io *next;
+};
+
 struct s_executor
 {
 	t_bool stdin_pipe;
 	t_bool stdout_pipe;
 	int pipe_read;
 	int pipe_write;
-	char* redirect_in;
-	char* redirect_out;
-	char* heredoc;
-	char* append;
+	t_io *redirect_in;
+	t_io *redirect_out;
 };
 
 struct s_command
@@ -157,10 +170,8 @@ struct s_command
 	t_bool stdout_pipe;
 	int pipe_read;
 	int pipe_write;
-	char* redirect_in;
-	char* redirect_out;
-	char* heredoc;
-	char* append;
+	t_io *redirect_in;
+	t_io *redirect_out;
 };
 
 struct	s_builtin_def
