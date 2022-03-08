@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/08 15:39:55 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 17:42:09 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,11 @@ int main(int argc, char *argv[], char *env[])
 		size = ft_strlen(line);
 
 		// 2. break up line into tokens
-		lexical_analysis(line, size, &analysed);
+		lexical_analysis(line, size, &analysed, self.env);
 		free(line);
 
 		// TEST - analysed tokens
 		print_tokens(analysed.token);
-		printf("========================================= TOKENS END\n\n");
 
 		// 3. parse stack of tokens into an abstract syntax tree
 		astree = NULL;

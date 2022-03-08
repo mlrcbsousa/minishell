@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 11:43:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 16:17:38 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 18:33:41 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ char	*get_expanded(char *raw, t_env *env)
 	char *part;
 	char *env_key;
 
-	// TODO: trim quotes
-
 	save = ft_strdup("");
 
 	// only if double quotes or no quotes
@@ -83,4 +81,22 @@ char	*get_expanded(char *raw, t_env *env)
 		raw++;
 	}
 	return (expanded);
+}
+
+char	*get_stripped(char* src)
+{
+	int	length;
+	char quote;
+
+	length = ft_strlen(src);
+	if (!length)
+		return (ft_strdup(""));
+	if (*src != LEXICAL_QUOTE && *src != LEXICAL_DQUOTE)
+		return (ft_strdup(src));
+	quote = *src;
+	while (*src)
+		src++;
+	if (quote == *(--src))
+		return (ft_substr(src - length + 1, 1, length - 2));
+	return (ft_strdup(src - length + 1));
 }

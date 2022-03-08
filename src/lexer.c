@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 18:52:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/06 20:45:45 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 17:44:05 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	lexer_type_null(t_lexer *lexer)
 
 // while going through line check for various contextual grammar
 // first check by state (is inside quotes or not) then type (token type info)
-void lexical_analysis(char* line, int size, t_stack *analysed)
+void lexical_analysis(char* line, int size, t_stack *analysed, t_env *env)
 {
 	t_lexer	lexer;
 
@@ -104,5 +104,6 @@ void lexical_analysis(char* line, int size, t_stack *analysed)
 	if (lexer.type == LEXICAL_NULL)
 		lexer_type_null(&lexer);
 
+	lexer_expand(analysed->token, env);
 	analysed->size = tokens_length(analysed->token);
 }

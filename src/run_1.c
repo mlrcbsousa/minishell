@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 17:37:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/08 14:51:13 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 17:28:02 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	run_setup_heredoc(t_io *io, t_env *env)
 		free(line);
 	}
 	dup2(read_fd, STDIN_FILENO);
-	close(read_fd);
-	close(write_fd);
+	// close(read_fd);
+	// close(write_fd);
 }
 
 // https://www.gnu.org/software/libc/manual/html_node/Permission-Bits.html

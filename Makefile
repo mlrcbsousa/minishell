@@ -6,7 +6,7 @@
 #    By: msousa <msousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/03/08 13:06:39 by msousa           ###   ########.fr        #
+#    Updated: 2022/03/08 17:43:12 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC			= minishell.c \
 					src/token.c \
 					src/lexer.c \
 					src/lexer_1.c \
+					src/lexer_2.c \
 					src/astree.c \
 					src/parser.c \
 					src/parser_1.c \

@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:21:16 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/08 15:56:47 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 17:31:27 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void print_tokens(t_token *token)
 		printf("type: %d, data: %s\n", token->type, token->data);
 		token = token->next;
 	}
+	printf("========================================= TOKENS END\n\n");
 }
 
 int	io_length(t_io *io)
