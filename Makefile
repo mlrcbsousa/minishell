@@ -6,7 +6,7 @@
 #    By: msousa <msousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/03/08 17:43:12 by msousa           ###   ########.fr        #
+#    Updated: 2022/03/08 18:39:21 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,8 +67,8 @@ style:
 test:			${NAME}
 					-./tests/tests.sh
 
-check:		${NAME}
-					-cat */* | grep TODO
+check:
+					-cat minishell.c src/*/* | grep TODO
 
 clean:
 					${MAKE} clean -C libft

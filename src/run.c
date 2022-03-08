@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:41:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/08 14:49:52 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 18:43:25 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	run(t_command *command, t_app *self)
 		run_setup_io(command, self->env);
 
 		// check if file is in bin path
-		find_binary_path(command);
+		find_binary_path(command, self->env);
 		printf("%s\n", *command->argv);
 
 		if (execve(*command->argv, command->argv, get_env_raw(self)) == -1)
