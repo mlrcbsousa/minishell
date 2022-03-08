@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:21:16 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/08 15:47:16 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 15:56:47 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void print_ios(t_io *io)
 		printf("IO: type: %d, data: %s, ", io->type, io->data);
 		io = io->next;
 	}
-	printf("\n");
 }
 
 // TEST - print command info
@@ -80,5 +79,5 @@ void print_command(t_command *command)
 	printf("\n");
 	printf("redirect_out: length: %d, ", io_length(command->redirect_out));
 	print_ios(command->redirect_out);
-	printf("\n");
+	printf("\n\n");
 }

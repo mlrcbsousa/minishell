@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 22:09:25 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 22:26:49 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/08 16:25:53 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_astree	*redirect_command_a(t_parser *parser)
 		return (NULL);
 	}
 
+	printf("success: LESSER\n");
 	redirect_node = redirect_command(parser);
 
 	// Create node return it
@@ -56,6 +57,7 @@ t_astree	*redirect_command_b(t_parser *parser)
 		return (NULL);
 	}
 
+	printf("success: GREATER\n");
 	redirect_node = redirect_command(parser);
 
 	// Create node return it
@@ -83,6 +85,7 @@ t_astree	*redirect_command_c(t_parser *parser)
 		return (NULL);
 	}
 
+	printf("success: LLESSER\n");
 	redirect_node = redirect_command(parser);
 
 	// Create node return it
@@ -110,6 +113,7 @@ t_astree	*redirect_command_d(t_parser *parser)
 		return (NULL);
 	}
 
+	printf("success: GGREATER\n");
 	redirect_node = redirect_command(parser);
 
 	// Create node return it
@@ -143,4 +147,26 @@ t_astree	*redirect_command(t_parser *parser)
 		return (node);
 	parser->current_token = save;
 	return (NULL);
+
+
+	// save = parser->current_token;
+	// node = command_a(parser);
+	// if (node)
+	// 	return (node);
+	// parser->current_token = save;
+	// node = command_b(parser);
+	// if (node)
+	// 	return (node);
+	// parser->current_token = save;
+	// node = command_c(parser);
+	// if (node)
+	// 	return (node);
+	// parser->current_token = save;
+	// node = command_d(parser);
+	// if (node)
+	// 	return (node);
+	// parser->current_token = save;
+
+
+	// return (NULL);
 }
