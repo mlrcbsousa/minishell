@@ -6,46 +6,34 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 18:05:36 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/07 16:33:42 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 17:37:55 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env *env_create(char *raw)
+// TODO: check what returns from split "key="
+// TODO: check value might be empty
+t_env	*env_create(char *raw)
 {
-	char **data;
-	t_env *env;
+	char	**data;
+	t_env	*env;
 
-	// TODO: split only on first '='
-	// TODO: check what returns from slpit "key="
-	data = ft_split(raw, '=');
+	data = ft_split_first(raw, '=');
 	env = (t_env *)malloc(sizeof(t_env));
-
-	// key
-	env->key = (char *)malloc(ft_strlen(*data) + 1);
-	env->key = ft_strcpy(env->key, *(data));
-
-	// value
-	env->value = (char *)malloc(ft_strlen(*(data + 1)) + 1);
-	env->value = ft_strcpy(env->value, *(data + 1));
-
-	// TODO: value might be empty
-
+	env->key = data++;
+	env->value = data;
 	env->next = NULL;
-
-	// TODO: free each string inside
-	free(data);
 	return (env);
 }
 
-void env_destroy(t_app *self)
+void	env_destroy(t_app *self)
 {
-	t_env *env;
+	t_env	*env;
 
 	if (self->env_raw)
 	{
-		while(*self->env_raw)
+		while (*self->env_raw)
 			free(*self->env_raw++);
 		free(self->env_raw);
 	}
@@ -59,9 +47,9 @@ void env_destroy(t_app *self)
 	}
 }
 
-static int env_length(t_env *env)
+static int	env_length(t_env *env)
 {
-	int length;
+	int	length;
 
 	length = 0;
 	while (env)
@@ -76,10 +64,11 @@ char	**get_env_raw(t_app *self)
 {
 	t_env	*env;
 	char	*save;
-	int i = 0;
+	int		i;
 
-	self->env_raw = (char **)malloc(sizeof(char *) * (env_length(self->env) + 1));
+	i = 0;
 	env = self->env;
+	self->env_raw = (char **)malloc(sizeof(char *) * (env_length(env) + 1));
 	while (env)
 	{
 		save = ft_strjoin(env->key, "=");
@@ -92,14 +81,12 @@ char	**get_env_raw(t_app *self)
 	return (self->env_raw);
 }
 
-// transform env into linked list and set head on self
 void	set_env(t_app *self, char **raw)
 {
-	t_env *env;
+	t_env	*env;
 
 	if (!raw || !*raw)
 		return ;
-
 	self->env = env_create(*raw++);
 	env = self->env;
 	while (raw && *raw)

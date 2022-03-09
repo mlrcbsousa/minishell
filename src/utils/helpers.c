@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:05:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 15:07:05 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 17:34:58 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_free_string_arrays(char **array)
 	array = NULL;
 }
 
-char	**ft_split_single(char const *s, char c)
+char	**ft_split_first(char const *s, char c)
 {
 	char	**strs;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 17:13:25 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 17:34:58 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	builtin_export(t_command *command, t_app *self)
 	while (command->argv[i])
 	{
 		temp = self->env;
-		splitted = ft_split_single(command->argv[i], '=');
+		splitted = ft_split_first(command->argv[i], '=');
 		if (!splitted)
 		{
 			if (!is_valid_identifier(command->argv[i]))

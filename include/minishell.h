@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/08 18:43:12 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 17:34:58 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ t_astree	*token_list_a(t_parser *parser);
 // utils
 void	sigint_handler(int sig);
 void	ft_free_string_arrays(char **array);
-char	**ft_split_single(char const *s, char c);
+char	**ft_split_first(char const *s, char c);
 char *get_env(char *key, t_env *env);
 int		is_valid_identifier(char *str);
 char	*get_expanded(char *raw, t_env *env);
