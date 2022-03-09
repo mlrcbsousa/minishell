@@ -6,7 +6,7 @@
 #    By: msousa <msousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/03/08 18:39:21 by msousa           ###   ########.fr        #
+#    Updated: 2022/03/09 19:23:59 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ all:			${NAME}
 bonus:		all
 
 style:
-					-norminette $$( find . -type f \( -name "*.c" -or -name "*.h" \) )
+					-norminette src minishell.c include tests libft
 
 test:			${NAME}
 					-./tests/tests.sh
