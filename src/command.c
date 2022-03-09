@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:56:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/08 18:16:34 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 17:27:24 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static t_bool	is_node_argument(t_astree *node)
 {
-	return (node && (node->type == NODE_ARGUMENT || node->type == NODE_CMDPATH));
+	if (!node)
+		return (FALSE);
+	return (node->type == NODE_ARGUMENT || node->type == NODE_CMDPATH);
 }
 
 static void	command_fill(t_command *command, t_executor executor)
@@ -27,45 +29,41 @@ static void	command_fill(t_command *command, t_executor executor)
 	command->redirect_out = executor.redirect_out;
 }
 
-void command_init(t_astree *simple_command_node, t_command *command,
+void	command_init(t_astree *simple_command_node, t_command *command,
 									t_executor executor)
 {
-	int i;
-	t_astree *node;
-	// char	*expanded;
+	int			i;
+	t_astree	*node;
 
 	if (!simple_command_node || simple_command_node->type != NODE_CMDPATH)
 		return ;
-	// count arguments
 	i = 0;
 	node = simple_command_node;
-	while (is_node_argument(node)) {
+	while (is_node_argument(node))
+	{
 		node = node->right;
 		i++;
 	}
-	// allocate size of arguments list
-	command->argv = (char **)malloc(sizeof(char*) * (i + 1));
-
-	// copy data into string array of arguments
+	command->argv = (char **)malloc(sizeof(char *) * (i + 1));
 	i = 0;
 	node = simple_command_node;
-	while (is_node_argument(node)) {
+	while (is_node_argument(node))
+	{
 		command->argv[i] = ft_strdup(node->data);
 		node = node->right;
 		i++;
 	}
-	// close argv
 	command->argv[i] = NULL;
 	command->argc = i;
 	command_fill(command, executor);
 }
 
-void command_execute(t_command *command, t_app *self)
+void	command_execute(t_command *command, t_app *self)
 {
 	t_builtin	*builtin;
 
-  if (command->argc < 0)
-    return ;
+	if (command->argc < 0)
+		return ;
 	builtin = get_builtin(*command->argv);
 	if (builtin)
 		builtin(command, self);
@@ -73,9 +71,9 @@ void command_execute(t_command *command, t_app *self)
 		run(command, self);
 }
 
-void command_destroy(t_command *command)
+void	command_destroy(t_command *command)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < command->argc)
