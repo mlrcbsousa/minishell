@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 11:43:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/08 18:33:41 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 15:12:18 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_env(char *key, t_env *env)
 
 char	*find_env_key(char *raw)
 {
-	int length;
+	int	length;
 
 	length = 0;
 	if (ft_isalpha(*raw) || *raw == EXPAND_USCORE)
@@ -41,23 +41,19 @@ char	*find_env_key(char *raw)
 	return (ft_substr(raw - length, 0, length));
 }
 
+// TODO: not if just open double quote
 char	*get_expanded(char *raw, t_env *env)
 {
-	char *expanded;
-	char *save;
-	char *part;
-	char *env_key;
+	char	*expanded;
+	char	*save;
+	char	*part;
+	char	*env_key;
 
 	save = ft_strdup("");
-
-	// only if double quotes or no quotes
-	// TODO: not if just open double quote
 	if (*raw == LEXICAL_QUOTE)
 		return (ft_strdup(raw));
-
 	while (*raw)
 	{
-		// enter when valid to find a var key
 		if (*raw == EXPAND_DOLLAR && *(raw + 1) == EXPAND_QUESTION)
 		{
 			part = ft_itoa(g_return);
@@ -83,10 +79,10 @@ char	*get_expanded(char *raw, t_env *env)
 	return (expanded);
 }
 
-char	*get_stripped(char* src)
+char	*get_stripped(char *src)
 {
-	int	length;
-	char quote;
+	int		length;
+	char	quote;
 
 	length = ft_strlen(src);
 	if (!length)

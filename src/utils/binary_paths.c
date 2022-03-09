@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:39:23 by ngregori          #+#    #+#             */
-/*   Updated: 2022/03/08 18:42:55 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 14:41:34 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	**get_binary_paths(t_env *env)
 {
-	char **paths;
-	char **save;
-	char *path;
+	char	**paths;
+	char	**save;
+	char	*path;
 
 	paths = NULL;
 	path = get_env("PATH", env);
@@ -29,13 +29,13 @@ char	**get_binary_paths(t_env *env)
 		free(*paths);
 		*paths++ = path;
 	}
-	return save;
+	return (save);
 }
 
 void	find_binary_path(t_command *command, t_env *env)
 {
-	char **paths;
-	char *path;
+	char	**paths;
+	char	*path;
 
 	path = NULL;
 	paths = get_binary_paths(env);
@@ -46,7 +46,6 @@ void	find_binary_path(t_command *command, t_env *env)
 		path = ft_strjoin(*paths, *command->argv);
 		if (!(access(path, F_OK) == -1))
 		{
-			// file exists
 			free(*command->argv);
 			*command->argv = path;
 			return ;
