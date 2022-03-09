@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 18:05:36 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 17:37:55 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 18:06:49 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_env	*env_create(char *raw)
 
 	data = ft_split_first(raw, '=');
 	env = (t_env *)malloc(sizeof(t_env));
-	env->key = data++;
-	env->value = data;
+	env->key = *data++;
+	env->value = *data;
 	env->next = NULL;
 	return (env);
 }
