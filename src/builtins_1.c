@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 21:05:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 16:59:02 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 23:31:32 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,30 @@ int	builtin_env(t_command *command, t_app *self)
 int	builtin_exit(t_command *command, t_app *self)
 {
 	int	stdout_fd;
+	int	status;
 
 	stdout_fd = dup(STDOUT_FILENO);
 	run_setup_io(command, self->env);
-	if (command->argc != 1)
+	status = 0;
+	ft_putendl_fd("exit", STDERR_FILENO);
+	if (command->argv[1] && !ft_isnumber(command->argv[1]))
 	{
-		printf("Wrong number of arguments!\n");
-		return (1);
+		print_error("exit", command->argv[1], "numeric argument required");
+		status = 255;
 	}
-	command_destroy(command);
-	astree_destroy(self->astree);
-	env_destroy(self);
-	printf("exit\n");
-	dup2(stdout_fd, STDOUT_FILENO);
-	exit(0);
-	return (0);
+	else if (command->argc > 2)
+	{
+		print_error("exit", NULL, "too many arguments");
+		dup2(stdout_fd, STDOUT_FILENO);
+		return (EXIT_FAILURE);
+	}
+	if (command->argc == 1)
+		status = EXIT_SUCCESS;
+	else
+		status = ft_atoi(command->argv[1]);
+	free_memory(self, command);
+	exit(status);
+	return (status);
 }
 
 int	builtin_pwd(t_command *command, t_app *self)

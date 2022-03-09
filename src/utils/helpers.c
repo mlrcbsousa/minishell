@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:05:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 17:34:58 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 23:15:33 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,29 @@ t_bool	is_valid_identifier(char *str)
 		i++;
 	}
 	return (TRUE);
+}
+
+void	free_memory(t_app *self, t_command *command)
+{
+	if (command)
+		command_destroy(command);
+	if (self)
+	{
+		if (self->astree)
+			astree_destroy(self->astree);
+		env_destroy(self);
+	}
+}
+
+void	print_error(char *cmd, char *input, char *msg)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	if (input)
+	{
+		ft_putstr_fd(input, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+	}
+	ft_putendl_fd(msg, STDERR_FILENO);
 }

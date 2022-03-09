@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 19:22:07 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 23:09:45 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,10 @@ void	run_setup_redirect_in(t_io *io);
 void	run_setup_redirect_out(t_io *io);
 void	run_setup_heredoc(t_io *io, t_env *env);
 void	run_setup_append(t_io *io);
+
+/* helpers */
+void	free_memory(t_app *self, t_command *command);
+void	print_error(char *cmd, char *input, char *msg);
 
 /* test */
 void	print_astree(t_astree *node);
