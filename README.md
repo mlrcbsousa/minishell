@@ -23,6 +23,43 @@ In **Backus Naur** it would look something like this.
 <number>			::=	0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 ```
 
+For the project:
+```
+/**
+
+<command line>   ::=  <command> '|' <command line>
+                  |   <command>
+
+<command>        ::=  <simple command> '<' <filename>
+                  |   <simple command> '>' <filename>
+                  |   <simple command>
+
+<simple command> ::=  <cmd path> <token list>
+
+<token list>     ::=  <token> <token list>
+                  |   (EMPTY)
+
+**/
+
+// t_astree* command_line();     // test "command line" possibilities
+// t_astree* command_line_a();   // <command> '|' <command line>
+//                               // <command>
+
+// t_astree* command();          // test "command" possibilities
+// t_astree* command_a();        // <simple command> '<' <filename>
+// t_astree* command_b();        // <simple command> '>' <filename>
+// t_astree* command_c();        // <simple command> '<<' <filename>
+// t_astree* command_d();        // <simple command> '>>' <filename>
+//                               // <simple command>
+
+//                               // test "simple command" possibilities
+// t_astree* simple_command();   // <command path> <token list>
+
+// t_astree* token_list();       // test "token list" possibilities
+// t_astree* token_list_a();     // <token> <token list>
+//                               // EMPTY
+```
+
 ## Development Workflow
 
 1.  The main development branch is called `main`.

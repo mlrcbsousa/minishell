@@ -6,13 +6,12 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 19:19:41 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 17:48:21 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 19:05:16 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// TEST
 // print_command(&command);
 static void	execute_simple_command(t_astree *simple_command_node,
 	t_executor executor, t_app *self)
@@ -25,7 +24,6 @@ static void	execute_simple_command(t_astree *simple_command_node,
 	command_destroy(&command);
 }
 
-// recursively add chain of redirects
 static void	execute_redirect_command(t_astree *node, t_executor *executor)
 {
 	t_io	*io;

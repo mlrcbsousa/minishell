@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 17:37:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 18:05:36 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 19:06:51 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	run_setup_redirect_out(t_io *io)
 	dup2(fd, STDOUT_FILENO);
 }
 
-// https://www.gnu.org/software/libc/manual/html_node/Permission-Bits.html
 void	run_setup_append(t_io *io)
 {
 	int	fd;

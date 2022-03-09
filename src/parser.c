@@ -6,48 +6,12 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:37:24 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 18:02:55 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 19:06:00 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
-
-<command line>   ::=  <command> '|' <command line>
-                  |   <command>
-
-<command>        ::=  <simple command> '<' <filename>
-                  |   <simple command> '>' <filename>
-                  |   <simple command>
-
-<simple command> ::=  <cmd path> <token list>
-
-<token list>     ::=  <token> <token list>
-                  |   (EMPTY)
-
-**/
-
-// t_astree* command_line();     // test "command line" possibilities
-// t_astree* command_line_a();   // <command> '|' <command line>
-//                               // <command>
-
-// t_astree* command();          // test "command" possibilities
-// t_astree* command_a();        // <simple command> '<' <filename>
-// t_astree* command_b();        // <simple command> '>' <filename>
-// t_astree* command_c();        // <simple command> '<<' <filename>
-// t_astree* command_d();        // <simple command> '>>' <filename>
-//                               // <simple command>
-
-//                               // test "simple command" possibilities
-// t_astree* simple_command();   // <command path> <token list>
-
-// t_astree* token_list();       // test "token list" possibilities
-// t_astree* token_list_a();     // <token> <token list>
-//                               // EMPTY
-
-// Making this a struct for now because don't know if will need more
-// info to pass around for these functions
 int	parse(t_stack *analysed, t_astree **astree)
 {
 	t_parser	parser;

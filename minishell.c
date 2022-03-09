@@ -6,18 +6,18 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 18:18:05 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 19:03:14 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// TODO: make internal exit free all memory
-// TODO: make 'exit' show in same line as prompt
-// TEST
-// printf("successful parsing\n");
-// print_astree(astree);
-// printf("========================================= NODES END\n");
+/* TODO: make internal exit free all memory
+** TODO: make 'exit' show in same line as prompt
+** TEST
+** printf("successful parsing\n");
+** print_astree(astree);
+** printf("========================================= NODES END\n"); */
 int	main(int argc, char *argv[], char *env[])
 {
 	t_app		self;

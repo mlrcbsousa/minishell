@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/09 15:10:56 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 19:07:31 by msousa           ###   ########.fr       */
+/*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
+/*   Updated: 2022/03/09 19:20:31 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-void	sigint_handler(int sig)
-{
-	if (sig != SIGINT)
-		return ;
-	ft_putchar('\n');
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-}
+# include "minishell.h"
+
+typedef struct s_builtin_def	t_builtin_def;
+typedef struct s_command		t_command;
+typedef struct s_app			t_app;
+
+typedef int (t_builtin)(t_command *, t_app *);
+
+t_builtin	*get_builtin(char *cmd_path);
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 18:42:21 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 19:22:07 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,18 @@
 # include <errno.h>
 
 # include "libft.h"
+# include "parser.h"
+# include "builtin.h"
 
-// Constants
+/* Constants */
 # define EXPAND_DOLLAR '$'
 # define EXPAND_QUESTION '?'
 # define EXPAND_USCORE '_'
 
-// Global
+/* Global */
 int	g_return;
 
-// Enums
+/* Enums */
 typedef enum e_node
 {
 	NODE_PIPE = 1,
@@ -65,20 +67,15 @@ enum e_state {
 	STATE_DEFAULT,
 };
 
-// Structs & Types
-typedef struct s_app	t_app; // main app state
-typedef struct s_token	t_token; // typed linked list for tokens
-typedef struct s_stack	t_stack; // stack to store tokens
-typedef struct s_lexer	t_lexer; // main lexer state
-typedef struct s_astree	t_astree; // typed binary tree for BNF
-typedef struct s_parser	t_parser; // main parser state
-typedef struct s_executor	t_executor; // main executor state
-typedef struct s_command	t_command; // command info
-typedef struct s_builtin_def	t_builtin_def;
+/* Structs & Types */
+typedef struct s_app	t_app;
+typedef struct s_token	t_token;
+typedef struct s_stack	t_stack;
+typedef struct s_lexer	t_lexer;
+typedef struct s_astree	t_astree;
+typedef struct s_parser	t_parser;
 typedef struct s_env	t_env;
-typedef struct s_io	t_io;
-
-typedef int (t_builtin)(t_command *command, t_app *self);
+typedef struct s_io		t_io;
 
 struct s_app
 {
@@ -140,7 +137,7 @@ struct s_io
 	t_io	*next;
 };
 
-struct s_executor
+typedef struct s_executor
 {
 	t_bool	stdin_pipe;
 	t_bool	stdout_pipe;
@@ -148,9 +145,9 @@ struct s_executor
 	int		pipe_write;
 	t_io	*redirect_in;
 	t_io	*redirect_out;
-};
+}	t_executor;
 
-struct s_command
+typedef struct s_command
 {
 	int		argc;
 	char	**argv;
@@ -160,7 +157,7 @@ struct s_command
 	int		pipe_write;
 	t_io	*redirect_in;
 	t_io	*redirect_out;
-};
+}	t_command;
 
 struct	s_builtin_def
 {
@@ -168,14 +165,14 @@ struct	s_builtin_def
 	t_builtin	*builtin;
 };
 
-// Functions //
+/* Functions */
 
-// token
+/* token */
 void	token_init(t_token *token, int size);
 void	token_destroy(t_token *token);
 int		tokens_length(t_token *token);
 
-// lexer
+/* lexer */
 void	lexical_analysis(char *line, int size, t_stack *analysed, t_env *env);
 int		lexical_type(char token);
 void	lexer_end_read_token(t_lexer *lexer);
@@ -185,17 +182,17 @@ void	lexer_type_default(t_lexer *lexer);
 void	lexer_type_operator(t_lexer *lexer);
 void	lexer_expand(t_token *token, t_env *env);
 
-// abstract syntax tree
+/* abstract syntax tree */
 void	astree_add_branches(t_astree *root, t_astree *left, t_astree *right);
 void	astree_set_type(t_astree *node, t_node type);
 void	astree_set_data(t_astree *node, char *data);
 void	astree_destroy(t_astree *node);
 
-// BNF parser
+/* BNF parser */
 int		parse(t_stack *analysed, t_astree **astree);
 t_bool	match(int token_type, char **buffer, t_parser *parser);
 
-// utils
+/* utils */
 void	sigint_handler(int sig);
 void	ft_free_string_arrays(char **array);
 char	**ft_split_first(char const *s, char c);
@@ -204,7 +201,7 @@ int		is_valid_identifier(char *str);
 char	*get_expanded(char *raw, t_env *env);
 char	*get_stripped(char *src);
 
-// env
+/* env */
 char	**get_binary_paths(t_env *env);
 void	find_binary_path(t_command *command, t_env *env);
 char	**get_env_raw(t_app *self);
@@ -212,19 +209,18 @@ void	set_env(t_app *self, char **raw);
 void	env_destroy(t_app *self);
 t_env	*env_create(char *raw);
 
-// redirect
+/* redirect */
 t_io	*redirect_last(t_io *io);
 void	redirect_add_back(t_io **io, t_io *new);
 void	redirect_clear(t_io **io);
 
-// execute
+/* execute */
 void	execute_tree(t_astree *node, t_app *self);
 void	command_init(t_astree *node, t_command *command, t_executor executor);
 void	command_execute(t_command *command, t_app *self);
 void	command_destroy(t_command *command);
 
-// builtins
-t_builtin	*get_builtin(char *cmd_path);
+/* builtins */
 int		builtin_echo(t_command *command, t_app *self);
 int		builtin_cd(t_command *command, t_app *self);
 int		builtin_pwd(t_command *command, t_app *self);
@@ -233,7 +229,7 @@ int		builtin_unset(t_command *command, t_app *self);
 int		builtin_env(t_command *command, t_app *self);
 int		builtin_exit(t_command *command, t_app *self);
 
-// run
+/* run */
 void	run(t_command *command, t_app *self);
 void	run_setup_io(t_command *command, t_env *env);
 void	run_setup_io_in(t_io *io, t_env *env);
@@ -243,7 +239,7 @@ void	run_setup_redirect_out(t_io *io);
 void	run_setup_heredoc(t_io *io, t_env *env);
 void	run_setup_append(t_io *io);
 
-// test
+/* test */
 void	print_astree(t_astree *node);
 void	print_tokens(t_token *token);
 void	print_command(t_command *command);

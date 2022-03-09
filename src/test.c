@@ -6,13 +6,12 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:21:16 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 18:11:22 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 19:07:09 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Test tree contents
 void	print_astree(t_astree *node)
 {
 	if (!node)
@@ -23,7 +22,6 @@ void	print_astree(t_astree *node)
 	print_astree(node->right);
 }
 
-// Test tokens contents
 void	print_tokens(t_token *token)
 {
 	if (!token)
@@ -50,7 +48,6 @@ int	io_length(t_io *io)
 	return (length);
 }
 
-// Test redirects contents
 void	print_ios(t_io *io)
 {
 	if (!io)
@@ -62,7 +59,6 @@ void	print_ios(t_io *io)
 	}
 }
 
-// TEST - print command info
 void	print_command(t_command *command)
 {
 	int	i;
