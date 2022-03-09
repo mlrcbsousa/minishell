@@ -6,7 +6,7 @@
 #    By: msousa <msousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/03/09 19:23:59 by msousa           ###   ########.fr        #
+#    Updated: 2022/03/09 19:24:50 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ LINKS		= -Llibft -lft `pkg-config readline --libs`
 CC			= gcc
 RM			= rm -f
 INC			= -Iinclude -Ilibft/include
-UNAME 	:= ${shell uname}
 OBJ			= ${SRC:.c=.o}
 SRC			= minishell.c \
 					src/token.c \
@@ -42,13 +41,6 @@ SRC			= minishell.c \
 					src/redirect.c
 
 NAME		= minishell
-
-ifeq (${UNAME}, Linux)
-# some Linux only variable set
-endif
-ifeq (${UNAME}, Darwin)
-# some Mac only variable set
-endif
 
 ${NAME}:	${OBJ}
 					${MAKE} -C libft
