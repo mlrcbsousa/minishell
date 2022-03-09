@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 22:09:25 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/08 17:25:33 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 17:59:50 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,16 @@ t_astree	*redirect_command_a(t_parser *parser)
 {
 	t_astree	*redirect_node;
 	t_astree	*result;
-	char* filename;
+	char		*filename;
 
-	// test next token if is a redirect operator
 	if (!match(LEXICAL_LESSER, NULL, parser))
 		return (NULL);
-
-	// test next token if is a default and save filename
 	if (!match(LEXICAL_DEFAULT, &filename, parser))
 	{
 		free(filename);
 		return (NULL);
 	}
-
 	redirect_node = redirect_command(parser);
-
-	// Create node return it
 	result = (t_astree *)malloc(sizeof(t_astree));
 	astree_set_type(result, NODE_REDIRECT_IN);
 	astree_set_data(result, filename);
@@ -43,22 +37,16 @@ t_astree	*redirect_command_b(t_parser *parser)
 {
 	t_astree	*redirect_node;
 	t_astree	*result;
-	char* filename;
+	char		*filename;
 
-	// test next token if is a redirect operator
 	if (!match(LEXICAL_GREATER, NULL, parser))
 		return (NULL);
-
-	// test next token if is a default and save filename
 	if (!match(LEXICAL_DEFAULT, &filename, parser))
 	{
 		free(filename);
 		return (NULL);
 	}
-
 	redirect_node = redirect_command(parser);
-
-	// Create node return it
 	result = (t_astree *)malloc(sizeof(t_astree));
 	astree_set_type(result, NODE_REDIRECT_OUT);
 	astree_set_data(result, filename);
@@ -70,22 +58,16 @@ t_astree	*redirect_command_c(t_parser *parser)
 {
 	t_astree	*redirect_node;
 	t_astree	*result;
-	char* delimiter;
+	char		*delimiter;
 
-	// test next token if is a redirect operator
 	if (!match(LEXICAL_LLESSER, NULL, parser))
 		return (NULL);
-
-	// test next token if is a default and save delimiter
 	if (!match(LEXICAL_DEFAULT, &delimiter, parser))
 	{
 		free(delimiter);
 		return (NULL);
 	}
-
 	redirect_node = redirect_command(parser);
-
-	// Create node return it
 	result = (t_astree *)malloc(sizeof(t_astree));
 	astree_set_type(result, NODE_HEREDOC);
 	astree_set_data(result, delimiter);
@@ -97,22 +79,16 @@ t_astree	*redirect_command_d(t_parser *parser)
 {
 	t_astree	*redirect_node;
 	t_astree	*result;
-	char* filename;
+	char		*filename;
 
-	// test next token if is a redirect operator
 	if (!match(LEXICAL_GGREATER, NULL, parser))
 		return (NULL);
-
-	// test next token if is a default and save filename
 	if (!match(LEXICAL_DEFAULT, &filename, parser))
 	{
 		free(filename);
 		return (NULL);
 	}
-
 	redirect_node = redirect_command(parser);
-
-	// Create node return it
 	result = (t_astree *)malloc(sizeof(t_astree));
 	astree_set_type(result, NODE_APPEND);
 	astree_set_data(result, filename);
@@ -122,7 +98,7 @@ t_astree	*redirect_command_d(t_parser *parser)
 
 t_astree	*redirect_command(t_parser *parser)
 {
-	t_token	*save;
+	t_token		*save;
 	t_astree	*node;
 
 	save = parser->current_token;
