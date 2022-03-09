@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:41:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/08 18:43:25 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 17:44:54 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	run_setup_io_in(t_io *io, t_env *env)
 {
 	while (io)
 	{
-		if (io->type == IO_REDIRECT_IN)
+		if (io->type == NODE_REDIRECT_IN)
 			run_setup_redirect_in(io);
-		if (io->type == IO_HEREDOC)
+		if (io->type == NODE_HEREDOC)
 			run_setup_heredoc(io, env);
 		io = io->next;
 	}
@@ -28,9 +28,9 @@ void	run_setup_io_out(t_io *io)
 {
 	while (io)
 	{
-		if (io->type == IO_REDIRECT_OUT)
+		if (io->type == NODE_REDIRECT_OUT)
 			run_setup_redirect_out(io);
-		if (io->type == IO_APPEND)
+		if (io->type == NODE_APPEND)
 			run_setup_append(io);
 		io = io->next;
 	}

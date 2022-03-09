@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 17:34:58 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 17:45:03 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,6 @@ enum e_state {
 	STATE_ESCAPESEQ,
 	STATE_DEFAULT,
 };
-
-typedef enum e_iotype {
-	IO_REDIRECT_IN,
-	IO_REDIRECT_OUT,
-	IO_HEREDOC,
-	IO_APPEND,
-} t_iotype;
 
 // Structs & Types
 typedef struct s_app t_app; // main app state
@@ -147,7 +140,7 @@ struct s_parser
 
 struct s_io
 {
-	t_iotype	type;
+	int	type;
 	char	*data;
 	t_io *next;
 };
