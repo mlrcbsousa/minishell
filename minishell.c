@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 19:03:14 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 21:10:06 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 /* TODO: make internal exit free all memory
 ** TODO: make 'exit' show in same line as prompt
 ** TEST
+		print_tokens(analysed.token);
+
 ** printf("successful parsing\n");
 ** print_astree(astree);
 ** printf("========================================= NODES END\n"); */
@@ -48,7 +50,6 @@ int	main(int argc, char *argv[], char *env[])
 		size = ft_strlen(line);
 		lexical_analysis(line, size, &analysed, self.env);
 		free(line);
-		print_tokens(analysed.token);
 		astree = NULL;
 		if (!analysed.size || parse(&analysed, &astree))
 			continue ;
