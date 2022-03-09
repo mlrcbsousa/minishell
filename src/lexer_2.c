@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:43:03 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/08 18:33:56 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 17:55:20 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	lexer_expand(t_token *token, t_env *env)
 {
-	char *expanded;
-	char *stripped;
+	char	*expanded;
+	char	*stripped;
 
 	while (token)
 	{
