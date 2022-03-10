@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 21:05:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/10 00:22:23 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/10 02:45:56 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	builtin_env(t_command *command, t_app *self)
 	if (command->argc != 1)
 	{
 		printf("Wrong number of arguments!\n");
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	env = self->env;
 	while (env)
@@ -31,7 +31,7 @@ int	builtin_env(t_command *command, t_app *self)
 		env = env->next;
 	}
 	dup2(stdout_fd, STDOUT_FILENO);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int	builtin_exit(t_command *command, t_app *self)
@@ -73,10 +73,10 @@ int	builtin_pwd(t_command *command, t_app *self)
 	if (command->argc != 1)
 	{
 		printf("Wrong number of arguments!\n");
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	getcwd(dir, 1024);
 	printf("%s\n", dir);
 	dup2(stdout_fd, STDOUT_FILENO);
-	return (0);
+	return (EXIT_SUCCESS);
 }

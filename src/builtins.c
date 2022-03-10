@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/10 00:22:41 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/10 02:48:29 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	builtin_echo(t_command *command, t_app *self)
 	if (!with_n)
 		printf("\n");
 	dup2(stdout_fd, STDOUT_FILENO);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int	builtin_cd(t_command *command, t_app *self)
@@ -70,7 +70,7 @@ int	builtin_cd(t_command *command, t_app *self)
 		if (!path)
 		{
 			ft_putstr_fd("minishell: cd: HOME not set\n", STDERR_FILENO);
-			return (1);
+			return (EXIT_FAILURE);
 		}
 	}
 	else
@@ -81,10 +81,10 @@ int	builtin_cd(t_command *command, t_app *self)
 		ft_putstr_fd(path, STDERR_FILENO);
 		ft_putstr_fd(": ", STDERR_FILENO);
 		perror("");
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	dup2(stdout_fd, STDOUT_FILENO);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int	builtin_export(t_command *command, t_app *self)
@@ -142,7 +142,7 @@ int	builtin_export(t_command *command, t_app *self)
 		{
 			new_env = env_create(command->argv[i]);
 			if (!new_env)
-				return (1);
+				return (EXIT_FAILURE);
 			while (temp->next)
 				temp = temp->next;
 			temp->next = new_env;
@@ -151,7 +151,7 @@ int	builtin_export(t_command *command, t_app *self)
 		i++;
 	}
 	dup2(stdout_fd, STDOUT_FILENO);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int	builtin_unset(t_command *command, t_app *self)
@@ -187,5 +187,5 @@ int	builtin_unset(t_command *command, t_app *self)
 		i++;
 	}
 	dup2(stdout_fd, STDOUT_FILENO);
-	return (0);
+	return (EXIT_SUCCESS);
 }
