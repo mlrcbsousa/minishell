@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 23:09:45 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/10 00:16:47 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@
 # define EXPAND_DOLLAR '$'
 # define EXPAND_QUESTION '?'
 # define EXPAND_USCORE '_'
-
-/* Global */
-int	g_return;
 
 /* Enums */
 typedef enum e_node
@@ -83,6 +80,7 @@ struct s_app
 	char		**env_raw;
 	void		(*sigint_handler)(int);
 	t_astree	*astree;
+	int			return_value;
 };
 
 struct s_env
@@ -173,14 +171,14 @@ void	token_destroy(t_token *token);
 int		tokens_length(t_token *token);
 
 /* lexer */
-void	lexical_analysis(char *line, int size, t_stack *analysed, t_env *env);
+void	lexical_analysis(char *line, int size, t_stack *analysed, t_app *self);
 int		lexical_type(char token);
 void	lexer_end_read_token(t_lexer *lexer);
 void	lexer_type_quote(t_lexer *lexer);
 void	lexer_type_dquote(t_lexer *lexer);
 void	lexer_type_default(t_lexer *lexer);
 void	lexer_type_operator(t_lexer *lexer);
-void	lexer_expand(t_token *token, t_env *env);
+void	lexer_expand(t_token *token, t_app *self);
 
 /* abstract syntax tree */
 void	astree_add_branches(t_astree *root, t_astree *left, t_astree *right);
@@ -198,7 +196,7 @@ void	ft_free_string_arrays(char **array);
 char	**ft_split_first(char const *s, char c);
 char	*get_env(char *key, t_env *env);
 int		is_valid_identifier(char *str);
-char	*get_expanded(char *raw, t_env *env);
+char	*get_expanded(char *raw, t_app *self);
 char	*get_stripped(char *src);
 
 /* env */
@@ -231,12 +229,12 @@ int		builtin_exit(t_command *command, t_app *self);
 
 /* run */
 void	run(t_command *command, t_app *self);
-void	run_setup_io(t_command *command, t_env *env);
-void	run_setup_io_in(t_io *io, t_env *env);
+void	run_setup_io(t_command *command, t_app *self);
+void	run_setup_io_in(t_io *io, t_app *self);
 void	run_setup_io_out(t_io *io);
 void	run_setup_redirect_in(t_io *io);
 void	run_setup_redirect_out(t_io *io);
-void	run_setup_heredoc(t_io *io, t_env *env);
+void	run_setup_heredoc(t_io *io, t_app *self);
 void	run_setup_append(t_io *io);
 
 /* helpers */

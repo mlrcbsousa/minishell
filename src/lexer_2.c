@@ -6,13 +6,13 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:43:03 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 17:55:20 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/10 00:14:17 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	lexer_expand(t_token *token, t_env *env)
+void	lexer_expand(t_token *token, t_app *self)
 {
 	char	*expanded;
 	char	*stripped;
@@ -21,7 +21,7 @@ void	lexer_expand(t_token *token, t_env *env)
 	{
 		if (token->type == LEXICAL_DEFAULT)
 		{
-			expanded = get_expanded(token->data, env);
+			expanded = get_expanded(token->data, self);
 			stripped = get_stripped(expanded);
 			free(expanded);
 			free(token->data);

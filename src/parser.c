@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:37:24 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 19:06:00 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/10 00:26:47 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ int	parse(t_stack *analysed, t_astree **astree)
 	*astree = command_line(&parser);
 	if (parser.current_token && parser.current_token->type)
 	{
-		printf("Syntax Error at: %s\n", parser.current_token->data);
-		return (-1);
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd("syntax error near unexpected token `", STDERR_FILENO);
+		ft_putstr_fd(parser.current_token->data, STDERR_FILENO);
+		ft_putendl_fd("'", STDERR_FILENO);
+		return (258);
 	}
 	return (0);
 }

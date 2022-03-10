@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 21:05:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 23:31:32 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/10 00:22:23 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	builtin_env(t_command *command, t_app *self)
 	int		stdout_fd;
 
 	stdout_fd = dup(STDOUT_FILENO);
-	run_setup_io(command, self->env);
+	run_setup_io(command, self);
 	if (command->argc != 1)
 	{
 		printf("Wrong number of arguments!\n");
@@ -40,7 +40,7 @@ int	builtin_exit(t_command *command, t_app *self)
 	int	status;
 
 	stdout_fd = dup(STDOUT_FILENO);
-	run_setup_io(command, self->env);
+	run_setup_io(command, self);
 	status = 0;
 	ft_putendl_fd("exit", STDERR_FILENO);
 	if (command->argv[1] && !ft_isnumber(command->argv[1]))
@@ -69,7 +69,7 @@ int	builtin_pwd(t_command *command, t_app *self)
 	int		stdout_fd;
 
 	stdout_fd = dup(STDOUT_FILENO);
-	run_setup_io(command, self->env);
+	run_setup_io(command, self);
 	if (command->argc != 1)
 	{
 		printf("Wrong number of arguments!\n");

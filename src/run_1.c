@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 17:37:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 19:06:51 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/10 00:26:23 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	run_setup_redirect_in(t_io *io)
 }
 
 // TODO: not sure, test more
-void	run_setup_heredoc(t_io *io, t_env *env)
+void	run_setup_heredoc(t_io *io, t_app *self)
 {
 	char	*line;
 	char	*expanded;
@@ -47,15 +47,15 @@ void	run_setup_heredoc(t_io *io, t_env *env)
 			free(line);
 			break ;
 		}
-		expanded = get_expanded(line, env);
+		expanded = get_expanded(line, self);
 		ft_putendl_fd(expanded, write_fd);
 		free(expanded);
 		free(line);
 	}
 	dup2(read_fd, STDIN_FILENO);
+	// close(read_fd);
+	close(write_fd);
 }
-// close(read_fd);
-// close(write_fd);
 
 void	run_setup_redirect_out(t_io *io)
 {

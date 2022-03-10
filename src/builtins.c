@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 21:31:56 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/10 00:22:41 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	builtin_echo(t_command *command, t_app *self)
 	int		stdout_fd;
 
 	stdout_fd = dup(STDOUT_FILENO);
-	run_setup_io(command, self->env);
+	run_setup_io(command, self);
 	with_n = ft_streq(command->argv[1], "-n");
 	i = 1;
 	if (with_n)
@@ -63,7 +63,7 @@ int	builtin_cd(t_command *command, t_app *self)
 	char	*path;
 
 	stdout_fd = dup(STDOUT_FILENO);
-	run_setup_io(command, self->env);
+	run_setup_io(command, self);
 	if (command->argc == 1)
 	{
 		path = get_env("HOME", self->env);
@@ -97,7 +97,7 @@ int	builtin_export(t_command *command, t_app *self)
 	int		stdout_fd;
 
 	stdout_fd = dup(STDOUT_FILENO);
-	run_setup_io(command, self->env);
+	run_setup_io(command, self);
 	i = 1;
 	while (command->argv[i])
 	{
@@ -162,7 +162,7 @@ int	builtin_unset(t_command *command, t_app *self)
 	int		stdout_fd;
 
 	stdout_fd = dup(STDOUT_FILENO);
-	run_setup_io(command, self->env);
+	run_setup_io(command, self);
 	i = 1;
 	while (command->argv[i])
 	{

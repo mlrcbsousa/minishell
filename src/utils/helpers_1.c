@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 11:43:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 15:12:18 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/09 23:57:05 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*find_env_key(char *raw)
 }
 
 // TODO: not if just open double quote
-char	*get_expanded(char *raw, t_env *env)
+char	*get_expanded(char *raw, t_app *self)
 {
 	char	*expanded;
 	char	*save;
@@ -56,14 +56,14 @@ char	*get_expanded(char *raw, t_env *env)
 	{
 		if (*raw == EXPAND_DOLLAR && *(raw + 1) == EXPAND_QUESTION)
 		{
-			part = ft_itoa(g_return);
+			part = ft_itoa(self->return_value);
 			raw++;
 		}
 		else if (*raw == EXPAND_DOLLAR
 			&& (ft_isalnum(*(raw + 1)) || *(raw + 1) == EXPAND_USCORE))
 		{
 			env_key = find_env_key(raw + 1);
-			part = get_env(env_key, env);
+			part = get_env(env_key, self->env);
 			part = ft_strcpy((char *)malloc(ft_strlen(part) + 1), part);
 			raw = raw + ft_strlen(env_key);
 			free(env_key);

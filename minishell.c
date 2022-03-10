@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 21:10:06 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/10 00:17:50 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int	main(int argc, char *argv[], char *env[])
 
 	(void)argc;
 	(void)argv;
-	g_return = 0;
-	self = (t_app){NULL, NULL, signal(SIGINT, sigint_handler), NULL};
+	self = (t_app){NULL, NULL, signal(SIGINT, sigint_handler), NULL, 0};
 	signal(SIGQUIT, SIG_IGN);
 	set_env(&self, env);
 	while (1)
@@ -48,10 +47,11 @@ int	main(int argc, char *argv[], char *env[])
 		}
 		add_history(line);
 		size = ft_strlen(line);
-		lexical_analysis(line, size, &analysed, self.env);
+		lexical_analysis(line, size, &analysed, &self);
 		free(line);
 		astree = NULL;
-		if (!analysed.size || parse(&analysed, &astree))
+		self.return_value = parse(&analysed, &astree);
+		if (!analysed.size || self.return_value)
 			continue ;
 		self.astree = astree;
 		token_destroy(analysed.token);
