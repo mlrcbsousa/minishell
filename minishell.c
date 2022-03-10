@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/10 01:05:04 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/10 02:33:05 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	main(int argc, char *argv[], char *env[])
 
 	(void)argc;
 	(void)argv;
-	g_return = 0;
 	self = (t_app){NULL, NULL, signal(SIGINT, sigint_handler), NULL, 0};
 	signal(SIGQUIT, SIG_IGN);
 	set_env(&self, env);

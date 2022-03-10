@@ -6,7 +6,7 @@
 #    By: msousa <msousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/03/09 19:24:50 by msousa           ###   ########.fr        #
+#    Updated: 2022/03/10 02:31:37 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC			= minishell.c \
 					src/builtins_1.c \
 					src/run.c \
 					src/run_1.c \
+					src/run_2.c \
 					src/env.c \
 					src/test.c \
 					src/redirect.c

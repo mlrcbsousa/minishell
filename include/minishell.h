@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/10 02:19:48 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/10 02:32:58 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@
 # define EXPAND_DOLLAR '$'
 # define EXPAND_QUESTION '?'
 # define EXPAND_USCORE '_'
-
-/* Constants */
-int	g_return;
 
 /* Enums */
 typedef enum e_node
