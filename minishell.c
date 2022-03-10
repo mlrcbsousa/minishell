@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/10 02:33:05 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/10 03:28:43 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ int	main(int argc, char *argv[], char *env[])
 
 	(void)argc;
 	(void)argv;
-	self = (t_app){NULL, NULL, signal(SIGINT, sigint_handler), NULL, 0};
+	self = (t_app){NULL, NULL, 0, NULL, 0};
+	self.sigint_handler = signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGSEGV, SIG_IGN);
 	set_env(&self, env);
 	while (1)
 	{
