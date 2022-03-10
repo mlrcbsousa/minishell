@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 11:43:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/09 23:57:05 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/10 02:17:37 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*get_expanded(char *raw, t_app *self)
 	{
 		if (*raw == EXPAND_DOLLAR && *(raw + 1) == EXPAND_QUESTION)
 		{
-			part = ft_itoa(self->return_value);
+			part = ft_itoa(self->status);
 			raw++;
 		}
 		else if (*raw == EXPAND_DOLLAR
@@ -95,4 +95,16 @@ char	*get_stripped(char *src)
 	if (quote == *(--src))
 		return (ft_substr(src - length + 1, 1, length - 2));
 	return (ft_strdup(src - length + 1));
+}
+
+void	free_memory(t_app *self, t_command *command)
+{
+	if (command)
+		command_destroy(command);
+	if (self)
+	{
+		if (self->astree)
+			astree_destroy(self->astree);
+		env_destroy(self);
+	}
 }

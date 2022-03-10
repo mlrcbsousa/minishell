@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/10 00:16:47 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/10 02:19:48 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 # define EXPAND_DOLLAR '$'
 # define EXPAND_QUESTION '?'
 # define EXPAND_USCORE '_'
+
+/* Constants */
+int	g_return;
 
 /* Enums */
 typedef enum e_node
@@ -80,7 +83,7 @@ struct s_app
 	char		**env_raw;
 	void		(*sigint_handler)(int);
 	t_astree	*astree;
-	int			return_value;
+	int			status;
 };
 
 struct s_env
@@ -240,6 +243,7 @@ void	run_setup_append(t_io *io);
 /* helpers */
 void	free_memory(t_app *self, t_command *command);
 void	print_error(char *cmd, char *input, char *msg);
+void	print_errno(char *cmd, char *input);
 
 /* test */
 void	print_astree(t_astree *node);
