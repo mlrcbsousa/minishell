@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:10:56 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/10 03:00:32 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/11 22:28:35 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ void	sigint_handler(int sig)
 	(void)sig;
 	printf("\n");
 	rl_on_new_line();
-    rl_replace_line("", 0);
-    rl_redisplay();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
