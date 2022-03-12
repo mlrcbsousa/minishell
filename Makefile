@@ -6,7 +6,7 @@
 #    By: msousa <msousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/03/12 01:57:13 by msousa           ###   ########.fr        #
+#    Updated: 2022/03/12 09:33:00 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,8 @@ all:			${NAME}
 bonus:		all
 
 style:
-					-norminette src minishell.c include tests libft
+					-norminette src minishell.c include tests
+# libft
 
 test:			${NAME}
 					-./tests/tests.sh

@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 08:29:11 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 10:15:38 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_bin	*get_builtin(char *cmd_path)
 	{"env", builtin_env},
 	{"exit", builtin_exit},
 	};
-	int						i;
+	int					i;
 
 	i = 0;
 	while (i < 7)
@@ -47,8 +47,12 @@ int	builtin_echo(t_command *command, t_app *self)
 	i = 1;
 	if (with_n)
 		i = 2;
+	printf("DEBUG: builtin_echo\n");
+	printf("DEBUG: command->argv[1]: %s\n", command->argv[1]);
+	printf("DEBUG: with_n: %d\n", with_n);
 	while (i < command->argc - 1)
 		printf("%s ", command->argv[i++]);
+	printf("DEBUG: command->argv[i]: %s\n", command->argv[i]);
 	printf("%s", command->argv[i]);
 	if (!with_n)
 		printf("\n");
@@ -60,30 +64,31 @@ int	builtin_cd(t_command *command, t_app *self)
 {
 	int		stdout_fd;
 	char	*path;
+	int		status;
 
+	status = EXIT_SUCCESS;
 	stdout_fd = dup(STDOUT_FILENO);
 	run_setup_io(command, self);
 	if (command->argc == 1)
 	{
 		path = get_env("HOME", self->env);
+		printf("DEBUG: builtin_cd\n");
+		printf("DEBUG: path: %s\n", path);
 		if (!path)
 		{
-			ft_putstr_fd("minishell: cd: HOME not set\n", STDERR_FILENO);
-			return (EXIT_FAILURE);
+			print_error("cd", NULL, "HOME not set");
+			status = EXIT_FAILURE;
 		}
 	}
 	else
 		path = command->argv[1];
-	if (chdir(path) == -1)
+	if (status == EXIT_SUCCESS && chdir(path) == -1)
 	{
-		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
-		ft_putstr_fd(path, STDERR_FILENO);
-		ft_putstr_fd(": ", STDERR_FILENO);
-		perror("");
-		return (EXIT_FAILURE);
+		print_errno("cd", path);
+		status = EXIT_FAILURE;
 	}
 	dup2(stdout_fd, STDOUT_FILENO);
-	return (EXIT_SUCCESS);
+	return (status);
 }
 
 int	builtin_export(t_command *command, t_app *self)
