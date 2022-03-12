@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 16:04:19 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 16:06:01 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	builtin_echo(t_command *command, t_app *self)
 		i = 2;
 	while (i < command->argc - 1)
 		printf("%s ", command->argv[i++]);
-	printf("%s", command->argv[i]);
+	if (command->argv[i])
+		printf("%s", command->argv[i]);
 	if (!with_n)
 		printf("\n");
 	dup2(stdout_fd, STDOUT_FILENO);
