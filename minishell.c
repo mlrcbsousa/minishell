@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 09:28:36 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 14:42:47 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	app_loop(t_app *self, char *line)
 	add_history(line);
 	size = ft_strlen(line);
 	lexical_analysis(line, size, &analysed, self);
-	free(line); // line = NULL;
+	free(line);
 	astree = NULL;
 	g_status.value = parse(&analysed, &astree);
 	if (!analysed.size || g_status.value)
