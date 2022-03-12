@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:42:41 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 13:23:24 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 15:32:49 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	builtin_export(t_command *command, t_app *self)
 			check_invalid_identifier(command->argv[i++]);
 			continue ;
 		}
-		status = export_env_add_or_update(self->env, splitted, command->arv[1);
+		status = export_env_add_or_update(self->env, splitted, command->argv[i]);
 		if (status == EXIT_FAILURE)
 			break ;
 		ft_free_string_arrays(splitted);
