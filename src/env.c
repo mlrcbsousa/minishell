@@ -20,6 +20,8 @@ t_env	*env_create(char *raw)
 	t_env	*env;
 
 	data = ft_split_first(raw, '=');
+	if(!data)
+		return (NULL);
 	env = (t_env *)malloc(sizeof(t_env));
 	env->key = *data++;
 	env->value = *data;
@@ -32,11 +34,7 @@ void	env_destroy(t_app *self)
 	t_env	*env;
 
 	if (self->env_raw)
-	{
-		while (*self->env_raw)
-			free(*self->env_raw++);
-		free(self->env_raw);
-	}
+		ft_free_string_arrays(self->env_raw);
 	while (self->env)
 	{
 		env = self->env;

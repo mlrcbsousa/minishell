@@ -64,6 +64,11 @@ char	*get_expanded(char *raw, t_app *self)
 		{
 			env_key = find_env_key(raw + 1);
 			part = get_env(env_key, self->env);
+			if(!part)
+			{
+				free(env_key);
+				return (save);
+			}
 			part = ft_strcpy((char *)malloc(ft_strlen(part) + 1), part);
 			raw = raw + ft_strlen(env_key);
 			free(env_key);
