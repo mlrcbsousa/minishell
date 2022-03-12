@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:42:41 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 15:34:56 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 15:58:49 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,19 @@ static void	check_invalid_identifier(char *identifier)
 
 static void	export_env_update(char *found, t_env *env, char *splitted[])
 {
+	while (env)
 	{
-		while (env)
+		if (ft_streq(env->key, splitted[0]))
 		{
-			if (ft_streq(env->key, splitted[0]))
+			if (!ft_streq(env->value, splitted[1]))
 			{
-				if (!ft_streq(env->value, splitted[1]))
-				{
-					free(env->value);
-					free(found);
-					env->value = ft_strdup(splitted[1]);
-				}
-				break ;
+				free(env->value);
+				free(found);
+				env->value = ft_strdup(splitted[1]);
 			}
-			env = env->next;
+			break ;
 		}
+		env = env->next;
 	}
 }
 
