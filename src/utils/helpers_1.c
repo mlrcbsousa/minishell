@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 11:43:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 16:37:27 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 16:55:25 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,39 @@ static t_bool	should_expand(char *raw)
 	return (TRUE);
 }
 
+static void	join_part_and_free(char **expanded, char **save, char *part,
+	char **raw)
+{
+	*expanded = ft_strjoin(*save, part);
+	free(*save);
+	free(part);
+	*save = *expanded;
+	*raw = *raw + 1;
+}
+
+static t_bool	expand_env(char **raw, char **part, t_env *env)
+{
+	char	*env_key;
+
+	env_key = find_env_key(*raw + 1);
+	*part = get_env(env_key, env);
+	if (!*part)
+	{
+		free(env_key);
+		return (FALSE);
+	}
+	*part = ft_strcpy((char *)malloc(ft_strlen(*part) + 1), *part);
+	*raw = *raw + ft_strlen(env_key);
+	free(env_key);
+	return (TRUE);
+}
+
 // TODO: not if just open double quote
 char	*get_expanded(char *raw, t_app *self)
 {
 	char	*expanded;
 	char	*save;
 	char	*part;
-	char	*env_key;
 
 	save = ft_strdup("");
 	if (!should_expand(raw))
@@ -49,24 +75,12 @@ char	*get_expanded(char *raw, t_app *self)
 		else if (*raw == EXPAND_DOLLAR
 			&& (ft_isalnum(*(raw + 1)) || *(raw + 1) == EXPAND_USCORE))
 		{
-			env_key = find_env_key(raw + 1);
-			part = get_env(env_key, self->env);
-			if (!part)
-			{
-				free(env_key);
+			if (!expand_env(&raw, &part, self->env))
 				return (save);
-			}
-			part = ft_strcpy((char *)malloc(ft_strlen(part) + 1), part);
-			raw = raw + ft_strlen(env_key);
-			free(env_key);
 		}
 		else
 			part = ft_substr(raw, 0, 1);
-		expanded = ft_strjoin(save, part);
-		free(save);
-		free(part);
-		save = expanded;
-		raw++;
+		join_part_and_free(&expanded, &save, part, &raw);
 	}
 	return (expanded);
 }
