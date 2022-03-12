@@ -21,7 +21,7 @@ static void	check_invalid_identifier(char *identifier)
 	ft_putstr_fd("': not a valid identifier\n", STDOUT_FILENO);
 }
 
-static void	export_env_update(char *found, t_env *env, char *splitted[])
+static void	export_env_update(t_env *env, char *splitted[])
 {
 	while (env)
 	{
@@ -30,7 +30,6 @@ static void	export_env_update(char *found, t_env *env, char *splitted[])
 			if (!ft_streq(env->value, splitted[1]))
 			{
 				free(env->value);
-				free(found);
 				env->value = ft_strdup(splitted[1]);
 			}
 			break ;
@@ -61,7 +60,7 @@ static int	export_env_add_or_update(t_env *env, char *splitted[], char *cmd)
 	status = EXIT_SUCCESS;
 	found = get_env(splitted[0], env);
 	if (found)
-		export_env_update(found, env, splitted);
+		export_env_update(env, splitted);
 	else
 	{
 		status = export_env_create(cmd, env);
@@ -87,7 +86,7 @@ int	builtin_export(t_command *command, t_app *self)
 		splitted = ft_split_first(command->argv[i], '=');
 		if (!splitted)
 		{
-			check_invalid_identifier(command->argv[i++]);
+			check_invalid_identifier(command->argv[i]);
 			continue ;
 		}
 		status = export_env_add_or_update(self->env, splitted,

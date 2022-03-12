@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS	= -Wall -Wextra -Werror `pkg-config readline --cflags` -g
+CFLAGS	= -Wall -Wextra -Werror `pkg-config readline --cflags`
 LINKS		= -Llibft -lft `pkg-config readline --libs`
 CC			= gcc
 RM			= rm -f
