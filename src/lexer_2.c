@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:43:03 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 15:36:13 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 16:00:17 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,27 @@ void	lexer_end_read_token(t_lexer *lexer)
 	}
 }
 
+/* printf("DEBUG: lexer_expand\n");
+** printf("DEBUG: stripped: %s\n", stripped);
+** printf("DEBUG: ft_strlen(stripped): %zu\n", ft_strlen(stripped));
+** if (!ft_strlen(stripped))
+** {
+** 	free(token->data);
+** 	if (token == previous)
+** 	{
+** 		token = token->next;
+** 		free(previous);
+** 		previous = token;
+** 	}
+** 	else
+** 	{
+** 		previous->next = token->next;
+** 		free(token);
+** 		token = previous->next;
+** 	}
+** 	continue ;
+*/ }
+
 void	lexer_expand(t_token *token, t_app *self)
 {
 	char	*expanded;
@@ -40,27 +61,6 @@ void	lexer_expand(t_token *token, t_app *self)
 			free(expanded);
 			free(token->data);
 			token->data = stripped;
-			// printf("DEBUG: lexer_expand\n");
-			// printf("DEBUG: stripped: %s\n", stripped);
-			// printf("DEBUG: ft_strlen(stripped): %zu\n", ft_strlen(stripped));
-			// if (!ft_strlen(stripped))
-			// {
-			// 	free(token->data);
-			// 	if (token == previous)
-			// 	{
-			// 		token = token->next;
-			// 		free(previous);
-			// 		previous = token;
-			// 	}
-			// 	else
-			// 	{
-			// 		previous->next = token->next;
-			// 		free(token);
-			// 		token = previous->next;
-			// 	}
-			// 	continue ;
-			// }
-
 		}
 		previous = token;
 		token = token->next;
