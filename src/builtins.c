@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 13:19:02 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 13:20:32 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	builtin_exit(t_command *command, t_app *self)
 		print_error("exit", NULL, "too many arguments");
 		return (EXIT_FAILURE);
 	}
-	if (!command->argc == 1)
+	if (command->argc != 1)
 		status = ft_atoi(command->argv[1]);
 	free_memory(self, command);
 	dup2(stdout_fd, STDOUT_FILENO);
