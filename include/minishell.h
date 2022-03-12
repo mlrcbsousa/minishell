@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 14:22:42 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 15:06:23 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ void	lexer_type_quote(t_lexer *lexer);
 void	lexer_type_dquote(t_lexer *lexer);
 void	lexer_type_default(t_lexer *lexer);
 void	lexer_type_operator(t_lexer *lexer);
+void	lexer_type_null(t_lexer *lexer);
 void	lexer_expand(t_token *token, t_app *self);
 
 /* abstract syntax tree */

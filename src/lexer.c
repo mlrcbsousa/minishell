@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 18:52:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/10 00:16:28 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 15:08:47 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,24 @@ static void	lexer_state_quote(t_lexer *lexer)
 		lexer->state = STATE_DEFAULT;
 }
 
-static void	lexer_type_null(t_lexer *lexer)
+static void	lexical_analysis_char(t_lexer *lexer, char *line)
 {
-	if (lexer->data_i > 0)
-	{
-		lexer->token->data[lexer->data_i] = 0;
-		lexer->data_i = 0;
-	}
+	lexer->c = line[lexer->line_i];
+	lexer->type = lexical_type(lexer->c);
+	if (lexer->state == STATE_DEFAULT)
+		lexer_state_default(lexer);
+	else if (lexer->state == STATE_DQUOTE)
+		lexer_state_dquote(lexer);
+	else if (lexer->state == STATE_QUOTE)
+		lexer_state_quote(lexer);
+	if (lexer->type == LEXICAL_NULL)
+		lexer_type_null(lexer);
+		lexer->line_i++;
 }
 
 /* while going through line check for various contextual grammar
 ** first check by state (is inside quotes or not) then type (token type info)
-** TODO: refactor loop body to function */
+*/
 void	lexical_analysis(char *line, int size, t_stack *analysed, t_app *self)
 {
 	t_lexer	lexer;
@@ -64,29 +70,8 @@ void	lexical_analysis(char *line, int size, t_stack *analysed, t_app *self)
 	lexer = (t_lexer){analysed->token, STATE_DEFAULT, size, line, 0, 0, 0, 0};
 	token_init(lexer.token, lexer.size);
 	while (line[lexer.line_i])
-	{
-		lexer.c = line[lexer.line_i];
-		lexer.type = lexical_type(lexer.c);
-		if (lexer.state == STATE_DEFAULT)
-			lexer_state_default(&lexer);
-		else if (lexer.state == STATE_DQUOTE)
-			lexer_state_dquote(&lexer);
-		else if (lexer.state == STATE_QUOTE)
-			lexer_state_quote(&lexer);
-		if (lexer.type == LEXICAL_NULL)
-			lexer_type_null(&lexer);
-		lexer.line_i++;
-	}
-	lexer.c = line[lexer.line_i];
-	lexer.type = lexical_type(lexer.c);
-	if (lexer.state == STATE_DEFAULT)
-		lexer_state_default(&lexer);
-	else if (lexer.state == STATE_DQUOTE)
-		lexer_state_dquote(&lexer);
-	else if (lexer.state == STATE_QUOTE)
-		lexer_state_quote(&lexer);
-	if (lexer.type == LEXICAL_NULL)
-		lexer_type_null(&lexer);
+		lexical_analysis_char(&lexer, line);
+	lexical_analysis_char(&lexer, line);
 	lexer_expand(analysed->token, self);
 	analysed->size = tokens_length(analysed->token);
 }
