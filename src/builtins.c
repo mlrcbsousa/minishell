@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 13:20:32 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 16:03:07 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ int	builtin_echo(t_command *command, t_app *self)
 	return (EXIT_SUCCESS);
 }
 
-// printf("DEBUG: builtin_cd\n");
-// printf("DEBUG: path: %s\n", path);
 int	builtin_cd(t_command *command, t_app *self)
 {
 	int		stdout_fd;
