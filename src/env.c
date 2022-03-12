@@ -34,11 +34,7 @@ void	env_destroy(t_app *self)
 	t_env	*env;
 
 	if (self->env_raw)
-	{
-		while (*self->env_raw)
-			free(*self->env_raw++);
-		free(self->env_raw);
-	}
+		ft_free_string_arrays(self->env_raw);
 	while (self->env)
 	{
 		env = self->env;
