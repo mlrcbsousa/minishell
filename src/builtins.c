@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 10:15:38 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 12:44:38 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	builtin_echo(t_command *command, t_app *self)
 	return (EXIT_SUCCESS);
 }
 
+// printf("DEBUG: builtin_cd\n");
+// printf("DEBUG: path: %s\n", path);
 int	builtin_cd(t_command *command, t_app *self)
 {
 	int		stdout_fd;
@@ -72,8 +74,6 @@ int	builtin_cd(t_command *command, t_app *self)
 	if (command->argc == 1)
 	{
 		path = get_env("HOME", self->env);
-		printf("DEBUG: builtin_cd\n");
-		printf("DEBUG: path: %s\n", path);
 		if (!path)
 		{
 			print_error("cd", NULL, "HOME not set");
@@ -91,105 +91,32 @@ int	builtin_cd(t_command *command, t_app *self)
 	return (status);
 }
 
-int	builtin_export(t_command *command, t_app *self)
+int	builtin_exit(t_command *command, t_app *self)
 {
-	int		i;
-	char	**splitted;
-	t_env	*new_env;
-	t_env	*temp;
-	char	*found;
-	int		stdout_fd;
+	int	stdout_fd;
+	int	status;
 
 	stdout_fd = dup(STDOUT_FILENO);
 	run_setup_io(command, self);
-	i = 1;
-	while (command->argv[i])
+	status = 0;
+	ft_putendl_fd("exit", STDERR_FILENO);
+	if (command->argv[1] && !ft_isnumber(command->argv[1]))
 	{
-		temp = self->env;
-		splitted = ft_split_first(command->argv[i], '=');
-		if (!splitted)
-		{
-			if (!is_valid_identifier(command->argv[i]))
-			{
-				ft_putstr_fd("minishell: export: `", STDOUT_FILENO);
-				ft_putstr_fd(command->argv[i], STDOUT_FILENO);
-				ft_putstr_fd("': not a valid identifier\n", STDOUT_FILENO);
-			}
-			i++;
-			continue ;
-		}
-		found = get_env(splitted[0], self->env);
-		if (!is_valid_identifier(splitted[0]))
-		{
-			ft_putstr_fd("minishell: export: `", STDOUT_FILENO);
-			ft_putstr_fd(splitted[0], STDOUT_FILENO);
-			ft_putstr_fd("': not a valid identifier\n", STDOUT_FILENO);
-		}
-		if (found)
-		{
-			while (temp)
-			{
-				if (ft_streq(temp->key, splitted[0]))
-				{
-					if (!ft_streq(temp->value, splitted[1]))
-					{
-						free(temp->value);
-						free(found);
-						temp->value = ft_strdup(splitted[1]);
-					}
-					break ;
-				}
-				temp = temp->next;
-			}
-		}
-		else
-		{
-			new_env = env_create(command->argv[i]);
-			if (!new_env)
-				return (EXIT_FAILURE);
-			while (temp->next)
-				temp = temp->next;
-			temp->next = new_env;
-		}
-		ft_free_string_arrays(splitted);
-		i++;
+		print_error("exit", command->argv[1], "numeric argument required");
+		status = 255;
 	}
-	dup2(stdout_fd, STDOUT_FILENO);
-	return (EXIT_SUCCESS);
-}
-
-int	builtin_unset(t_command *command, t_app *self)
-{
-	int		i;
-	t_env	*temp;
-	t_env	*previous;
-	int		stdout_fd;
-
-	stdout_fd = dup(STDOUT_FILENO);
-	run_setup_io(command, self);
-	i = 1;
-	while (command->argv[i])
+	else if (command->argc > 2)
 	{
-		temp = self->env;
-		previous = self->env;
-		while (temp)
-		{
-			if (strcmp(temp->key, command->argv[i]) == 0)
-			{
-				free(temp->key);
-				free(temp->value);
-				if (temp == previous)
-					self->env = temp->next;
-				else
-					previous->next = temp->next;
-				free(temp);
-				break ;
-			}
-			previous = temp;
-			temp = temp->next;
-		}
-		i++;
+		dup2(stdout_fd, STDOUT_FILENO);
+		print_error("exit", NULL, "too many arguments");
+		return (EXIT_FAILURE);
 	}
+	if (command->argc == 1)
+		status = EXIT_SUCCESS;
+	else
+		status = ft_atoi(command->argv[1]);
+	free_memory(self, command);
 	dup2(stdout_fd, STDOUT_FILENO);
-	return (EXIT_SUCCESS);
+	exit(status);
+	return (status);
 }
