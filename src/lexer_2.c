@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:43:03 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 16:00:17 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 16:00:56 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	lexer_end_read_token(t_lexer *lexer)
 ** 		token = previous->next;
 ** 	}
 ** 	continue ;
-*/ }
+** }
+*/
 
 void	lexer_expand(t_token *token, t_app *self)
 {
