@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 17:37:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/10 00:26:23 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 14:36:26 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,8 @@ void	run_setup_heredoc(t_io *io, t_app *self)
 	char	*line;
 	char	*expanded;
 	int		pipe_fd[2];
-	int		read_fd;
-	int		write_fd;
 
 	pipe(pipe_fd);
-	read_fd = pipe_fd[0];
-	write_fd = pipe_fd[1];
 	while (1)
 	{
 		line = readline("> ");
@@ -48,14 +44,14 @@ void	run_setup_heredoc(t_io *io, t_app *self)
 			break ;
 		}
 		expanded = get_expanded(line, self);
-		ft_putendl_fd(expanded, write_fd);
+		ft_putendl_fd(expanded, pipe_fd[1]);
 		free(expanded);
 		free(line);
 	}
-	dup2(read_fd, STDIN_FILENO);
-	// close(read_fd);
-	close(write_fd);
+	dup2(pipe_fd[0], STDIN_FILENO);
+	close(pipe_fd[1]);
 }
+/* close(read_fd); */
 
 void	run_setup_redirect_out(t_io *io)
 {
