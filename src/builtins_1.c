@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 21:05:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 12:45:21 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 16:13:07 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,17 @@ int	builtin_pwd(t_command *command, t_app *self)
 	return (EXIT_SUCCESS);
 }
 
+static void	unset_env(t_env *env, t_env *previous, t_app *self)
+{
+	free(env->key);
+	free(env->value);
+	if (env == previous)
+		self->env = env->next;
+	else
+		previous->next = env->next;
+	free(env);
+}
+
 int	builtin_unset(t_command *command, t_app *self)
 {
 	int		i;
@@ -61,8 +72,8 @@ int	builtin_unset(t_command *command, t_app *self)
 
 	stdout_fd = dup(STDOUT_FILENO);
 	run_setup_io(command, self);
-	i = 1;
-	while (command->argv[i])
+	i = 0;
+	while (command->argv[++i])
 	{
 		temp = self->env;
 		previous = self->env;
@@ -70,19 +81,12 @@ int	builtin_unset(t_command *command, t_app *self)
 		{
 			if (ft_streq(temp->key, command->argv[i]))
 			{
-				free(temp->key);
-				free(temp->value);
-				if (temp == previous)
-					self->env = temp->next;
-				else
-					previous->next = temp->next;
-				free(temp);
+				unset_env(temp, previous, self);
 				break ;
 			}
 			previous = temp;
 			temp = temp->next;
 		}
-		i++;
 	}
 	dup2(stdout_fd, STDOUT_FILENO);
 	return (EXIT_SUCCESS);
