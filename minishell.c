@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 14:47:06 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 15:57:27 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	app_init(t_app *self, char *env[])
 	g_status.stopped = FALSE;
 	g_status.pid = 0;
 	self->astree = NULL;
+	self->env_raw = NULL;
 	if (tcgetattr(STDIN_FILENO, &(self->term)))
 		print_error("tcgetattr", NULL, "error");
 	self->term.c_lflag &= ~ECHOCTL;
