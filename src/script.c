@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 01:57:19 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 02:10:44 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 03:27:40 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,17 @@ int	script_read(int fd, t_app *self)
 	char	*line;
 
 	status = 1;
+	line = NULL;
 	while (status > 0)
 	{
 		status = get_next_line(fd, &line);
+		printf("DEBUG: %s\n", line);
+		printf("DEBUG: %d\n", status);
 		app_loop(self, line);
 	}
 	if (status < 0)
 		return (EXIT_FAILURE);
-	return (self->status);
+	return (g_status.value);
 }
 
 int	script_open(char *filename, t_app *self)

@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 02:00:03 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 03:50:29 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,13 @@ typedef struct s_astree	t_astree;
 typedef struct s_parser	t_parser;
 typedef struct s_env	t_env;
 typedef struct s_io		t_io;
+typedef struct s_status	t_status;
 
 struct s_app
 {
 	t_env		*env;
 	char		**env_raw;
-	void		(*sigint_handler)(int);
 	t_astree	*astree;
-	int			status;
 	struct termios	term;
 };
 
@@ -165,6 +164,16 @@ struct	s_builtin_def
 	t_builtin	*builtin;
 };
 
+struct	s_status
+{
+	int		value;
+	pid_t	pid;
+};
+
+/* Global */
+t_status g_status;
+
+
 /* Functions */
 
 /* main */
@@ -197,9 +206,12 @@ void	astree_destroy(t_astree *node);
 int		parse(t_stack *analysed, t_astree **astree);
 t_bool	match(int token_type, char **buffer, t_parser *parser);
 
-/* utils */
+/* signals */
+void	set_signals(void);
 void	sigint_handler(int sig);
-void	set_signals(t_app *self);
+void	sigquit_handler(int sig);
+
+/* utils */
 void	ft_free_string_arrays(char **array);
 char	**ft_split_first(char const *s, char c);
 char	*get_env(char *key, t_env *env);

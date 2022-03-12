@@ -3,20 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manuel <mlrcbsousa@gmail.com>              +#+  +:+       +#+        */
+/*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 22:50:16 by manuel            #+#    #+#             */
-/*   Updated: 2021/04/15 20:31:49 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 02:59:59 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <sys/resource.h>
 
+#include <stdio.h>
+
+static char	*ft_straddc(char *s, char c)
+{
+	char	*s_new;
+	int		len;
+
+	if (s)
+		len = ft_strlen(s);
+	else
+		len = 0;
+	s_new = malloc(len + 2);
+	if (!s_new)
+		return (NULL);
+	if (s)
+	{
+		ft_memcpy(s_new, s, len);
+		free(s);
+	}
+	s_new[len] = c;
+	s_new[len + 1] = 0;
+	return (s_new);
+}
+
+int	get_next_line(int fd, char **line)
+{
+	int		nb;
+	char	c;
+
+	if (fd < 0 || fd >= RLIMIT_NOFILE || !line)
+		return (-1);
+	*line = ft_strdup("");
+	if (!*line)
+		return (-1);
+	while (1)
+	{
+		nb = read(fd, &c, 1);
+		if (nb <= 0 || c == '\n')
+			break ;
+		*line = ft_straddc(*line, c);
+	}
+	return (nb);
+}
+
+/*
 static int	gnl_file(int fd, char **str, char *buf)
 {
 	ssize_t	size;
 	char	*tmp;
 
+	printf("DEBUG: gnl_file\n");
 	size = read(fd, buf, BUFFER_SIZE);
 	if (size < 1)
 		return (size);
@@ -71,6 +118,11 @@ int	get_next_line(int fd, char **line)
 	if (!buf)
 		return (-1);
 	status = 1;
+	// printf("DEBUG: get_next_line\n");
+	// printf("DEBUG: str: %s\n", str[fd]);
+	// printf("DEBUG: fd: %d\n", fd);
+	// ft_strchr(str[fd], '\n');
+	// *str[fd] &&
 	while (!ft_strchr(str[fd], '\n') && status == 1)
 		status = gnl_file(fd, str, buf);
 	free(buf);
@@ -81,3 +133,4 @@ int	get_next_line(int fd, char **line)
 	}
 	return (status);
 }
+*/

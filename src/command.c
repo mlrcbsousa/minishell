@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:56:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/10 02:44:34 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 03:27:26 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	command_execute(t_command *command, t_app *self)
 		return ;
 	builtin = get_builtin(*command->argv);
 	if (builtin)
-		self->status = builtin(command, self);
+		g_status.value = builtin(command, self);
 	else
 		run(command, self);
 }

@@ -6,18 +6,25 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:41:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/10 02:38:35 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 04:19:11 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	set_status(t_app *self, int status)
+static void	set_status(int status)
 {
+	// if (g_status.value == 130)
+	// 	return ;
+	printf("DEBUG: status: %d\n", status);
+	printf("DEBUG: WIFEXITED(status): %d\n", WIFEXITED(status));
+	printf("DEBUG: WEXITSTATUS(status): %d\n", WEXITSTATUS(status));
+	printf("DEBUG: WIFSIGNALED(status): %d\n", WIFSIGNALED(status));
+	printf("DEBUG: WTERMSIG(status): %d\n", WTERMSIG(status));
 	if (WIFEXITED(status))
-		self->status = WEXITSTATUS(status);
+		g_status.value = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		self->status = WTERMSIG(status);
+		g_status.value = WTERMSIG(status);
 }
 
 static void	run_exit_error(char *name)
@@ -39,14 +46,12 @@ static void	run_exit_error(char *name)
 
 void	run(t_command *command, t_app *self)
 {
-	pid_t	pid;
 	int		stdout_fd;
 	int		status;
 
-	pid = fork();
-	if (pid == 0)
+	g_status.pid = fork();
+	if (g_status.pid == 0)
 	{
-		signal(SIGINT, self->sigint_handler);
 		stdout_fd = dup(STDOUT_FILENO);
 		run_setup_io(command, self);
 		find_binary_path(command, self->env);
@@ -56,11 +61,13 @@ void	run(t_command *command, t_app *self)
 			run_exit_error(command->argv[0]);
 		}
 	}
-	else if (pid < 0)
+	else if (g_status.pid < 0)
 	{
 		perror("fork");
+		g_status.value = EXIT_FAILURE;
 		return ;
 	}
-	waitpid(pid, &status, 0);
-	set_status(self, status);
+	waitpid(g_status.pid, &status, 0);
+	g_status.pid = 0;
+	set_status(status);
 }

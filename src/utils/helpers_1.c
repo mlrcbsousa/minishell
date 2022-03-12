@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 11:43:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/10 02:17:37 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 03:27:47 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*get_expanded(char *raw, t_app *self)
 	{
 		if (*raw == EXPAND_DOLLAR && *(raw + 1) == EXPAND_QUESTION)
 		{
-			part = ft_itoa(self->status);
+			part = ft_itoa(g_status.value);
 			raw++;
 		}
 		else if (*raw == EXPAND_DOLLAR

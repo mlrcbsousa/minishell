@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 02:08:39 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 04:10:04 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 static void	app_init(t_app *self, char *env[])
 {
 	set_env(self, env);
+	g_status.value = 0;
+	g_status.pid = 0;
 	self->astree = NULL;
-	self->status = 0;
-	if (!tcgetattr(STDIN_FILENO, &self->term))
+	if (tcgetattr(STDIN_FILENO, &(self->term)))
 		print_error("tcgetattr", NULL, "error");
 	self->term.c_lflag &= ~ECHOCTL;
-	if (!tcsetattr(STDIN_FILENO, TCSANOW, &self->term))
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &(self->term)))
 		print_error("tcsetattr", NULL, "error");
 }
 
@@ -28,7 +29,7 @@ static void	app_destroy(t_app *self)
 {
 	env_destroy(self);
 	self->term.c_lflag |= ECHOCTL;
-	if (!tcsetattr(STDIN_FILENO, TCSANOW, &self->term))
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &self->term))
 		print_error("tcsetattr", NULL, "error");
 }
 
@@ -45,8 +46,8 @@ void	app_loop(t_app *self, char *line)
 	lexical_analysis(line, size, &analysed, self);
 	free(line); // line = NULL;
 	astree = NULL;
-	self->status = parse(&analysed, &astree);
-	if (!analysed.size || self->status)
+	g_status.value = parse(&analysed, &astree);
+	if (!analysed.size || g_status.value)
 		return ;
 	self->astree = astree;
 	token_destroy(analysed.token);
@@ -65,14 +66,13 @@ int	main(int argc, char *argv[], char *env[])
 	t_app		self;
 	char		*line;
 
-	// self = (t_app){0, 0, 0, 0, 0, NULL};
 	app_init(&self, env);
 	if (argc > 1)
 	{
-		self.status = script_open(argv[1], &self);
-		return (self.status);
+		g_status.value = script_open(argv[1], &self);
+		return (g_status.value);
 	}
-	set_signals(&self);
+	set_signals();
 	while (1)
 	{
 		line = readline("~$ ");
@@ -84,5 +84,5 @@ int	main(int argc, char *argv[], char *env[])
 		app_loop(&self, line);
 	}
 	app_destroy(&self);
-	return (self.status);
+	return (g_status.value);
 }
