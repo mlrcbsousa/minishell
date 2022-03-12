@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 01:57:19 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 02:00:29 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 02:10:44 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	script_read(int fd, t_app *self)
 	while (status > 0)
 	{
 		status = get_next_line(fd, &line);
-		app_loop(&self, line);
+		app_loop(self, line);
 	}
 	if (status < 0)
 		return (EXIT_FAILURE);
