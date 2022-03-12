@@ -6,7 +6,7 @@
 #    By: msousa <msousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/29 15:00:20 by msousa            #+#    #+#              #
-#    Updated: 2022/03/12 14:23:05 by msousa           ###   ########.fr        #
+#    Updated: 2022/03/12 16:18:16 by msousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC			= minishell.c \
 					src/utils/signals.c \
 					src/utils/helpers.c \
 					src/utils/helpers_1.c \
+					src/utils/helpers_2.c \
 					src/execute.c \
 					src/execute_1.c \
 					src/command.c \
@@ -40,6 +41,7 @@ SRC			= minishell.c \
 					src/run_1.c \
 					src/run_2.c \
 					src/env.c \
+					src/env_1.c \
 					src/test.c \
 					src/script.c \
 					src/redirect.c

@@ -6,39 +6,26 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 11:43:28 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 15:11:00 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 16:37:27 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_env(char *key, t_env *env)
+static t_bool	should_expand(char *raw)
 {
-	while (env)
-	{
-		if (ft_streq(env->key, key))
-			return (env->value);
-		env = env->next;
-	}
-	return (NULL);
-}
+	t_bool	dquote;
 
-char	*find_env_key(char *raw)
-{
-	int	length;
-
-	length = 0;
-	if (ft_isalpha(*raw) || *raw == EXPAND_USCORE)
-	{
+	dquote = FALSE;
+	if (*raw == LEXICAL_DQUOTE)
+		dquote = TRUE;
+	if (*raw == LEXICAL_QUOTE)
+		return (FALSE);
+	while (*raw)
 		raw++;
-		length++;
-		while (ft_isalnum(*raw) || *raw == EXPAND_USCORE)
-		{
-			raw++;
-			length++;
-		}
-	}
-	return (ft_substr(raw - length, 0, length));
+	if (dquote && *(raw - 1) != LEXICAL_DQUOTE)
+		return (FALSE);
+	return (TRUE);
 }
 
 // TODO: not if just open double quote
@@ -50,7 +37,7 @@ char	*get_expanded(char *raw, t_app *self)
 	char	*env_key;
 
 	save = ft_strdup("");
-	if (*raw == LEXICAL_QUOTE)
+	if (!should_expand(raw))
 		return (ft_strdup(raw));
 	while (*raw)
 	{
@@ -64,7 +51,7 @@ char	*get_expanded(char *raw, t_app *self)
 		{
 			env_key = find_env_key(raw + 1);
 			part = get_env(env_key, self->env);
-			if(!part)
+			if (!part)
 			{
 				free(env_key);
 				return (save);
@@ -100,16 +87,4 @@ char	*get_stripped(char *src)
 	if (quote == *(--src))
 		return (ft_substr(src - length + 1, 1, length - 2));
 	return (ft_strdup(src - length + 1));
-}
-
-void	free_memory(t_app *self, t_command *command)
-{
-	if (command)
-		command_destroy(command);
-	if (self)
-	{
-		if (self->astree)
-			astree_destroy(self->astree);
-		env_destroy(self);
-	}
 }

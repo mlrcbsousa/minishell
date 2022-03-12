@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 15:21:33 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 16:28:14 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,7 @@ char	**get_env_raw(t_app *self);
 void	set_env(t_app *self, char **raw);
 void	env_destroy(t_app *self);
 t_env	*env_create(char *raw);
+char	*find_env_key(char *raw);
 
 /* redirect */
 t_io	*redirect_last(t_io *io);
