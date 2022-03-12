@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:42:41 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 15:32:49 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 15:34:56 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ int	builtin_export(t_command *command, t_app *self)
 
 	stdout_fd = dup(STDOUT_FILENO);
 	run_setup_io(command, self);
-	i = 1;
+	i = 0;
 	status = EXIT_SUCCESS;
-	while (command->argv[i])
+	while (command->argv[++i])
 	{
 		splitted = ft_split_first(command->argv[i], '=');
 		if (!splitted)
@@ -92,11 +92,11 @@ int	builtin_export(t_command *command, t_app *self)
 			check_invalid_identifier(command->argv[i++]);
 			continue ;
 		}
-		status = export_env_add_or_update(self->env, splitted, command->argv[i]);
+		status = export_env_add_or_update(self->env, splitted,
+				command->argv[i]);
 		if (status == EXIT_FAILURE)
 			break ;
 		ft_free_string_arrays(splitted);
-		i++;
 	}
 	dup2(stdout_fd, STDOUT_FILENO);
 	return (status);
