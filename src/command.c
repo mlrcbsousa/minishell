@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:56:15 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 03:27:26 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 09:02:32 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,19 @@ void	command_init(t_astree *simple_command_node, t_command *command,
 
 void	command_execute(t_command *command, t_app *self)
 {
-	t_builtin	*builtin;
+	t_bin	*program;
+	int		status;
 
 	if (command->argc < 0)
 		return ;
-	builtin = get_builtin(*command->argv);
-	if (builtin)
-		g_status.value = builtin(command, self);
+	program = get_builtin(*command->argv);
+	if (!program)
+		program = run;
+	status = program(command, self);
+	if (g_status.stopped)
+		g_status.stopped = FALSE;
 	else
-		run(command, self);
+		g_status.value = status;
 }
 
 void	command_destroy(t_command *command)

@@ -6,25 +6,18 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:41:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 04:19:11 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 09:04:33 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	set_status(int status)
+static int	set_status(int status)
 {
-	// if (g_status.value == 130)
-	// 	return ;
-	printf("DEBUG: status: %d\n", status);
-	printf("DEBUG: WIFEXITED(status): %d\n", WIFEXITED(status));
-	printf("DEBUG: WEXITSTATUS(status): %d\n", WEXITSTATUS(status));
-	printf("DEBUG: WIFSIGNALED(status): %d\n", WIFSIGNALED(status));
-	printf("DEBUG: WTERMSIG(status): %d\n", WTERMSIG(status));
 	if (WIFEXITED(status))
-		g_status.value = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		g_status.value = WTERMSIG(status);
+		return (WEXITSTATUS(status));
+	// else if (WIFSIGNALED(status))
+	return (WTERMSIG(status));
 }
 
 static void	run_exit_error(char *name)
@@ -44,7 +37,7 @@ static void	run_exit_error(char *name)
 	}
 }
 
-void	run(t_command *command, t_app *self)
+int	run(t_command *command, t_app *self)
 {
 	int		stdout_fd;
 	int		status;
@@ -64,10 +57,9 @@ void	run(t_command *command, t_app *self)
 	else if (g_status.pid < 0)
 	{
 		perror("fork");
-		g_status.value = EXIT_FAILURE;
-		return ;
+		return (EXIT_FAILURE);
 	}
 	waitpid(g_status.pid, &status, 0);
 	g_status.pid = 0;
-	set_status(status);
+	return (set_status(status));
 }

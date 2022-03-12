@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 04:10:04 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 09:28:36 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	app_init(t_app *self, char *env[])
 {
 	set_env(self, env);
 	g_status.value = 0;
+	g_status.stopped = FALSE;
 	g_status.pid = 0;
 	self->astree = NULL;
 	if (tcgetattr(STDIN_FILENO, &(self->term)))
@@ -78,6 +79,8 @@ int	main(int argc, char *argv[], char *env[])
 		line = readline("~$ ");
 		if (!line)
 		{
+			printf("\033[1A");
+			printf("\033[3C");
 			printf("exit\n");
 			break ;
 		}

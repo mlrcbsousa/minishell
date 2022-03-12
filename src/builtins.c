@@ -6,15 +6,15 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 00:47:28 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 08:29:11 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_builtin	*get_builtin(char *cmd_path)
+t_bin	*get_builtin(char *cmd_path)
 {
-	static t_builtin_def	builtins[7] = {
+	static t_bin_def	builtins[7] = {
 	{"echo", builtin_echo},
 	{"cd", builtin_cd},
 	{"pwd", builtin_pwd},

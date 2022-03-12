@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 03:50:29 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 08:56:57 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,15 +158,16 @@ typedef struct s_command
 	t_io	*redirect_out;
 }	t_command;
 
-struct	s_builtin_def
+struct	s_bin_def
 {
-	char		*name;
-	t_builtin	*builtin;
+	char	*name;
+	t_bin	*builtin;
 };
 
 struct	s_status
 {
 	int		value;
+	t_bool	stopped;
 	pid_t	pid;
 };
 
@@ -248,7 +249,7 @@ int		builtin_env(t_command *command, t_app *self);
 int		builtin_exit(t_command *command, t_app *self);
 
 /* run */
-void	run(t_command *command, t_app *self);
+int		run(t_command *command, t_app *self);
 void	run_setup_io(t_command *command, t_app *self);
 void	run_setup_io_in(t_io *io, t_app *self);
 void	run_setup_io_out(t_io *io);
