@@ -6,23 +6,11 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 19:19:41 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 13:29:58 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 14:31:59 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// print_command(&command);
-static void	execute_simple_command(t_astree *simple_command_node,
-	t_executor executor, t_app *self)
-{
-	t_command	command;
-
-	command = (t_command){0, NULL, FALSE, FALSE, 0, 0, 0, 0};
-	command_init(simple_command_node, &command, executor);
-	command_execute(&command, self);
-	command_destroy(&command);
-}
 
 static void	execute_redirect_command(t_astree *node, t_executor *executor)
 {
@@ -62,6 +50,15 @@ static void	execute_command_line(t_astree *node, t_executor executor,
 		execute_simple_command(node, executor, self);
 }
 
+static int	execute_pipeline_close(int read_fd, int write_fd,
+	t_astree *node, t_app *self)
+{
+	close(write_fd);
+	execute_command_line(node, (t_executor){TRUE, FALSE, read_fd, 0, 0, 0},
+		self);
+	close(read_fd);
+}
+
 static void	execute_pipeline(t_astree *pipe_node, t_app *self)
 {
 	int			pipe_fd[2];
@@ -86,11 +83,7 @@ static void	execute_pipeline(t_astree *pipe_node, t_app *self)
 		read_fd = pipe_fd[0];
 		node = node->right;
 	}
-	read_fd = pipe_fd[0];
-	close(write_fd);
-	execute_command_line(node, (t_executor){TRUE, FALSE, read_fd, 0, 0, 0},
-		self);
-	close(read_fd);
+	execute_pipeline_close(pipe_fd[0], write_fd, node, self);
 }
 
 void	execute_tree(t_astree *node, t_app *self)

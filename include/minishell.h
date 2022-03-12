@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 08:56:57 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 14:22:42 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,8 @@ void	redirect_clear(t_io **io);
 
 /* execute */
 void	execute_tree(t_astree *node, t_app *self);
+void	execute_simple_command(t_astree *simple_command_node,
+	t_executor executor, t_app *self);
 void	command_init(t_astree *node, t_command *command, t_executor executor);
 void	command_execute(t_command *command, t_app *self);
 void	command_destroy(t_command *command);
