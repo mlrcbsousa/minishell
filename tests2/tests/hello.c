@@ -14,6 +14,6 @@
 
 int	main(void)
 {
-	printf("Hello from /tests/hello.c!\n");
+	printf("Hello from /tests2/tests/hello.c!\n");
 	return (0);
 }

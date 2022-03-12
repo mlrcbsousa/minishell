@@ -20,10 +20,10 @@ char	**get_binary_paths(t_env *env)
 
 	paths = NULL;
 	path = get_env("PATH", env);
-	if (*path)
+	if (path && *path)
 		paths = ft_split(path, ':');
 	save = paths;
-	while (*paths)
+	while (paths && *paths)
 	{
 		path = ft_strjoin(*paths, "/");
 		free(*paths);
