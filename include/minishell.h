@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/10 02:32:58 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 02:00:03 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <errno.h>
+# include <termios.h>
 
 # include "libft.h"
 # include "parser.h"
@@ -81,6 +82,7 @@ struct s_app
 	void		(*sigint_handler)(int);
 	t_astree	*astree;
 	int			status;
+	struct termios	term;
 };
 
 struct s_env
@@ -165,6 +167,11 @@ struct	s_builtin_def
 
 /* Functions */
 
+/* main */
+void	app_loop(t_app *self, char *line);
+int		script_open(char *filename, t_app *self);
+int		script_read(int fd, t_app *self);
+
 /* token */
 void	token_init(t_token *token, int size);
 void	token_destroy(t_token *token);
@@ -192,6 +199,7 @@ t_bool	match(int token_type, char **buffer, t_parser *parser);
 
 /* utils */
 void	sigint_handler(int sig);
+void	set_signals(t_app *self);
 void	ft_free_string_arrays(char **array);
 char	**ft_split_first(char const *s, char c);
 char	*get_env(char *key, t_env *env);

@@ -60,6 +60,10 @@ For the project:
 //                               // EMPTY
 ```
 
+## Solving the CTRL^C issue
+
+- [termios](https://velog.io/@sham/minishell%EA%B3%BC-readline)
+
 ## Development Workflow
 
 1.  The main development branch is called `main`.
