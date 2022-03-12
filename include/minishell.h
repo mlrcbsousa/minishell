@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 15:06:23 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 15:21:33 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ enum e_state {
 	STATE_DEFAULT,
 };
 
-/* Structs & Types */
+/* Structs & Types & Global */
 typedef struct s_app	t_app;
 typedef struct s_token	t_token;
 typedef struct s_stack	t_stack;
@@ -75,12 +75,13 @@ typedef struct s_parser	t_parser;
 typedef struct s_env	t_env;
 typedef struct s_io		t_io;
 typedef struct s_status	t_status;
+t_status				g_status;
 
 struct s_app
 {
-	t_env		*env;
-	char		**env_raw;
-	t_astree	*astree;
+	t_env			*env;
+	char			**env_raw;
+	t_astree		*astree;
 	struct termios	term;
 };
 
@@ -171,10 +172,6 @@ struct	s_status
 	pid_t	pid;
 };
 
-/* Global */
-t_status g_status;
-
-
 /* Functions */
 
 /* main */
@@ -237,7 +234,7 @@ void	redirect_clear(t_io **io);
 /* execute */
 void	execute_tree(t_astree *node, t_app *self);
 void	execute_simple_command(t_astree *simple_command_node,
-	t_executor executor, t_app *self);
+			t_executor executor, t_app *self);
 void	command_init(t_astree *node, t_command *command, t_executor executor);
 void	command_execute(t_command *command, t_app *self);
 void	command_destroy(t_command *command);

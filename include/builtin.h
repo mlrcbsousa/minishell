@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:16:34 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 08:29:11 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 15:11:40 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "minishell.h"
 
 typedef struct s_bin_def	t_bin_def;
-typedef struct s_command		t_command;
-typedef struct s_app			t_app;
+typedef struct s_command	t_command;
+typedef struct s_app		t_app;
 
 typedef int (t_bin)(t_command *, t_app *);
 
