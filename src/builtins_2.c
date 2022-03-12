@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:42:41 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 12:43:06 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 13:23:24 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	export_env_update(char *found, t_env *env, char *splitted[])
 
 static int	export_env_create(char *env_raw, t_env *env)
 {
-	t_env *new_env;
+	t_env	*new_env;
 
 	new_env = env_create(env_raw);
 	if (!new_env)
@@ -59,6 +59,7 @@ static int	export_env_add_or_update(t_env *env, char *splitted[], char *cmd)
 	char	*found;
 	int		status;
 
+	check_invalid_identifier(splitted[0]);
 	status = EXIT_SUCCESS;
 	found = get_env(splitted[0], env);
 	if (found)
@@ -91,8 +92,7 @@ int	builtin_export(t_command *command, t_app *self)
 			check_invalid_identifier(command->argv[i++]);
 			continue ;
 		}
-		check_invalid_identifier(splitted[0]);
-		status = export_env_add_or_update(self->env, splitted, command->argv[i]);
+		status = export_env_add_or_update(self->env, splitted, command->arv[1);
 		if (status == EXIT_FAILURE)
 			break ;
 		ft_free_string_arrays(splitted);

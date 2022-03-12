@@ -6,17 +6,17 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:41:51 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 09:04:33 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 13:28:06 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* else if (WIFSIGNALED(status)) */
 static int	set_status(int status)
 {
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
-	// else if (WIFSIGNALED(status))
 	return (WTERMSIG(status));
 }
 
@@ -39,8 +39,8 @@ static void	run_exit_error(char *name)
 
 int	run(t_command *command, t_app *self)
 {
-	int		stdout_fd;
-	int		status;
+	int	stdout_fd;
+	int	status;
 
 	g_status.pid = fork();
 	if (g_status.pid == 0)

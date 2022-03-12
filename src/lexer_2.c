@@ -6,11 +6,23 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:43:03 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 11:51:46 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 15:05:54 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	lexer_end_read_token(t_lexer *lexer)
+{
+	if (lexer->data_i > 0)
+	{
+		lexer->token->data[lexer->data_i] = 0;
+		lexer->token->next = (t_token *)malloc(sizeof(t_token));
+		lexer->token = lexer->token->next;
+		token_init(lexer->token, lexer->size - lexer->line_i);
+		lexer->data_i = 0;
+	}
+}
 
 void	lexer_expand(t_token *token, t_app *self)
 {

@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:09:14 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 09:28:36 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 14:47:06 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	app_loop(t_app *self, char *line)
 	add_history(line);
 	size = ft_strlen(line);
 	lexical_analysis(line, size, &analysed, self);
-	free(line); // line = NULL;
+	free(line);
 	astree = NULL;
 	g_status.value = parse(&analysed, &astree);
 	if (!analysed.size || g_status.value)
@@ -64,27 +64,27 @@ void	app_loop(t_app *self, char *line)
 ** printf("========================================= NODES END\n"); */
 int	main(int argc, char *argv[], char *env[])
 {
-	t_app		self;
-	char		*line;
+	t_app	self;
+	char	*line;
 
 	app_init(&self, env);
 	if (argc > 1)
-	{
 		g_status.value = script_open(argv[1], &self);
-		return (g_status.value);
-	}
-	set_signals();
-	while (1)
+	else
 	{
-		line = readline("~$ ");
-		if (!line)
+		set_signals();
+		while (1)
 		{
-			printf("\033[1A");
-			printf("\033[3C");
-			printf("exit\n");
-			break ;
+			line = readline("~$ ");
+			if (!line)
+			{
+				printf("\033[1A");
+				printf("\033[3C");
+				printf("exit\n");
+				break ;
+			}
+			app_loop(&self, line);
 		}
-		app_loop(&self, line);
 	}
 	app_destroy(&self);
 	return (g_status.value);
