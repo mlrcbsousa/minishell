@@ -8,6 +8,14 @@
 - [Backus Naur Form](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form)
 - [Lexical Analysis](https://en.wikipedia.org/wiki/Lexical_analysis)
 
+### Solving the CTRL^C issue
+
+- [termios](https://velog.io/@sham/minishell%EA%B3%BC-readline)
+
+### Solving the CTRL^D issue
+
+- [ansi escape](https://tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.html)
+
 ## Example Backus Naur
 
 Good example to think of mathematical expressions `/x+-` and the numbers 0 to 9.
@@ -16,22 +24,25 @@ In **Backus Naur** it would look something like this.
 
 ```
 <expression>	::=	<number> '+' <expression>
-							|		<number> '-' <expression>
-							| 	<number> 'x' <expression>
-							|		<number> '/' <expression>
+		|	<number> '-' <expression>
+		| 	<number> 'x' <expression>
+		|	<number> '/' <expression>
 
-<number>			::=	0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+<number>	::=	0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 ```
 
 For the project:
 ```
 /**
+TODO: Add redirect commands
 
 <command line>   ::=  <command> '|' <command line>
                   |   <command>
 
 <command>        ::=  <simple command> '<' <filename>
                   |   <simple command> '>' <filename>
+		  |   <simple command> '<<' <filename>
+		  |   <simple command> '>>' <filename>
                   |   <simple command>
 
 <simple command> ::=  <cmd path> <token list>
@@ -59,10 +70,6 @@ For the project:
 // t_astree* token_list_a();     // <token> <token list>
 //                               // EMPTY
 ```
-
-## Solving the CTRL^C issue
-
-- [termios](https://velog.io/@sham/minishell%EA%B3%BC-readline)
 
 ## Development Workflow
 
