@@ -54,7 +54,7 @@ static int	export_env_create(char *env_raw, t_env *env)
 	return (EXIT_SUCCESS);
 }
 
-static int	export_env_add_or_update(t_env *env, char *splitted[])
+static int	export_env_add_or_update(t_env *env, char *splitted[], char *cmd)
 {
 	char	*found;
 	int		status;
@@ -65,7 +65,7 @@ static int	export_env_add_or_update(t_env *env, char *splitted[])
 		export_env_update(found, env, splitted);
 	else
 	{
-		status = export_env_create(splitted[0], env);
+		status = export_env_create(cmd, env);
 		if (status == EXIT_FAILURE)
 			ft_free_string_arrays(splitted);
 	}
@@ -92,7 +92,7 @@ int	builtin_export(t_command *command, t_app *self)
 			continue ;
 		}
 		check_invalid_identifier(splitted[0]);
-		status = export_env_add_or_update(self->env, splitted);
+		status = export_env_add_or_update(self->env, splitted, command->argv[i]);
 		if (status == EXIT_FAILURE)
 			break ;
 		ft_free_string_arrays(splitted);

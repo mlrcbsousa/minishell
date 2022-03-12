@@ -20,6 +20,8 @@ t_env	*env_create(char *raw)
 	t_env	*env;
 
 	data = ft_split_first(raw, '=');
+	if(!data)
+		return (NULL);
 	env = (t_env *)malloc(sizeof(t_env));
 	env->key = *data++;
 	env->value = *data;
