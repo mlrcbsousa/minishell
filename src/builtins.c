@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 20:18:59 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 16:03:07 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 16:04:19 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,8 @@ int	builtin_echo(t_command *command, t_app *self)
 	i = 1;
 	if (with_n)
 		i = 2;
-	printf("DEBUG: builtin_echo\n");
-	printf("DEBUG: command->argv[1]: %s\n", command->argv[1]);
-	printf("DEBUG: with_n: %d\n", with_n);
 	while (i < command->argc - 1)
 		printf("%s ", command->argv[i++]);
-	printf("DEBUG: command->argv[i]: %s\n", command->argv[i]);
 	printf("%s", command->argv[i]);
 	if (!with_n)
 		printf("\n");
