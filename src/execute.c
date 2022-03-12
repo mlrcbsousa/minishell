@@ -6,7 +6,7 @@
 /*   By: msousa <msousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 19:19:41 by msousa            #+#    #+#             */
-/*   Updated: 2022/03/12 14:31:59 by msousa           ###   ########.fr       */
+/*   Updated: 2022/03/12 14:32:34 by msousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	execute_command_line(t_astree *node, t_executor executor,
 		execute_simple_command(node, executor, self);
 }
 
-static int	execute_pipeline_close(int read_fd, int write_fd,
+static void	execute_pipeline_close(int read_fd, int write_fd,
 	t_astree *node, t_app *self)
 {
 	close(write_fd);
